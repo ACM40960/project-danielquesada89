@@ -1,6 +1,13 @@
 names:
-- cat
-- dog
-nc: 2
-train: ../train/images
-val: ../val/images
+- mis_lost
+- met_tear
+- met_scratch
+- glass_crack
+- mis_punct
+- mis_lamp
+- met_dent_minor
+- met_dent_medium
+- met_dent_severe
+nc: 9
+train: CustomImages/train_augmentation/images
+val: CustomImages//val/images
