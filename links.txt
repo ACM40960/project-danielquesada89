@@ -12,3 +12,6 @@ https://www.google.com/search?q=How+to+use+mask+R-CNN+on+custom+dataset%3F&sca_e
 
 example data car damage
 https://medium.com/analytics-vidhya/implement-your-own-mask-rcnn-model-65c994a0175d
+
+# hyperparameters
+https://docs.ultralytics.com/modes/train/#train-settings

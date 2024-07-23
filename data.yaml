@@ -9,5 +9,5 @@ names:
 - met_dent_medium
 - met_dent_severe
 nc: 9
-train: CustomImages/train_augmentation/images
-val: CustomImages//val/images
+train: c:\Users\teres\OneDrive\Documentos\UCD\Summer\project-danielteresa\CustomImages/train_prueba/images
+val: c:\Users\teres\OneDrive\Documentos\UCD\Summer\project-danielteresa\CustomImages/val_prueba/images
