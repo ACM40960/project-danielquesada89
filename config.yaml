@@ -1,5 +1,8 @@
 seed: 123 # this will be the seed for the whole project
 
+# Project Colors
+color1: "#62b6cb"
+
 # Paths
 train_annotations_json: "annotations.json"
 train_path_original: "..\\archive\\image\\image"
