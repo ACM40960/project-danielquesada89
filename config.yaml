@@ -3,3 +3,35 @@ seed: 123 # this will be the seed for the whole project
 # Project Colors
 color1: "#62b6cb"
 color2: "#fb8500"
+
+# paths
+kaggle_train_annotations : "./archive/train.json"
+kaggle_val_annotations : "./archive/val.json"
+original_train_path : "./archive/image/image"
+original_test_path : "./archive/validation/validation"
+train_annotations_name : "annotations.json"
+val_annotations_name : "annotations.json"
+augmentation_annotations_name: "annotation.json"
+test_annotations_name : "annotations.json"
+trainaug_annotations_name  :  'annotations.json'
+severity_train_annotations_path : "./archive/image/annotation_severity.json"
+severity_test_annotations_path : "./archive/validation/annotation_severity.json"
+split_path : "./CustomImages/" # folder with sets of train, val and test
+split_train_folder  : "train"
+split_val_folder : "val"
+split_test_folder : "test"
+split_trainaug_folder : "train_augmentation"
+split_augmentation_folder : "augmentation" #folder with only augmented photos
+old_train_annotations_folder : "old_json_train"
+old_test_annotations_folder : "old_json_test"
+labels_train_folder : "labels"
+labels_val_folder : "labels"
+labels_trainaug_folder: "labels"
+weights_yolo_path : './yolo_weights'
+images_train_folder: 'images'
+images_val_folder: 'images'
+images_trainaug_folder: 'images'
+aux_trainaug_folder : './CustomImages/aux_trainaug/'
+aux_train_folder : './CustomImages/aux_train/'
+aux_val_folder : './CustomImages/aux_val/'
+coco_to_yolo_folder : 'labels/annotations'
