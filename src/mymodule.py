@@ -12,6 +12,7 @@ import datetime
 import random
 import shutil
 import ipywidgets as widgets
+from PIL import Image  # Import the Image module from Pillow
 
 
 
@@ -211,7 +212,7 @@ def plot_photo_df(image_path, image_name, data_class):
 
 
 ### Function classify_damage_and_update_json
-def classify_damage_and_update_json(input_path, json_name, class_name, output_json_path):
+def classify_damage_and_update_json(input_path, json_name, class_name, output_json_path,image_path):
     """
     Classifies damage severity for a specified class in a COCO format JSON file and updates the JSON.
 
@@ -220,14 +221,14 @@ def classify_damage_and_update_json(input_path, json_name, class_name, output_js
     json_name (str): Name of the input COCO format JSON file.
     class_name (str): The name of the class to classify damages.
     output_json_path (str): Path to save the updated COCO format JSON file.
+    image_path (str): Path to the directory containing the images referenced in the COCO format JSON file.
 
-    Example usage
-        json_name = "annotatio"
+    Example usage:
+        json_name = "annotations.json"
         class_name = "damage"
-        output_json_path = ".\\archive\\image\\prueba_salida.json"
-        temp_state_path = ".\\archive\\image\\temp_state.json"
+        output_json_path = "./archive/image/prueba_salida.json"
 
-        classify_damage_and_update_json(train_path_original, json_name, class_name, output_json_path, temp_state_path)
+        classify_damage_and_update_json(train_path_original, json_name, class_name, output_json_path,image_path)
     """
     # Read the COCO format JSON file
     with open(os.path.join(input_path, json_name), "r") as f:
@@ -314,7 +315,7 @@ def classify_damage_and_update_json(input_path, json_name, class_name, output_js
         polygons = annotation.get("segmentation", [])
 
         # Read the image
-        full_image_path = os.path.join(input_path, image_name)
+        full_image_path = os.path.join(image_path, image_name)
         image = cv2.imread(full_image_path)
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -1135,3 +1136,226 @@ def image_coco_plot(path, annotation_json, image_name):
 ################################################
 ##########    4 Yolo Code Functions    #########
 ################################################
+
+def validate_coco_dataset(coco_annotation_path, images_folder_path):
+    """
+    Validates a COCO dataset to check if the dimensions, IDs, and naming conventions are correct.
+
+    Parameters:
+    coco_annotation_path (str): Path to the COCO annotations JSON file.
+    images_folder_path (str): Path to the folder containing images.
+
+    Returns:
+    bool: True if the dataset is valid, False otherwise.
+    """
+    # Load the COCO annotations
+    with open(coco_annotation_path, 'r') as file:
+        coco_data = json.load(file)
+
+    # Create a set to store unique image IDs
+    image_ids = set()
+
+    # Validate images
+    for image_info in coco_data['images']:
+        image_id = image_info['id']
+        file_name = image_info['file_name']
+        width = image_info['width']
+        height = image_info['height']
+
+        # Check if image ID is unique
+        if image_id in image_ids:
+            print(f"Duplicate image ID found: {image_id}")
+            return False
+        image_ids.add(image_id)
+
+        # Check if the image file exists
+        image_path = os.path.join(os.path.join(images_folder_path), file_name)
+        if not os.path.exists(image_path):
+            print(f"Image file not found: {file_name}")
+            return False
+
+        # Check if the image dimensions match
+        with Image.open(image_path) as img:
+            if img.width != width or img.height != height:
+                print(f"Image dimensions do not match for {file_name}: "
+                      f"expected ({width}, {height}), got ({img.width}, {img.height})")
+                return False
+
+    # Validate annotations
+    for annotation in coco_data['annotations']:
+        image_id = annotation['image_id']
+        if image_id not in image_ids:
+            print(f"Annotation references non-existent image ID: {image_id}")
+            return False
+    return True
+
+
+def clamp(value, min_value, max_value):
+    """
+    Ensures a value is within a specified range.
+
+    Args:
+        value (float): The value to adjust.
+        min_value (float): The minimum allowable value.
+        max_value (float): The maximum allowable value.
+
+    Returns:
+        float: The adjusted value within the specified range.
+    """
+    return max(min(value, max_value), min_value)
+
+def adjust_polygon(polygon, image_width, image_height):
+    """
+    Adjusts the points of a polygon to ensure they stay within the image boundaries.
+
+    Args:
+        polygon (list): List of polygon coordinates in the format [x1, y1, x2, y2, ..., xn, yn].
+        image_width (int): The width of the image.
+        image_height (int): The height of the image.
+
+    Returns:
+        list: The adjusted polygon coordinates.
+    """
+    adjusted_polygon = []
+    for i in range(0, len(polygon), 2):
+        x = clamp(polygon[i], 0, image_width - 1)
+        y = clamp(polygon[i+1], 0, image_height - 1)
+        adjusted_polygon.extend([x, y])
+    return adjusted_polygon
+
+def process_coco_annotations(coco_annotations_path, output_path):
+    """
+    Processes COCO annotations to adjust polygons to stay within image boundaries.
+
+    Args:
+        coco_annotations_path (str): The file path to the input COCO annotations JSON file.
+        output_path (str): The file path to save the adjusted COCO annotations JSON file.
+    """
+    with open(coco_annotations_path, 'r') as f:
+        coco_data = json.load(f)
+    
+    for annotation in coco_data['annotations']:
+        segmentation = annotation['segmentation']
+        for i, polygon in enumerate(segmentation):
+            # Assuming the segmentation is in the format [x1, y1, x2, y2, ..., xn, yn]
+            if len(polygon) % 2 != 0:
+                print(f"Warning: Polygon with odd number of coordinates found in annotation ID {annotation['id']}")
+                continue
+            
+            image_id = annotation['image_id']
+            image_info = next(img for img in coco_data['images'] if img['id'] == image_id)
+            image_width = image_info['width']
+            image_height = image_info['height']
+            
+            segmentation[i] = adjust_polygon(polygon, image_width, image_height)
+    
+    with open(output_path, 'w') as f:
+        json.dump(coco_data, f, indent=4)
+
+
+def convert_coco_to_yolo_segmentation(coco_json_path, output_dir):
+    """
+    Converts COCO segmentation annotations to YOLO format.
+
+    Args:
+    coco_json_path (str): Path to the COCO annotations JSON file.
+    output_dir (str): Path to the folder to save YOLO annotations.
+    """
+    # Load COCO JSON
+    with open(coco_json_path, 'r') as f:
+        coco_data = json.load(f)
+
+    # Create a directory for YOLO annotations
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    # Create a mapping from COCO category IDs to YOLO class IDs (1-9 to 0-8)
+    category_mapping = {category['id']: category['id'] - 1 for category in coco_data['categories']}
+
+    # Iterate over each image in the COCO dataset
+    for image_info in coco_data['images']:
+        image_id = image_info['id']
+        image_width = image_info['width']
+        image_height = image_info['height']
+        image_filename = image_info['file_name']
+
+        # Prepare the YOLO annotation filename
+        yolo_annotation_filename = os.path.splitext(image_filename)[0] + ".txt"  # separate from .jpg
+        yolo_annotation_path = os.path.join(output_dir, yolo_annotation_filename)
+
+        # Open the YOLO annotation file for writing
+        with open(yolo_annotation_path, 'w') as yolo_file:
+            # Iterate over each annotation
+            for annotation in coco_data['annotations']:
+                if annotation['image_id'] == image_id:
+                    category_id = annotation['category_id']
+                    segmentation = annotation['segmentation']
+
+                    # Check if the annotation has polygon segmentation
+                    if isinstance(segmentation, list):
+                        for polygon in segmentation:
+                            # Normalize the coordinates by the dimensions of the image
+                            normalized_polygon = [(x / image_width, y / image_height) for x, y in zip(polygon[0::2], polygon[1::2])] 
+                             # x: even indices, y: odd indices
+
+                            # Flatten the normalized coordinates
+                            normalized_polygon_str = ' '.join([f"{x} {y}" for x, y in normalized_polygon])
+
+                            # Get the YOLO class ID
+                            yolo_class_id = category_mapping[category_id]
+
+                            # Write the annotation in YOLO format
+                            yolo_file.write(f"{yolo_class_id} {normalized_polygon_str}\n")
+
+
+
+def move_and_rename_folder(source_folder, destination_root, new_folder_name):
+    """
+        Move and rename a folder
+
+        Args:
+            source_folder: path to the folder to move
+            destination_root: new path
+            new_folder_name: new name of the folder
+
+    """
+    destination_folder = os.path.join(destination_root, new_folder_name)
+    shutil.move(source_folder, destination_folder)
+
+
+def create_yaml_file(file_path, train_path, val_path, nc, names):
+    """
+    Create yaml for yolo.
+
+        Args:
+            file_path: path of the yaml
+            train_path: path of the train set
+            val_path: path of the val set
+            nc: number of categories
+            names: names of the categories
+    """
+    data = {
+        'train': train_path,
+        'val': val_path,
+        'nc': nc,
+        'names': names
+    }
+
+    with open(file_path, 'w') as file:
+        yaml.dump(data, file, default_flow_style=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

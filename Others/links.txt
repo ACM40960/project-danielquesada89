@@ -15,3 +15,6 @@ https://medium.com/analytics-vidhya/implement-your-own-mask-rcnn-model-65c994a01
 
 # hyperparameters
 https://docs.ultralytics.com/modes/train/#train-settings
+
+#streamlit
+https://www.youtube.com/watch?v=D0D4Pa22iG0
