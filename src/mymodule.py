@@ -13,7 +13,8 @@ import random
 import shutil
 import ipywidgets as widgets
 from PIL import Image  # Import the Image module from Pillow
-
+from ultralytics.data.converter import convert_coco
+import yaml
 
 
 ################################################
@@ -1252,77 +1253,88 @@ def process_coco_annotations(coco_annotations_path, output_path):
     with open(output_path, 'w') as f:
         json.dump(coco_data, f, indent=4)
 
-
-def convert_coco_to_yolo_segmentation(coco_json_path, output_dir):
+def copy_json_if_not_exists(source, destination):
     """
-    Converts COCO segmentation annotations to YOLO format.
+    Copies a JSON file from the source to the destination if it doesn't already exist at the destination.
 
     Args:
-    coco_json_path (str): Path to the COCO annotations JSON file.
-    output_dir (str): Path to the folder to save YOLO annotations.
+    source: the file path of the source JSON file
+    destination: the directory path where the JSON file should be copied to
     """
-    # Load COCO JSON
-    with open(coco_json_path, 'r') as f:
-        coco_data = json.load(f)
+    # Get the file name from the source path
+    file_name = os.path.basename(source)
+    
+    # Create the full path for the file in the destination directory
+    destination_full_path = os.path.join(destination, file_name)
+    
+    # Check if the file already exists in the destination directory
+    if not os.path.exists(destination_full_path):
+        # Copy the file if it does not exist
+        shutil.copy2(source, destination_full_path)
 
-    # Create a directory for YOLO annotations
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # Create a mapping from COCO category IDs to YOLO class IDs (1-9 to 0-8)
-    category_mapping = {category['id']: category['id'] - 1 for category in coco_data['categories']}
-
-    # Iterate over each image in the COCO dataset
-    for image_info in coco_data['images']:
-        image_id = image_info['id']
-        image_width = image_info['width']
-        image_height = image_info['height']
-        image_filename = image_info['file_name']
-
-        # Prepare the YOLO annotation filename
-        yolo_annotation_filename = os.path.splitext(image_filename)[0] + ".txt"  # separate from .jpg
-        yolo_annotation_path = os.path.join(output_dir, yolo_annotation_filename)
-
-        # Open the YOLO annotation file for writing
-        with open(yolo_annotation_path, 'w') as yolo_file:
-            # Iterate over each annotation
-            for annotation in coco_data['annotations']:
-                if annotation['image_id'] == image_id:
-                    category_id = annotation['category_id']
-                    segmentation = annotation['segmentation']
-
-                    # Check if the annotation has polygon segmentation
-                    if isinstance(segmentation, list):
-                        for polygon in segmentation:
-                            # Normalize the coordinates by the dimensions of the image
-                            normalized_polygon = [(x / image_width, y / image_height) for x, y in zip(polygon[0::2], polygon[1::2])] 
-                             # x: even indices, y: odd indices
-
-                            # Flatten the normalized coordinates
-                            normalized_polygon_str = ' '.join([f"{x} {y}" for x, y in normalized_polygon])
-
-                            # Get the YOLO class ID
-                            yolo_class_id = category_mapping[category_id]
-
-                            # Write the annotation in YOLO format
-                            yolo_file.write(f"{yolo_class_id} {normalized_polygon_str}\n")
-
-
-
-def move_and_rename_folder(source_folder, destination_root, new_folder_name):
+def move_and_rename_folder(source_folder, destination_folder):
     """
-        Move and rename a folder
+    Moves the contents of the source folder to the destination folder without moving the folder itself.
 
-        Args:
-            source_folder: path to the folder to move
-            destination_root: new path
-            new_folder_name: new name of the folder
-
+    Args:
+    source_folder: the directory path of the source folder
+    destination_folder: the directory path of the destination folder
     """
-    destination_folder = os.path.join(destination_root, new_folder_name)
-    shutil.move(source_folder, destination_folder)
+    # Ensure the destination folder exists
+    if not os.path.exists(destination_folder):
+        os.makedirs(destination_folder)
+    
+    # Move each file and folder within the source folder to the destination folder
+    for item in os.listdir(source_folder):
+        source_item = os.path.join(source_folder, item)
+        destination_item = os.path.join(destination_folder, item)
+        
+        # Move the item to the destination
+        shutil.move(source_item, destination_item)
 
+def convert_coco_to_yolo_segmentation(path_annotations, annotations_name, path_yolo, type_set):
+    """
+    Converts COCO annotations to YOLO format, moves and renames the resulting labels, and cleans up.
 
+    Args:
+    path_annotations: the directory path where the source annotations are located
+    annotations_name: the file name of the source JSON file containing the annotations
+    path_yolo: the base directory path for YOLO formatted data
+    type_set: indicating if it is train, val or test
+    """
+
+    # to convert to coco to yolo, it is use the convert_coco function and this one has as input variables
+    # the path where the annotations of the images are, that is why the annotations of the set is temporary copied
+    # in the yolo set folder and then eliminated because there can be only one annotations file in the indicated folder
+    # Copy JSON if it doesn't exist
+    copy_json_if_not_exists(
+        source=os.path.join(path_annotations, annotations_name), 
+        destination=os.path.join(path_yolo, type_set)
+    )
+
+    # Convert COCO to YOLO labels
+    # this function is from annalytics and it will create in the folder aux a folder called labels, that one, inside, has
+    # another folder with the name of the annotations file with all the .txt of the images
+    convert_coco(
+        labels_dir=os.path.join(path_yolo, type_set), 
+        save_dir=os.path.join(path_yolo, 'aux'), 
+        use_segments=True
+    )
+    # the  labels created in aux are moved to the labels of the corresponding folder
+    move_and_rename_folder(
+        source_folder=os.path.join(os.path.join(path_yolo, 'aux/labels/'), os.path.splitext(annotations_name)[0]),
+        destination_folder=os.path.join(path_yolo, type_set, 'labels')
+    )
+    
+    # Remove the auxiliary directory
+    shutil.rmtree(os.path.join(path_yolo, 'aux'))
+    os.remove(os.path.join(os.path.join(path_yolo, type_set), annotations_name))
+
+    print(f"Removed auxiliary directory {os.path.join(path_yolo, 'aux')}")
+    
+    # Print the final location of YOLO labels
+    print(f"Yolo labels saved in {os.path.join(path_yolo, type_set, 'labels')}\n")
+    
 def create_yaml_file(file_path, train_path, val_path, nc, names):
     """
     Create yaml for yolo.

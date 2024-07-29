@@ -11,6 +11,7 @@ path_train_train: "./Data/train/train"
 path_train_aug: "./Data/train/train_aug"
 path_train_val: "./Data/train/val"
 path_test: "./Data/test"
+path_yolo : "./Data/Yoloimages/" # Images structured using Yolo format requirement 
 
 # annotations names
 kaggle_train_annotations : "annotations_train.json"
@@ -23,18 +24,11 @@ kaggle_test_annotations : "annotations_test.json"
 test_annotations_name_temp: "annotations_test_temp.json"
 test_annotations_name : "annotations_test_updated.json"
 
-
-
-
-
-
-path_yolo : "./Data/Yoloimages/" # Images structured using Yolo format requirement 
-
-
-
 weights_yolo_path : './yolo_weights'
 
-aux_trainaug_folder : './CustomImages/aux_trainaug/'
-aux_train_folder : './CustomImages/aux_train/'
-aux_val_folder : './CustomImages/aux_val/'
-coco_to_yolo_folder : 'labels/annotations'
+
+
+
+
+
+
