@@ -3,6 +3,8 @@ seed: 123 # this will be the seed for the whole project
 # Project Colors
 color1: "#62b6cb"
 color2: "#fb8500"
+color3: "#023047"
+color4: "#FFB703"
 
 # paths
 path_annotations: "./Data"
