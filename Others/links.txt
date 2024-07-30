@@ -18,3 +18,6 @@ https://docs.ultralytics.com/modes/train/#train-settings
 
 #streamlit
 https://www.youtube.com/watch?v=D0D4Pa22iG0
+
+# maskrcnn
+https://medium.com/@aleenarayamajhi13/things-they-dont-tell-you-about-installing-mask-r-cnn-for-custom-datasets-8420b29cdcd9
