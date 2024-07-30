@@ -1355,6 +1355,63 @@ def create_yaml_file(file_path, train_path, val_path, nc, names):
         yaml.dump(data, file, default_flow_style=False)
 
 
+def select_images(source_folder, destination_folder, num_images, images_folder, labels_folder):
+    """
+    Selects a random subset of images and their corresponding labels from a source folder and copies them to a destination folder.
+
+    Args:
+        source_folder (str): Path to the source folder containing images and labels.
+        destination_folder (str): Path to the destination folder where selected images and labels will be copied.
+        num_images (int): Number of images to select.
+        images_folder (str): Name of the folder within the source folder that contains the images.
+        labels_folder (str): Name of the folder within the source folder that contains the labels.
+
+    Example:
+        select_images(
+            source_folder='./Data/Yoloimages/train',
+            destination_folder='./Data/Yoloimages/train_prueba',
+            num_images=20,
+            images_folder='images',
+            labels_folder='labels'
+        )
+
+        This will select 20 random images from './Data/Yoloimages/train/images' and their corresponding labels
+        from './Data/Yoloimages/train/labels', then copy them to './Data/Yoloimages/train_prueba/images' and
+        './Data/Yoloimages/train_prueba/labels' respectively. If the destination folder already exists, it will be
+        deleted and recreated.
+    """
+    # Delete the destination folder if it already exists
+    if os.path.exists(destination_folder):
+        shutil.rmtree(destination_folder)
+    
+    # Create the full paths for the images and labels folders
+    images_folder_path = os.path.join(source_folder, images_folder)
+    labels_folder_path = os.path.join(source_folder, labels_folder)
+
+    destination_images_folder = os.path.join(destination_folder, images_folder)
+    destination_labels_folder = os.path.join(destination_folder, labels_folder)
+
+    # Create the destination folders
+    os.makedirs(destination_images_folder)
+    os.makedirs(destination_labels_folder)
+
+    # Get the list of images and select a random subset
+    images = os.listdir(images_folder_path)
+    selected_images = random.sample(images, num_images)
+
+    # Copy the images and their corresponding labels
+    for image in selected_images:
+        image_name = os.path.splitext(image)[0]
+        source_image_path = os.path.join(images_folder_path, image)
+        destination_image_path = os.path.join(destination_images_folder, image)
+        
+        source_label_path = os.path.join(labels_folder_path, f"{image_name}.txt")
+        destination_label_path = os.path.join(destination_labels_folder, f"{image_name}.txt")
+        
+        shutil.copy(source_image_path, destination_image_path)
+        if os.path.exists(source_label_path):
+            shutil.copy(source_label_path, destination_label_path)
+
 
 
 

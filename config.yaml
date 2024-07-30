@@ -26,7 +26,8 @@ kaggle_test_annotations : "annotations_test.json"
 test_annotations_name_temp: "annotations_test_temp.json"
 test_annotations_name : "annotations_test_updated.json"
 
-weights_yolo_path : './yolo_weights'
+weights_yolo_path : 'Models/yolo_weights'
+runs_path: 'Models/runs'
 
 
 
