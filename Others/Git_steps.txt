@@ -1,0 +1,58 @@
+
+# Define Remote Git
+git config --global credential.helper store
+git config --global user.email "daniel.quesada@ucdconnect.ie"
+git config --global user.name "danielquesada89"
+git credential-cache exit
+# git remote set-url origin https://NAME:TOKEN_PASSWORD@github.com/ACM40960/project-danielteresa.git
+git status
+
+# To push changes:
+git add .
+git commit -m "Commit message describing the changes"
+git push -u origin main
+
+# To pull all of the changes:
+git pull origin main
+
+# to reset the commit to the previous without losing the cahnges of the current commit
+git reset --soft HEAD~1
+
+# to check files to add to the commit
+git status
+
+# create a file .gitignore for not uploading files to the github
+/env_vehicle/
+/.git/
+/.gitignore
+/archive/image/prueba
+/archive/image/annotation0.json
+/archive/image/image_augmentation/
+/car_env/
+/yolo_env/
+/.vscode/
+/yolo_annotations/
+/CustomImages/
+/Mask-RCNN-TF2/
+/mask_rcnn_coco.h5
+/archive/validation/validation/old_json_test/
+/archive/image/image/old_json_train/
+/286-marbles_maskrcnn_coco_style_labels.py
+/ultralytics
+/prueba.json
+/runs/
+/yolo_weights/
+/CustomImages.zip
+/src/_pycache_/
+/Data/Yoloimages/
+/Data/train/original
+/Data/train/train_aug
+/Data/annotations_train_updated_aug*
+/Data/annotations_train_updated.json
+*Data/annotations_train_updated.json
+*/Data/annotations_train_updated.json
+/.ipynb_checkpoints
+*/.ipynb_checkpoints
+*/__pycache__
+/src/__pycache__
+/src/__pycache__/mymodule.cpython-310.pyc

@@ -1053,10 +1053,8 @@ def copy_or_move_coco_images(coco_annotation_file, source_images_folder, destina
         if os.path.exists(source_image_path):
             if operation == "copy":
                 shutil.copy(source_image_path, destination_image_path)
-                print(f"Copied: {source_image_path} to {destination_image_path}")
             elif operation == "move":
                 shutil.move(source_image_path, destination_image_path)
-                print(f"Moved: {source_image_path} to {destination_image_path}")
             else:
                 raise ValueError("Operation must be 'copy' or 'move'.")
         else:
@@ -1095,7 +1093,7 @@ def image_coco_plot(path, annotation_json, image_name):
     image_annotations = [ann for ann in annotations["annotations"] if ann["image_id"] == image_id]
 
     # Load the image
-    image_path = path + image_filename
+    image_path = os.path.join(path,image_filename)
     image = cv2.imread(image_path)
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
