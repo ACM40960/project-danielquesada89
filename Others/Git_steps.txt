@@ -12,11 +12,20 @@ git add .
 git commit -m "Commit message describing the changes"
 git push -u origin main
 
+# To push files very big (max 100mb)
+git lfs install
+git lfs track "Models/runs/train/weights/"
+git add .gitattributes
+git add Models/runs/train/weights/
+git commit -m "weights"
+git push origin main
+
 # To pull all of the changes:
 git pull origin main
 
 # to reset the commit to the previous without losing the cahnges of the current commit
 git reset --soft HEAD~1
+git reset
 
 # to check files to add to the commit
 git status
