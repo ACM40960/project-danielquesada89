@@ -13,3 +13,14 @@ dropout
 USAR ADAM AUIDA A MAS RAPIDA CONVERGENCIA
 
 verbose =False
+
+#example of tuning by hand
+https://pub.towardsai.net/understanding-hyper-parameter-tuning-of-yolos-82aec5f6e7b3
+
+
+# tuner sagemakes
+
+https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/
+
+# tune explanation optimization
+https://docs.ultralytics.com/yolov5/tutorials/hyperparameter_evolution/#supported-environments
