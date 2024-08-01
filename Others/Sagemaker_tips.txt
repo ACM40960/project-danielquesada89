@@ -1,15 +1,20 @@
-# tuner
-https://docs.ultralytics.com/reference/engine/tuner/#ultralytics.engine.tuner.Tuner 
+The implementation of YOLO models, especially the latest versions, is built using the PyTorch library. This includes both the architecture definition and the training process.
+
+PyTorch is an open-source machine learning library developed by Facebook's AI Research lab. It is widely used for deep learning applications due to its flexibility and ease of use.
 
 
-epochs	100	
-patience	100
-batch	16	Batch size, with three modes: set as an integer (e.g., batch=16), auto mode for 60% GPU memory utilization (batch=-1), or auto mode with specified utilization fraction (batch=0.70).
-imgsz	640	
-lr0	0.01	Initial learning rate (i.e. SGD=1E-2, Adam=1E-3) . Adjusting this value is crucial for the optimization process, influencing how rapidly model weights are updated.
-weight_decay	
-dropout
+ml.p4d.24xlarge $40.706
 
-USAR ADAM AUIDA A MAS RAPIDA CONVERGENCIA
+https://sagemaker.readthedocs.io/en/stable/frameworks/pytorch/using_pytorch.html#train-a-model-with-pytorch
 
-verbose =False
+https://docs.aws.amazon.com/sagemaker/latest/dg/pytorch.html
+
+https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b
+
+https://github.com/ultralytics/yolov5/tree/master
+
+https://github.com/aws-samples/amazon-sagemaker-train-and-deploy-yolov5/tree/main
+
+https://blog.roboflow.com/whats-new-in-yolov8/
+
+https://blog.roboflow.com/what-is-an-anchor-box/
