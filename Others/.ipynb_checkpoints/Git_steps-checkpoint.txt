@@ -1,7 +1,4 @@
 
-# clone repository
-cd ./ && git clone https://github.com/ACM40960/project-danielteresa.git && exit
-
 # Define Remote Git
 git config --global credential.helper store
 git config --global user.email "daniel.quesada@ucdconnect.ie"
