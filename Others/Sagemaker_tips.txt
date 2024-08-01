@@ -1,0 +1,15 @@
+# tuner
+https://docs.ultralytics.com/reference/engine/tuner/#ultralytics.engine.tuner.Tuner 
+
+
+epochs	100	
+patience	100
+batch	16	Batch size, with three modes: set as an integer (e.g., batch=16), auto mode for 60% GPU memory utilization (batch=-1), or auto mode with specified utilization fraction (batch=0.70).
+imgsz	640	
+lr0	0.01	Initial learning rate (i.e. SGD=1E-2, Adam=1E-3) . Adjusting this value is crucial for the optimization process, influencing how rapidly model weights are updated.
+weight_decay	
+dropout
+
+USAR ADAM AUIDA A MAS RAPIDA CONVERGENCIA
+
+verbose =False
