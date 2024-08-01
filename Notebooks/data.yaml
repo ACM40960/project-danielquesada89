@@ -9,5 +9,5 @@ names:
 - met_dent_medium
 - met_dent_severe
 nc: 9
-train: /home/sagemaker-user/project-danielteresa/Data/Yoloimages/train_prueba/images
-val: /home/sagemaker-user/project-danielteresa/Data/Yoloimages/val_prueba/images
+train: c:\Users\teres\OneDrive\Documentos\UCD\Summer\project-danielteresa\Data/Yoloimages/train_prueba/images
+val: c:\Users\teres\OneDrive\Documentos\UCD\Summer\project-danielteresa\Data/Yoloimages/val_prueba/images

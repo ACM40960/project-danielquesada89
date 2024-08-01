@@ -15,7 +15,7 @@ import ipywidgets as widgets
 from PIL import Image  # Import the Image module from Pillow
 from ultralytics.data.converter import convert_coco
 import yaml
-
+from matplotlib.colors import LinearSegmentedColormap
 
 ################################################
 ########## 1 Data Processing Functions #########
@@ -1355,7 +1355,7 @@ def create_yaml_file(file_path, train_path, val_path, nc, names):
         yaml.dump(data, file, default_flow_style=False)
 
 
-def select_images(source_folder, destination_folder, num_images, images_folder, labels_folder):
+def select_images(source_folder, destination_folder, num_images, images_folder, labels_folder, seed):
     """
     Selects a random subset of images and their corresponding labels from a source folder and copies them to a destination folder.
 
@@ -1365,6 +1365,7 @@ def select_images(source_folder, destination_folder, num_images, images_folder, 
         num_images (int): Number of images to select.
         images_folder (str): Name of the folder within the source folder that contains the images.
         labels_folder (str): Name of the folder within the source folder that contains the labels.
+        seed (int): seed set 
 
     Example:
         select_images(
@@ -1380,6 +1381,7 @@ def select_images(source_folder, destination_folder, num_images, images_folder, 
         './Data/Yoloimages/train_prueba/labels' respectively. If the destination folder already exists, it will be
         deleted and recreated.
     """
+    random.seed(seed)
     # Delete the destination folder if it already exists
     if os.path.exists(destination_folder):
         shutil.rmtree(destination_folder)
@@ -1414,12 +1416,173 @@ def select_images(source_folder, destination_folder, num_images, images_folder, 
 
 
 
+def print_styled_metrics_table(metrics, names, color):
+    """
+    Prints a table with the class names and the corresponding mAP50, precision, recall, and F1 score
+    values for boxes and segmentation using Pandas Styler for custom formatting.
+
+    Parameters:
+    - metrics (ultralytics.utils.metrics.SegmentMetrics): A metrics object from a YOLO model's validation or testing process that contains
+               the mAP, precision, recall, and F1 score values for segmentation and bounding boxes.
+    - names (str): dict with the names of the classes
+    - color (str): color to use.
+    """
+
+    # Extract class names
+    class_names = [names[i] for i in range(len(names))]
+    
+    # Extract mAP50, precision, recall, and F1 score values for boxes and segmentation
+    box_maps = metrics.box.maps
+    seg_maps = metrics.seg.maps
+    box_precision = metrics.box.p
+    seg_precision = metrics.seg.p
+    box_recall = metrics.box.r
+    seg_recall = metrics.seg.r
+    box_f1 = metrics.box.f1
+    seg_f1 = metrics.seg.f1
+
+    # Create a DataFrame
+    df = pd.DataFrame({
+        "Class Name": class_names,
+        "Box mAP50": box_maps,
+        "Segmentation mAP50": seg_maps,
+        "Box Precision": box_precision,
+        "Segmentation Precision": seg_precision,
+        "Box Recall": box_recall,
+        "Segmentation Recall": seg_recall,
+        "Box F1 Score": box_f1,
+        "Segmentation F1 Score": seg_f1
+    })
+
+    # Apply custom styling
+    styled_df = df.style.set_table_styles(
+        [
+            {'selector': 'thead th', 'props': [('background-color', color), ('color', 'white'), ('text-align', 'center')]},
+            {'selector': 'tbody td', 'props': [('text-align', 'center'), ('border', '1px solid black')]},
+            {'selector': 'tbody th', 'props': [('background-color', color), ('color', 'white'), ('text-align', 'center')]},
+            {'selector': 'table', 'props': [('border-collapse', 'collapse'), ('width', '100%')]},
+        ]
+    ).set_caption("Class-wise mAP50, Precision, Recall, and F1 Score for Boxes and Segmentation").format(precision=4)
+
+    # Display the styled DataFrame
+    display(styled_df)
+
+def confusion_matrix_yolo(metrics, names, color1):
+    """
+    Generates and plots both the non-normalized and normalized confusion matrices side by side
+    for a YOLO model's performance metrics. The function takes in the model's metrics and a 
+    color choice for customizing the heatmap gradient.
+
+    Parameters:
+    - metrics (ultralytics.utils.metrics.SegmentMetrics): A metrics object from a YOLO model's validation or testing process that contains 
+               the confusion matrix data.
+    - color1 (str): A string representing the color (in hexadecimal or named color format) to be used 
+              as the gradient endpoint for the heatmaps.
+    """
+
+    # Extract the confusion matrix and class names
+    conf_matrix = metrics.confusion_matrix.matrix
+    class_names = [names[i] for i in range(len(names))]
+
+    # Normalize the confusion matrix and handle division by zero
+    with np.errstate(divide='ignore', invalid='ignore'):
+        conf_matrix_normalized = conf_matrix.astype('float') / conf_matrix.sum(axis=0)
+        conf_matrix_normalized[np.isnan(conf_matrix_normalized)] = 0  # Replace NaNs with 0
+
+    # Define the color palette for the heatmap
+    colors = ["white", color1]  # Custom gradient color
+    custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", colors)
+
+    # Set up the matplotlib figure with two subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+
+    # Plot the non-normalized confusion matrix with class names
+    sns.heatmap(conf_matrix.astype(int), annot=True, fmt='d', cmap=custom_cmap, cbar=True,
+                xticklabels=class_names, yticklabels=class_names, ax=ax1)
+    ax1.set_title('Confusion Matrix')
+    ax1.set_xlabel('Predicted')
+    ax1.set_ylabel('True')
+
+    # Plot the normalized confusion matrix with class names
+    sns.heatmap(conf_matrix_normalized, annot=True, fmt='.2f', cmap=custom_cmap, cbar=True,
+                xticklabels=class_names, yticklabels=class_names, ax=ax2)
+    ax2.set_title('Confusion Matrix (Normalized)')
+    ax2.set_xlabel('Predicted')
+    ax2.set_ylabel('True')
+
+    # Display the plots
+    plt.show()
 
 
+def plot_losses_side_by_side(data, color_train="#62b6cb", color_val="#fb8500"):
+    """
+    Plots each loss metric (box, segmentation, classification, DFL) side by side with training on the left
+    and validation on the right for each metric.
 
+    Parameters:
+    - data (DataFrame): A DataFrame containing the loss metrics for each epoch.
+    - color_train (str): Color for training losses.
+    - color_val (str): Color for validation losses.
+    """
 
+    epochs = data['epoch']
 
+    fig, axes = plt.subplots(4, 2, figsize=(14, 16))
 
+    # Box Loss
+    axes[0, 0].plot(epochs, data['train/box_loss'], label='Train Box Loss', color=color_train)
+    axes[0, 0].set_title('Train Box Loss')
+    axes[0, 1].plot(epochs, data['val/box_loss'], label='Validation Box Loss', color=color_val)
+    axes[0, 1].set_title('Validation Box Loss')
+
+    # Segmentation Loss
+    axes[1, 0].plot(epochs, data['train/seg_loss'], label='Train Segmentation Loss', color=color_train)
+    axes[1, 0].set_title('Train Segmentation Loss')
+    axes[1, 1].plot(epochs, data['val/seg_loss'], label='Validation Segmentation Loss', color=color_val)
+    axes[1, 1].set_title('Validation Segmentation Loss')
+
+    # Classification Loss
+    axes[2, 0].plot(epochs, data['train/cls_loss'], label='Train Classification Loss', color=color_train)
+    axes[2, 0].set_title('Train Classification Loss')
+    axes[2, 1].plot(epochs, data['val/cls_loss'], label='Validation Classification Loss', color=color_val)
+    axes[2, 1].set_title('Validation Classification Loss')
+
+    # DFL Loss
+    axes[3, 0].plot(epochs, data['train/dfl_loss'], label='Train DFL Loss', color=color_train)
+    axes[3, 0].set_title('Train DFL Loss')
+    axes[3, 1].plot(epochs, data['val/dfl_loss'], label='Validation DFL Loss', color=color_val)
+    axes[3, 1].set_title('Validation DFL Loss')
+
+    for ax in axes.flat:
+        ax.set_xlabel('Epoch')
+        ax.set_ylabel('Loss')
+        ax.grid(True)
+
+    plt.tight_layout()
+    plt.show()
+
+def metrics_yolo(model, path_results_yolo, color1, color2):
+    """
+    This function provides a comprehensive analysis of YOLO model performance by generating a styled table of key metrics,
+    visualizing the confusion matrix, and loading the results of the training/validation process from  CSV results file generated by 
+    yolo.
+
+    Parameters:
+    - metrics: A metrics object from the YOLO model's validation or testing process, containing various performance metrics.
+    - path_results_yolo: The file path to the directory where YOLO training/validation results are stored, including the 'results.csv' file.
+    - color1: A string representing the color (in hexadecimal or named color format) to be used for certain visualizations, particularly in the styled table and confusion matrix.
+    - color2: A string representing an additional color to be used for visualizations if needed.
+    """
+    metrics = model.metrics
+    names = model.names
+    print_styled_metrics_table(metrics, names , color1)
+    confusion_matrix_yolo(metrics, names, color1)
+    
+    path_results_yolo = "./Models/runs/train"
+    df_epochs = pd.read_csv(os.path.join(path_results_yolo,"results.csv"))
+    df_epochs.columns = df_epochs.columns.str.strip()
+
+    plot_losses_side_by_side(df_epochs, color1, color2)
 
 
 
