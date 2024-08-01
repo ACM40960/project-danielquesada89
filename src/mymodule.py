@@ -16,6 +16,7 @@ from PIL import Image  # Import the Image module from Pillow
 from ultralytics.data.converter import convert_coco
 import yaml
 from matplotlib.colors import LinearSegmentedColormap
+from tqdm import tqdm
 
 ################################################
 ########## 1 Data Processing Functions #########
@@ -1584,6 +1585,60 @@ def metrics_yolo(model, path_results_yolo, color1, color2):
 
     plot_losses_side_by_side(df_epochs, color1, color2)
 
+
+def upload_folder_to_s3(local_folder, s3_bucket):
+    """
+    Uploads all files from a local directory to an S3 bucket using the AWS CLI, displaying a progress bar.
+
+    Args:
+        local_folder (str): The path to the local directory containing the files to upload.
+        s3_bucket (str): The name of the S3 bucket to upload the files to.
+
+    Example:
+        >>> upload_folder_to_s3("Data/Yoloimages/train", "sagemaker-eu-west-1-project-danielteresa")
+        Uploading Data/Yoloimages/train: 100%|██████████| 100/100 [00:30<00:00, 3.30file/s]
+    """
+    # Count the total number of files to be uploaded for the progress bar
+    total_files = sum([len(files) for r, d, files in os.walk(local_folder)])
+
+    # Run the aws s3 cp command with --recursive option to upload the directory
+    with tqdm(total=total_files, desc=f"Uploading {local_folder}", unit="file") as pbar:
+        command = f"aws s3 cp {local_folder} s3://{s3_bucket}/ --recursive"
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        
+        while True:
+            output = process.stdout.readline()
+            if process.poll() is not None:
+                break
+            if output:
+                pbar.update(1)
+
+        rc = process.poll()
+        return rc
+
+def upload_file_to_s3(local_file, s3_bucket):
+    """
+    Uploads a single file to an S3 bucket using the AWS CLI.
+
+    Args:
+        local_file (str): The path to the local file to upload.
+        s3_bucket (str): The name of the S3 bucket to upload the file to.
+
+    Example:
+        >>> upload_file_to_s3("./Notebooks/data.yaml", "sagemaker-eu-west-1-project-danielteresa")
+    """
+    # Construct the S3 path
+    s3_path = os.path.basename(local_file)
+    command = f"aws s3 cp {local_file} s3://{s3_bucket}/{s3_path}"
+    
+    # Execute the command
+    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    # Check for errors
+    if result.returncode != 0:
+        print(f"Error uploading {local_file} to {s3_bucket}: {result.stderr.decode('utf-8')}")
+    else:
+        print(f"Successfully uploaded {local_file} to s3://{s3_bucket}/{s3_path}")
 
 
 
