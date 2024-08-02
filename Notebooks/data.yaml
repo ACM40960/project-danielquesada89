@@ -9,5 +9,5 @@ names:
 - met_dent_medium
 - met_dent_severe
 nc: 9
-train: /train_prueba/images
-val: /val_prueba/images
+train: train_prueba/images
+val: val_prueba/images
