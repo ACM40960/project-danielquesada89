@@ -18,3 +18,5 @@ https://github.com/aws-samples/amazon-sagemaker-train-and-deploy-yolov5/tree/mai
 https://blog.roboflow.com/whats-new-in-yolov8/
 
 https://blog.roboflow.com/what-is-an-anchor-box/
+
+https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/
