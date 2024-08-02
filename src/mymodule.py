@@ -17,6 +17,7 @@ from ultralytics.data.converter import convert_coco
 import yaml
 from matplotlib.colors import LinearSegmentedColormap
 from tqdm import tqdm
+import subprocess
 
 ################################################
 ########## 1 Data Processing Functions #########
