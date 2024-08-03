@@ -157,6 +157,15 @@ rounded_rectangle = f"""
 </div>
 """
 
+image_base64 = get_image_base64(os.path.join(icon_path, 'line.png'))
+image_line = (f'<img src="data:image/png;base64,'
+               f'{image_base64}" style="position: absolute; '
+               f'bottom: 0px; '
+               f'left: 50%; '  # Centered horizontally
+               f'transform: translateX(-50%); '
+               f'width: 40px; '
+               f'height: 2px;">')
+
 # HTML and CSS to create the main rectangle
 rectangle_html = f"""
 <div style="
@@ -174,8 +183,10 @@ rectangle_html = f"""
     {image_more}
     {image_home}
     {image_policyholder}
+    {image_line}
     {image_settings}
     {rounded_rectangle}
+    
 </div>
 """
 
