@@ -1,0 +1,69 @@
+abres amazon
+pones contraseña
+s3 abres
+borrar el interior de las carpeta de output (no la de las imágenes), hacer borrar copiando permanente.
+buscar sagemaker https://eu-west-1.console.aws.amazon.com/sagemaker/home?region=eu-west-1#/getting-started
+open studio 
+jupyterlab
+créate jupyter lab spoace
+instance  m7i.8xlarge
+storage 100 GB
+RUN SPACE
+Open jupyter lab
+git steps como hacer git clone (git git clone)
+arrancar Linux requirements DISCARDA CAMBIOS
+CREAR UN GITIGNIORE CADA VEZ
+IR A AUGMENTATION 
+# CREA BUSCKKET EN BUCKET TRAIN CON carpeta train
+# desde donde cojo las cosas
+# upload folder to s3
+# uplod file to s3
+crear el yolo  y poner rutas bien 
+upload file to S3
+REFRESCAR SIEMPRE!!! para ver si están archivos
+Una vez cargado hacer hasta copiada archivos
+labels
+justo select images
+
+
+debajo de credential paste the credentials
+IAM CHEQUEAR ARN -> users copiar ARN
+cuando subas git ir a gitsteps
+# define remote git
+
+training Jobs 
+
+Ideas
+hacer data augmentation en sagemaker y subida de carpetas de training
+después en local hacer llamada a s3
+
+
+
+claves
+
+
+
+# COSAS QUE DICE CHATGPT
+-poner  type en args
+- poner espacios métricas \\
+
+
+
+
+from sagemaker import image_uris
+
+image_uri = image_uris.retrieve(
+    framework='pytorch',
+    region='us-west-2',  # replace with your AWS region
+    version='1.12.1', # versión of the Python 
+    py_version='py38',
+    instance_type='ml.g4dn.xlarge'
+)
+
+
+
+
+# pricing
+https://aws.amazon.com/sagemaker/pricing/
+serviece quotas
+

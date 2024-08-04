@@ -21,6 +21,34 @@ https://pub.towardsai.net/understanding-hyper-parameter-tuning-of-yolos-82aec5f6
 # tuner sagemakes
 
 https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/
+https://github.com/aws/amazon-sagemaker-examples/blob/main/sagemaker-training-compiler/tensorflow/single_gpu_single_node/hyper-parameter-tuning.ipynb
+
+
+https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html
+Hyperband
+Hyperband is a multi-fidelity based tuning strategy that dynamically reallocates resources. Hyperband uses both intermediate and final results of training jobs to re-allocate epochs to well-utilized hyperparameter configurations and automatically stops those that underperform. It also seamlessly scales to using many parallel training jobs. These features can significantly speed up hyperparameter tuning over random search and Bayesian optimization strategies.
+
+Hyperband should only be used to tune iterative algorithms that publish results at different resource levels. For example, Hyperband can be used to tune a neural network for image classification which publishes accuracy metrics after every epoch.
+
+Training jobs can be stopped early when they are unlikely to improve the objective metric of the hyperparameter tuning job. This can help reduce compute time and avoid overfitting your model. Hyperband uses an advanced internal mechanism to apply early stopping. The parameter TrainingJobEarlyStoppingType in the HyperParameterTuningJobConfig API must be set to OFF when using the Hyperband internal early stopping feature.
+
+# Explain the metrics
+https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html
+
+# Ranges foe autotune
+https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html
+
+# Parameters for runing 
+https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-progress.html
+-MaxNumberOfTrainingJobs – The maximum number of training jobs to be run before tuning is stopped.
+-Use MaxNumberOfTrainingJobs in the ResourceLimits API to set an upper limit for the number of training jobs that can be run before your tuning job is stopped. Start with a large number and adjust it based on model performance against your tuning job objective. Most users input values of around 50 or more training jobs to find an optimal hyperparameter configuration. Users looking for higher levels of model performance will use 200 or more training jobs.
+
+
+
+
 
 # tune explanation optimization
 https://docs.ultralytics.com/yolov5/tutorials/hyperparameter_evolution/#supported-environments
+
+
+# los funciton

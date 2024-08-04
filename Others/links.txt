@@ -21,3 +21,42 @@ https://www.youtube.com/watch?v=D0D4Pa22iG0
 
 # maskrcnn
 https://medium.com/@aleenarayamajhi13/things-they-dont-tell-you-about-installing-mask-r-cnn-for-custom-datasets-8420b29cdcd9
+
+# car damage yolo
+https://github.com/suryaremanan/Damaged-Car-parts-prediction-using-YOLOv8 (5000 epochs)
+https://blog.paperspace.com/damaged-car-parts-detection-using-yolov8n-an-end-t/(The model should hopefully start training if you have followed the above instructions correctly. Mine started and ran for about four and a half hours till the best results were reached at epoch= 1153.)
+
+# paper of a big volumen car dmage detection algorithm (INTERESTING!!!! READ)
+chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf
+
+
+https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg([yolo]
+mask = 0,1,2
+anchors = 12, 16, 19, 36, 40, 28, 36, 75, 76, 55, 72, 146, 142, 110, 192, 243, 459, 401
+
+
+# TUNING DAMAGE CAR DETECTION
+https://www.sciencedirect.com/science/article/pii/S2666827022000433
+)
+d Local Response Normalisation (LRN) layers to reduce the false positives from light reflections.
+This falls in line with the statement of Patil et al. (2017), that localizing damage is non-trivial due to the different shapes of the damages.
+-e Adam optimizer, in combination with an adaptive learning rate schedule, which reduces the learning rate by a factor of 0.5 if the evaluation loss did 
+not improve for three
+-consecutive epochs. To limit overfitting, we set the L1 regularization to 𝛼 =1𝑒−4
+-The threshold for the Jaccard overlap in YOLO v3 and all SSD models is set to 0.5 and the Non-Maximum Suppression (NMS) threshold to 0.5, as proposed
+e cropping and padding using grid-search, recommended by Liu et al. (2016) for SSD models, in the domain {(𝛼𝑐𝑟𝑜𝑝,𝛼𝑝𝑎𝑑) ∶ 𝛼𝑐𝑟𝑜𝑝 ∈ {0.1,0.3,0.5,0.7} and 𝛼𝑝𝑎𝑑 ∈ {1.1,1.3,1.5,1.7}}
+-2D grid-search to incorporate the dependence between the learning rate and batch size. We search in the domain: {(𝐿𝑅,𝐵𝑆) ∶ 𝐿𝑅∈[1−3,5−3,1−4,5−4,1−5]; 𝐵𝑆 ∈ [16,32,64]}.
+-s.Thebestperformingconfigurationsare YOLOv3withDarknet-53 tambien con resnet va bien
+
+
+
+chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://ijcrt.org/papers/IJCRT2405301.pdf
+
+
+https://www.sciencedirect.com/science/article/pii/S2667305323000170
+VGG-16, VGG-19 (Simonyan & Zisserman, 2014), and Inception-ResNetV2 
+ResNetV2 model beat the VGG-16 and VGG-19 models in all detection, localization, and severity damage performance categories.  
+
+
+Machine suggested by CHATGPT it has GPU!!!
+Instance Type Selection: You are using ml.m5.2xlarge for the tuning job. While this is a solid choice for CPU-based training, if your YOLO model training is GPU-intensive, you might want to consider a GPU instance type like ml.p3.2xlarge or ml.g4dn.xlarge (as used in your estimator earlier).
