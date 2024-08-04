@@ -71,7 +71,7 @@ image_base64 = get_image_base64(os.path.join(icon_path, 'policyholder.png'))
 image_policyholder = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
                f'bottom: 10px; '
-               f'left: 50%; '  # Centered horizontally
+               f'left: 51%; '  # Centered horizontally
                f'transform: translateX(-50%); '
                f'width: 30px; '
                f'height: 30px;">')
@@ -191,6 +191,30 @@ rectangle_html2 = f"""
 
 st.title("Cellphone App")
 
+button_style = """
+    <style>
+    div.stButton > button {
+        color: white;
+        background-color: #023047; 
+        width: 100px; 
+        height: 45px;  
+        box-shadow: 0px 0px 30px 5px #006FAB;
+        font-size: 12px; /* Adjusted font size */
+        padding: 2px; 
+        border-radius: 10px; /* Optional: rounded corners */
+    }
+    </style>
+    """
+# Inject custom CSS
+st.markdown(button_style, unsafe_allow_html=True)
 
 # Display the rectangle immediately after the title
 st.markdown(rectangle_html2, unsafe_allow_html=True)
+
+# Add buttons below the rectangle
+col1, col2, col3 = st.columns([0.5, 1,2])
+
+
+with col2:
+    if st.button("Home", key="home"):
+        st.switch_page(os.path.join(os.getcwd(), "API/Homepage.py"))

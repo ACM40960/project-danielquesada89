@@ -17,6 +17,31 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+# Custom CSS to position the button on top of the rectangle
+button_css = """
+<style>
+#button-container {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.stButton>button {
+    width: 400px;
+    height: 80px;
+    background-color: #023047;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);
+}
+</style>
+"""
+st.markdown(button_css, unsafe_allow_html=True)
+
 # Define the icons paths
 icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Icons')
 
@@ -84,86 +109,34 @@ image_settings = (f'<img src="data:image/png;base64,'
                f'width: 30px; '
                f'height: 30px;">')
 
-# HTML and CSS to create the main rectangle with button directly in the HTML
-# HTML and CSS to create the main rectangle with button directly in the HTML
-rectangle_html2 = f"""
-<div style="
-    width: 800px;
-    height: 500px;
-    background-color: #62B6CB;
-    margin: 30px -50px;
-    box-shadow: 0px 0px 30px 5px #006FAB;
-    position: relative;
-">
-    {image_policy_details2}
-    {text_container}
-    {image_home}
-    {image_policyholder}
-    {image_settings}
-    <div style="
-        width: 800px;
-        height: 370px;
-        background-color: #FFFFFF;
-        position: absolute;
-        bottom: 60px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    ">
-        <!-- JavaScript button to open a new tab -->
-        <button onclick="window.open('http://localhost:8501/Policy_Details', '_blank');"
-                style="
-                    padding: 10px 40px; 
-                    font-size: 20px; 
-                    cursor: pointer; 
-                    width: 500px; 
-                    height: 80px; 
-                    background-color: #023047; 
-                    color: white; 
-                    border: none; 
-                    border-radius: 20px; 
-                    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);
-                ">
-            Auto Claims Processing
-        </button>
-    </div>
-</div>
-"""
-st.markdown("""
-    <style>
-    div.stButton > button {
-        background-color: #023047;
-        color: white;
-        width: 90%;  /* Make the button fill the column */
-        height: 50px;  /* Set a fixed height */
-        font-size: 16px;  /* Adjust the font size */
-        box-shadow: 0px 0px 30px 5px #006FAB;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
+# Display the title and description using Streamlit layout
 st.title("Cellphone App")
 
-# Display the HTML layout
-st.markdown(rectangle_html2, unsafe_allow_html=True)
-
-col1, col2 = st.columns(2)
-
-home_image_path = os.path.join(icon_path, 'settings.png')
-claim_image_path =os.path.join(icon_path, 'settings.png')
-
-with col1:
-    if st.button("Home", key="home"):
-        st.switch_page(os.path.join(os.getcwd(), "API/Homepage.py"))
-
-with col2:
-    if st.button("Open a New Claim", key="open_claim"):
-        st.switch_page(os.path.join(os.getcwd(), "API/pages/3_Upload_Damage.py"))
-
-
-
-
-
+# Center the content using a container
+with st.container():
+    # Display the main content block
+    st.markdown(f"""
+        <div style="
+            width: 800px;
+            height: 500px;
+            background-color: #62B6CB;
+            margin: 30px -50px;
+            box-shadow: 0px 0px 30px 5px #006FAB;
+            position: relative;
+            text-align: center;
+        ">
+            {image_policy_details2}
+            {text_container}
+            {image_home}
+            {image_policyholder}
+            {image_settings}
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Position the button using a placeholder and custom CSS
+    button_placeholder = st.empty()
+    with button_placeholder.container():
+        st.markdown('<div id="button-container"></div>', unsafe_allow_html=True)
+        if st.button("Open a New Claim", key="open_claim"):
+            st.switch_page(os.path.join(os.getcwd(),"API/pages/1_Policy_Details.py"))
 

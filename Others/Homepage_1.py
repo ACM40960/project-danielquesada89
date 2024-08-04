@@ -60,7 +60,7 @@ image_more = (f'<img src="data:image/png;base64,'
 image_base64 = get_image_base64(os.path.join(icon_path, 'home.png'))
 image_home = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 110px; '
+               f'bottom: 10px; '
                f'left: 15%; '  # Position to the left
                f'transform: translateX(-50%); '
                f'width: 30px; '
@@ -70,7 +70,7 @@ image_home = (f'<img src="data:image/png;base64,'
 image_base64 = get_image_base64(os.path.join(icon_path, 'policyholder.png'))
 image_policyholder = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 110px; '
+               f'bottom: 10px; '
                f'left: 50%; '  # Centered horizontally
                f'transform: translateX(-50%); '
                f'width: 30px; '
@@ -80,7 +80,7 @@ image_policyholder = (f'<img src="data:image/png;base64,'
 image_base64 = get_image_base64(os.path.join(icon_path, 'settings.png'))
 image_settings = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 110px; '
+               f'bottom: 10px; '
                f'left: 85%; '  # Position to the right
                f'transform: translateX(-50%); '
                f'width: 30px; '
@@ -108,45 +108,46 @@ text_pol_id = (f'<p style="position: absolute; '
              f'margin: 0;">Policy ID 4532609</p>')
 
 # Image policy_details with JavaScript onclick event
-image_base64 = get_image_base64(os.path.join(icon_path, 'policy_details3.png'))
+image_base64 = get_image_base64(os.path.join(icon_path, 'policy_details.png'))
 image_policy_details = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'top: 49%; '
-               f'left: 20%; '  # Position to the left
+               f'top: 55%; '
+               f'left: 15%; '  # Position to the left
                f'transform: translate(-50%, -50%); '
-               f'width: 70px; '
-               f'height: 70px; cursor: pointer;" onclick="window.location.href=\'http://localhost:8501/Policy_Details\'">')
+               f'width: 100px; '
+               f'height: 90px; cursor: pointer;" onclick="window.location.href=\'http://localhost:8501/Policy_Details\'">')
 
 # Image file_a_claim
-image_base64 = get_image_base64(os.path.join(icon_path, 'file_a_claim2.png'))
+image_base64 = get_image_base64(os.path.join(icon_path, 'file_a_claim.png'))
 image_file_a_claim = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'top: 50%; '
+               f'top: 55%; '
                f'left: 50%; '
                f'transform: translate(-50%, -50%); '
-               f'width: 70px; '
-               f'height: 70px;">')
+               f'width: 100px; '
+               f'height: 90px;">')
 
 # Image policy_details
-image_base64 = get_image_base64(os.path.join(icon_path, 'manage_claims2.png'))
+image_base64 = get_image_base64(os.path.join(icon_path, 'manage_claims.png'))
 image_manage_claims = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'top: 50%; '
-               f'left: 78%; '  # Position to the left
+               f'top: 55%; '
+               f'left: 85%; '  # Position to the left
                f'transform: translate(-50%, -50%); '
-               f'width: 70px; '
-               f'height: 70px;">')
+               f'width: 120px; '
+               f'height: 90px;">')
 
 
 # Rounded rectangle with centered image
 rounded_rectangle = f"""
 <div style="
-    width: 500px;
+    width: 400px;
     height: 90px;
     background-color: #FFFFFF;
     border-radius: 10px;
+    box-shadow: 0px 0px 30px 5px #006FAB;
     position: absolute;
-    bottom: 0px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
 ">
@@ -159,7 +160,7 @@ rounded_rectangle = f"""
 image_base64 = get_image_base64(os.path.join(icon_path, 'line.png'))
 image_line = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 105px; '
+               f'bottom: 0px; '
                f'left: 50%; '  # Centered horizontally
                f'transform: translateX(-50%); '
                f'width: 40px; '
@@ -168,7 +169,7 @@ image_line = (f'<img src="data:image/png;base64,'
 # HTML and CSS to create the main rectangle
 rectangle_html = f"""
 <div style="
-    width: 500px;
+    width: 400px;
     height: 500px;
     background-color: #62B6CB;
     margin: 30px -50px;
@@ -194,36 +195,3 @@ st.title("Cellphone App")
 
 # Display the rectangle immediately after the title
 st.markdown(rectangle_html, unsafe_allow_html=True)
-
-button_style = """
-    <style>
-    div.stButton > button {
-        color: white;
-        background-color: #023047; 
-        width: 100px; 
-        height: 45px;  
-        box-shadow: 0px 0px 30px 5px #006FAB;
-        font-size: 12px; /* Adjusted font size */
-        padding: 2px; 
-        border-radius: 10px; /* Optional: rounded corners */
-    }
-    </style>
-    """
-# Inject custom CSS
-st.markdown(button_style, unsafe_allow_html=True)
-
-# Add buttons below the rectangle
-col1, col2, col3 = st.columns([1, 1,3])
-
-with col1:
-    if st.button("Policy Details"):
-        st.switch_page(os.path.join(os.getcwd(), "API/pages/1_Policy Details.py"))
-
-
-with col2:
-    if st.button("File Claim"):
-        st.switch_page(os.path.join(os.getcwd(), "API/pages/2_File Claim.py"))
-
-with col3:
-    if st.button("Manage Claim"):
-        st.switch_page(os.path.join(os.getcwd(), "API/pages/2_File Claim.py"))
