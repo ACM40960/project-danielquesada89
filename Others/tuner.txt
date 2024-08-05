@@ -50,5 +50,5 @@ https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-progress.
 # tune explanation optimization
 https://docs.ultralytics.com/yolov5/tutorials/hyperparameter_evolution/#supported-environments
 
-
-# los funciton
+#the best pt is chosen by taking the epoch with the best weigthed MAP AND MAP50 in vlaidation set
+https://github.com/ultralytics/ultralytics/issues/3972
