@@ -1,0 +1,13 @@
+names:
+- mis_lost
+- met_tear
+- met_scratch
+- glass_crack
+- mis_punct
+- mis_lamp
+- met_dent_minor
+- met_dent_medium
+- met_dent_severe
+nc: 9
+train: /home/sagemaker-user/project-danielteresa/train_prueba/images
+val: /home/sagemaker-user/project-danielteresa/val_prueba/images

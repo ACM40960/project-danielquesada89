@@ -14,7 +14,7 @@ path_train_aug: "./Data/train/train_aug"
 path_train_val: "./Data/train/val"
 path_test: "./Data/test"
 path_yolo : "./Data/Yoloimages/" # Images structured using Yolo format requirement 
-
+path_models: "./Models"
 # annotations names
 kaggle_train_annotations : "annotations_train.json"
 train_annotations_name_temp: "annotations_train_temp.json"
