@@ -1347,12 +1347,12 @@ def create_yaml_file(file_path, train_path, val_path, nc, names):
             names: names of the categories
     """
     data = {
-        'train': train_path,
-        'val': val_path,
-        'nc': nc,
-        'names': names
+            'train': train_path,
+            'val': val_path,
+            'nc': nc,
+            'names': names
     }
-
+    
     with open(file_path, 'w') as file:
         yaml.dump(data, file, default_flow_style=False)
 
@@ -1434,8 +1434,10 @@ def print_styled_metrics_table(metrics, names, color):
     class_names = [names[i] for i in range(len(names))]
     
     # Extract mAP50, precision, recall, and F1 score values for boxes and segmentation
-    box_maps = metrics.box.maps
-    seg_maps = metrics.seg.maps
+    box_ap5095 = metrics.box.ap
+    seg_ap5095 = metrics.seg.ap
+    seg_ap50 = metrics.seg.ap50
+    box_ap50 = metrics.box.ap50
     box_precision = metrics.box.p
     seg_precision = metrics.seg.p
     box_recall = metrics.box.r
@@ -1446,16 +1448,34 @@ def print_styled_metrics_table(metrics, names, color):
     # Create a DataFrame
     df = pd.DataFrame({
         "Class Name": class_names,
-        "Box mAP50": box_maps,
-        "Segmentation mAP50": seg_maps,
         "Box Precision": box_precision,
-        "Segmentation Precision": seg_precision,
         "Box Recall": box_recall,
+        "Box F1 Score": box_f1,        
+        "Box AP50": box_ap50,
+        "Box AP50-95": box_ap5095,
+        "Segmentation Precision": seg_precision,
         "Segmentation Recall": seg_recall,
-        "Box F1 Score": box_f1,
-        "Segmentation F1 Score": seg_f1
+        "Segmentation F1 Score": seg_f1,
+        "Segmentation AP50": seg_ap50,
+        "Segmentation AP50-95": seg_ap5095        
     })
 
+    all_results = pd.DataFrame({
+    "Class Name": ['all'],
+    "Box Precision": [metrics.box.mp],
+    "Box Recall": [metrics.box.mr],
+    "Box F1 Score": [2 * metrics.box.mr * metrics.box.mp / (metrics.box.mp + metrics.box.mr)],
+    "Box AP50": [metrics.box.map50],
+    "Box AP50-95": [metrics.box.map],    
+    "Segmentation Precision": [metrics.seg.mp],
+    "Segmentation Recall": [metrics.seg.mr],
+    "Segmentation F1 Score": [2 * metrics.seg.mr * metrics.seg.mp / (metrics.seg.mp + metrics.seg.mr)],
+    "Segmentation AP50": [metrics.seg.map50],
+    "Segmentation AP50-95": [metrics.seg.map]
+    })
+
+    df = pd.concat([df, all_results], ignore_index=True)
+    
     # Apply custom styling
     styled_df = df.style.set_table_styles(
         [
@@ -1580,11 +1600,11 @@ def metrics_yolo(model, path_results_yolo, color1, color2):
     print_styled_metrics_table(metrics, names , color1)
     confusion_matrix_yolo(metrics, names, color1)
     
-    path_results_yolo = "./Models/runs/train"
     df_epochs = pd.read_csv(os.path.join(path_results_yolo,"results.csv"))
     df_epochs.columns = df_epochs.columns.str.strip()
 
     plot_losses_side_by_side(df_epochs, color1, color2)
+
 
 
 def upload_folder_to_s3(local_folder, s3_bucket):
