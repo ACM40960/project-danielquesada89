@@ -1484,7 +1484,7 @@ def print_styled_metrics_table(metrics, names, color):
             {'selector': 'tbody th', 'props': [('background-color', color), ('color', 'white'), ('text-align', 'center')]},
             {'selector': 'table', 'props': [('border-collapse', 'collapse'), ('width', '100%')]},
         ]
-    ).set_caption("Class-wise mAP50, Precision, Recall, and F1 Score for Boxes and Segmentation").format(precision=4)
+    ).format(precision=4)
 
     # Display the styled DataFrame
     display(styled_df)
