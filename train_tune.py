@@ -20,6 +20,7 @@ if __name__ == "__main__":
     # Hyperparameters
     
     parser.add_argument('--epochs',type=int, help='number of training epochs')
+    parser.add_argument('--patience',type=int, help='patience value')
     parser.add_argument("--batch", type=int, default=5)
     
     parser.add_argument('--optimizer', type=str, help='optimizer to use')
@@ -53,6 +54,7 @@ if __name__ == "__main__":
                      lrf=args.lrf, 
                      momentum=args.momentum,
                      weight_decay=args.weight_decay,
+                     patience=args.patience,
                      task='segment',
                      project=args.runs_path)
     
