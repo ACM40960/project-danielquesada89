@@ -29,7 +29,9 @@ test_annotations_name : "annotations_test_updated.json"
 weights_yolo_path : 'Models/yolo_weights'
 runs_path: 'Models/runs'
 
-
+# AWS S3 bucket names
+bucket_name: "sagemaker-eu-west-1-project-danielteresa/"
+bucket_name2: "sagemaker-eu-west-1-project-danielteresa"
 
 
 
