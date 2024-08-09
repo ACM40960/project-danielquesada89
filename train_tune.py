@@ -21,7 +21,7 @@ if __name__ == "__main__":
     
     parser.add_argument('--epochs',type=int, help='number of training epochs')
     parser.add_argument('--patience',type=int, help='patience value')
-    parser.add_argument("--batch", type=int, default=5)
+    parser.add_argument("--batch", type=int, help='batch size')
     
     parser.add_argument('--optimizer', type=str, help='optimizer to use')
     parser.add_argument('--lr0', type=float, help='initial learning rate')
