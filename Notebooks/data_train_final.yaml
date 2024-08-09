@@ -10,4 +10,4 @@ names:
 - met_dent_severe
 nc: 9
 train: null
-val: /home/sagemaker-user/project-danielteresa/./Data/Yoloimages/val_prueba/images
+val: /home/sagemaker-user/project-danielteresa/./Data/Yoloimages/train_final/images

@@ -15,6 +15,7 @@ path_train_val: "./Data/train/val"
 path_test: "./Data/test"
 path_yolo : "./Data/Yoloimages/" # Images structured using Yolo format requirement 
 path_models: "./Models"
+
 # annotations names
 kaggle_train_annotations : "annotations_train.json"
 train_annotations_name_temp: "annotations_train_temp.json"
@@ -32,6 +33,12 @@ runs_path: 'Models/runs'
 # AWS S3 bucket names
 bucket_name: "sagemaker-eu-west-1-project-danielteresa/"
 bucket_name2: "sagemaker-eu-west-1-project-danielteresa"
+
+# models names to be saved in S3
+# this should be the structure: ^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,31}
+
+tuning_jobname: "YOLO-tuning2"
+final_jobname:  "YOLO-final"
 
 
 
