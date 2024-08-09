@@ -141,7 +141,7 @@ white_rectangle = f"""
     left: 50%;
     transform: translateX(-50%);
 ">
-
+    
 </div>
 """
 
@@ -163,11 +163,23 @@ rectangle_html3 = f"""
     {image_settings}
     {white_rectangle}
 
+
 </div>
 """
 
-# White rectangle with centered image
-white_rectangle = f"""
+# Date Picker Container
+date_picker_container = (f'<div style="margin-left: 50px;; margin-top: 310px;">'
+                         f'<p style="font-family: Arial, sans-serif; '
+                         f'font-size: 12px; '
+                         f'color: #FF6200;margin-bottom: 6px">Schedule the Appointment</p>'
+                         f'<input type="date" placeholder="Enter the Claim Date" '
+                         f'style="width: 30%; padding: 7px; font-size: 10px; '
+                         f'border-radius: 3px; border: 1px solid "#fb8500";">'
+
+                         f'</div>')
+
+# outline rectangle with centered image
+rectangle_outline = f"""
 <div style="
     width: {width_policyholder * 1.07}px;
     height: 530px;
@@ -181,6 +193,7 @@ white_rectangle = f"""
         inset 1px 1px 0px 0px #BFBFBF,    /* Bottom-right shadow for bevel */
         inset 0px 0px 5px 1.5px #BFBFBF;    /* Inner shadow for additional depth */
 ">
+    {date_picker_container}
 </div>
 """
 
@@ -213,8 +226,11 @@ rectangle_html2 = f"""
     box-shadow: 0px 0px 30px 5px #006FAB;
     position: relative;
 ">
+     
+     
      {rectangle2}
-     {white_rectangle}
+     {rectangle_outline}
+     
 </div>
 """
 
