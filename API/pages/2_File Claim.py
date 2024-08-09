@@ -155,12 +155,12 @@ home_image_path = os.path.join(icon_path, 'settings.png')
 claim_image_path =os.path.join(icon_path, 'settings.png')
 
 with col1:
-    if st.button("Home", key="home"):
+    if st.button(f"Home", key="home"):
         st.switch_page(os.path.join(os.getcwd(), "API/Homepage.py"))
 
 with col2:
     if st.button("Open a New Claim", key="open_claim"):
-        st.switch_page(os.path.join(os.getcwd(), "API/pages/3_Upload_Damage.py"))
+        st.switch_page("pages/3_Upload Damage.py")
 
 
 
