@@ -99,7 +99,7 @@ image_pol_det = (f'<img src="data:image/png;base64,'
 
 
 # Title Container for Claim ID
-title_container2 = (f'<div style="margin-bottom: 20px;">'  # Add margin to create space below the title
+title_container2 = (f'<div>'  # Add margin to create space below the title
                     f'<p style="font-family: Arial, sans-serif; '
                     f'font-size: 18px; '
                     f'font-weight: bold; '
@@ -108,98 +108,41 @@ title_container2 = (f'<div style="margin-bottom: 20px;">'  # Add margin to creat
 
 # Date Picker Container
 # Date Picker Container
-date_picker_container = (f'<div style="margin-bottom: 15px;">'
+# Date Picker Container
+date_picker_container = (f'<div  style="margin-bottom: 7px;">'
                          f'<p style="font-family: Arial, sans-serif; '
-                         f'font-size: 15px; '  # Match font size with other containers
+                         f'font-size: 15px; '  
                          f'color: #FF6200; margin-bottom: 8px;">Date</p>'
-                         f'<input type="date" placeholder="Enter the Claim Date" '
-                         f'style="width: 40%; padding: 7px; font-size: 10px; '  # Match width and padding with other containers
-                         f'border-radius: 5px; border: 2px solid #023047;">'  # Match border style with other containers
+                         f'<input type="text" onfocus="(this.type=\'date\')" placeholder="Select Date" '
+                         f'style="width: 40%; padding: 7px; font-size: 10px; '  
+                         f'border-radius: 5px; border: 2px solid #023047;">'  
                          f'</div>')
 
 # Time Picker Container
-time_picker_container = (f'<div>'  
+time_picker_container = (f'<div style="margin-bottom: 7px;">'  
                          f'<p style="font-family: Arial, sans-serif; '
                          f'font-size: 15px; '
                          f'color: #FF6200; margin-bottom: 8px;">Time</p>'
-                         f'<input type="time" placeholder="Enter the Claim Time" '
+                         f'<input type="text" onfocus="(this.type=\'time\')" placeholder="Select Time" '
                          f'style="width: 40%; padding: 7px; font-size: 10px; '
                          f'border-radius: 5px; border: 2px solid #023047;">'
                          f'</div>')
 
 # Yes/No Selector Container
-yes_no_container = (f'<div style="margin-top: 10px;">'
+yes_no_container = (f'<div style="margin-bottom: 7px;">'
                     f'<p style="font-family: Arial, sans-serif; '
                     f'font-size: 15px; '
                     f'color: #FF6200; margin-bottom: 8px;">Do you need road assistance?</p>'
                     f'<select style="width: 40%; padding: 7px; font-size: 10px; '
-                    f'border-radius: 5px; border: 2px solid #023047;">'
-                    f'  <option value="">Select Yes / No</option>'
+                    f'border-radius: 5px; border: 2px solid #023047; color: #666;">'  # Default color for dropdown text
+                    f'  <option value="" style="color: #FF6200;">Select Yes / No</option>'  # Color for the placeholder
                     f'  <option value="Yes">Yes</option>'
                     f'  <option value="No">No</option>'
                     f'</select>'
                     f'</div>')
 
-
-
-# Now include this title container and the date picker inside the `rectangle2`
-rectangle2 = f"""
-<div style="
-    width: 800px;
-    height: 370px;
-    background-color: #FFFFFF;
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 20px;
-">
-    {title_container2}
-    {date_picker_container}  <!-- Add the date picker container here -->
-    {time_picker_container}
-    {yes_no_container }
-</div>
-"""
-
-rectangle_html2 = f"""
-<div style="
-    width: 800px;
-    height: 500px;
-    background-color: #62B6CB;
-    margin: 30px -50px;
-    box-shadow: 0px 0px 30px 5px #006FAB;
-    position: relative;
-">
-    {image_policy_details2}
-    {text_container}
-    {image_home}
-    {image_policyholder}
-    {image_settings}
-    {rectangle2}  <!-- Updated rectangle with the new title and date input -->
-</div>
-"""
-
-
-# Claim Details Picture Upload Container
-uploaded_file = st.file_uploader("Upload Photo", type=["jpg", "jpeg", "png"])
-
-if uploaded_file is not None:
-    # Save the uploaded file to a directory
-    save_directory = "uploads"  # Specify the directory where you want to save the file
-    if not os.path.exists(save_directory):
-        os.makedirs(save_directory)
-
-    file_path = os.path.join(save_directory, uploaded_file.name)
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
-    
-    st.success(f"Photo saved successfully: {file_path}")
-
-    # Optionally display the uploaded image
-    st.image(file_path, caption="Uploaded Photo", use_column_width=True)
-
 # HTML Container for the file upload (simulating placement within HTML)
-file_upload_container = (f'<div style="margin-top: 20px;">'
+file_upload_container = (f'<div style="margin-bottom: 7px;">'
                          f'<p style="font-family: Arial, sans-serif; '
                          f'font-size: 15px; '
                          f'color: #FF6200; margin-bottom: 8px;">Claim Details Picture</p>'
@@ -208,11 +151,28 @@ file_upload_container = (f'<div style="margin-top: 20px;">'
                          f'border-radius: 5px; border: 2px solid #023047;">'
                          f'</div>')
 
+# Claim Details Picture Upload Container
+st.write('<style>div[role="listbox"] ul{width:100%}</style>', unsafe_allow_html=True)
+col1, col2, col3 = st.columns([2,0.75,0.75])  # This creates a centered column for the uploader
+
+with col1:
+    uploaded_file = st.file_uploader(" ", type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    # Save the uploaded file to a directory
+    save_directory = "API/uploads"  # Specify the directory where you want to save the file
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
+
+    file_path = os.path.join(save_directory, uploaded_file.name)
+    with open(file_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
 
 # Now include this title container and the date picker inside the `rectangle2`
 rectangle2 = f"""
 <div style="
-    width: 800px;
+    width: 500px;
     height: 370px;
     background-color: #FFFFFF;
     position: absolute;
@@ -222,16 +182,16 @@ rectangle2 = f"""
     padding: 20px;
 ">
     {title_container2}
-    {date_picker_container}  <!-- Add the date picker container here -->
+    {date_picker_container}  
     {time_picker_container}
     {yes_no_container}
-    {file_upload_container}  <!-- File Upload HTML Placeholder -->
+    {file_upload_container}  
 </div>
 """
 
 rectangle_html2 = f"""
 <div style="
-    width: 800px;
+    width: 500px;
     height: 500px;
     background-color: #62B6CB;
     margin: 30px -50px;
@@ -243,11 +203,40 @@ rectangle_html2 = f"""
     {image_home}
     {image_policyholder}
     {image_settings}
-    {rectangle2}  <!-- Updated rectangle with the new title and date input -->
-</div>
+    {rectangle2}  
 """
-# Display the rectangle immediately after the title
+
 st.markdown(rectangle_html2, unsafe_allow_html=True)
 
 
+# The buttoms for moving to home or processed the damage
 
+button_style = """
+    <style>
+    div.stButton > button {
+        color: white;
+        background-color: #023047; 
+        width: 150px; 
+        height: 45px;  
+        box-shadow: 0px 0px 30px 5px #006FAB;
+        font-size: 12px; /* Adjusted font size */
+        padding: 2px; 
+        border-radius: 10px; /* Optional: rounded corners */
+    }
+    </style>
+    """
+
+# Inject custom CSS
+st.markdown(button_style, unsafe_allow_html=True)
+
+# Add buttons below the rectangle
+col1, col2= st.columns([1.5, 3])
+
+with col1:
+    if st.button("Home"):
+        st.switch_page(os.path.join(os.getcwd(), "API/Homepage.py"))
+
+
+with col2:
+    if st.button("Process the claim"):
+        st.switch_page("pages/4_Final View.py")
