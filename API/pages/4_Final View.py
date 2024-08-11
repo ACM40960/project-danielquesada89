@@ -1,6 +1,10 @@
 import streamlit as st
 import base64
 import os
+from ultralytics import YOLO
+import joblib
+import pandas as pd
+
 
 st.set_page_config(
     page_title="Cellphone App",
@@ -264,3 +268,103 @@ col1, col2, col3 = st.columns([0.5, 1,2])
 with col2:
     if st.button("Home", key="home"):
         st.switch_page(os.path.join(os.getcwd(), "API/Homepage.py"))
+
+
+####################################################
+###       Model Deployment                       ###
+####################################################
+
+# workshop selection
+workshops={
+'Smithfield Autotech':'Low',
+'Sandyford McCann Motors':'Medium',
+'Mobile Mechanic':'High'
+}
+
+selected_workshop='Sandyford McCann Motors'
+
+selected_workshop_qual= workshops[selected_workshop]
+
+# path upload
+path_upload = 'API/uploads'
+
+picture_name=os.listdir(path_upload)[0]
+
+full_path= os.path.join(path_upload,picture_name)
+
+# we import both models
+yolo_model = YOLO("Models/best_modeltuning_YOLO-tuning7/train/weights/best.pt")
+cost_model=joblib.load("Models/cost_model.pkl")
+
+# we predict the image
+results = yolo_model.predict(full_path,conf=0.15)
+
+# we save the image
+path_output = os.path.join(path_upload, 'pred_'+picture_name)
+results[0].save(filename=path_output)
+
+# we predict the cost of the claims
+case = pd.DataFrame({
+'const': [1],
+'brand_Volkswagen': [0],
+'model_Corolla': [0],
+'model_Golf': [0],
+'model_Polo': [0],
+'model_Tiguan': [0],
+'model_Yaris': [1],
+'veh_age_range_Newer': [1],
+'veh_age_range_Old': [0],
+'workshop_quality_Low': [0],
+'workshop_quality_Medium': [0],
+'counties_group2': [0],
+'counties_group3': [0],
+'damage_type_met_dent_medium': [0],
+'damage_type_met_dent_minor': [0],
+'damage_type_met_dent_severe': [0],
+'damage_type_met_tear': [0],
+'damage_type_mis_lamp': [0],
+'damage_type_mis_lost': [0],
+'damage_type_mis_punct': [0]
+})
+
+
+# Adjust case DataFrame based on selected_workshop_qual
+if selected_workshop_qual == 'High':
+    case['workshop_quality_Low'] = [0]
+    case['workshop_quality_Medium'] = [0]
+elif selected_workshop_qual == 'Medium':
+    case['workshop_quality_Low'] = [0]
+    case['workshop_quality_Medium'] = [1]
+elif selected_workshop_qual == 'Low':
+    case['workshop_quality_Low'] = [1]
+    case['workshop_quality_Medium'] = [0]
+
+
+damage_types = [results[0].names[int(cls)] for cls in results[0].boxes.cpu().numpy().cls]
+
+# Function to generate the complete_case DataFrame
+def generate_complete_case(case, damage_types):
+    complete_case = pd.DataFrame()
+
+    for damage_type in damage_types:
+        temp_case = case.copy()
+
+        # Set the corresponding damage type to 1
+        damage_column = f'damage_type_{damage_type}'
+        if damage_column in temp_case.columns:
+            temp_case[damage_column] = [1]
+
+        # Append this row to the complete_case DataFrame
+        complete_case = pd.concat([complete_case, temp_case], ignore_index=True)
+
+    return complete_case
+
+
+# Generate the complete_case DataFrame
+complete_case = generate_complete_case(case, damage_types)
+
+# dataframe with the predictions
+cost_predictions= pd.DataFrame({'Damages': damage_types,
+'Cost Estimates': cost_model.predict(complete_case)
+})
+cost_predictions.to_csv("prueba.csv")
