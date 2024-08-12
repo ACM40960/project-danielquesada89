@@ -18,6 +18,7 @@ import yaml
 from matplotlib.colors import LinearSegmentedColormap
 from tqdm import tqdm
 import subprocess
+import boto3
 
 ################################################
 ########## 1 Data Processing Functions #########
@@ -1664,6 +1665,41 @@ def upload_file_to_s3(local_file, s3_bucket):
         print(f"Successfully uploaded {local_file} to s3://{s3_bucket}/{s3_path}")
 
 
+def count_s3_objects(bucket_name, prefix):
+    """
+    Count the number of objects in a specific S3 "folder" (prefix).
 
+    Parameters:
+    bucket_name (str): The name of the S3 bucket.
+    prefix (str): The prefix (folder path) within the bucket to count objects in.
+
+    Returns:
+    int: The total number of objects within the specified prefix.
+
+    Example:
+        bucket_name = 'my-bucket'
+        prefix = 'my-folder/'
+        total_objects = count_s3_objects(bucket_name, prefix)
+        print(f'Total objects in {prefix}: {total_objects}')
+    """
+
+    # Create an S3 client
+    s3 = boto3.client('s3')
+
+    # Initialize a paginator to handle the list of objects
+    paginator = s3.get_paginator('list_objects_v2')
+
+    # Create a dictionary to store the response
+    page_iterator = paginator.paginate(Bucket=bucket_name, Prefix=prefix)
+
+    # Initialize the count
+    object_count = 0
+
+    # Loop through the pages
+    for page in page_iterator:
+        if 'Contents' in page:
+            object_count += len(page['Contents'])
+
+    return object_count
 
 
