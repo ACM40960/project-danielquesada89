@@ -38,7 +38,7 @@ bucket_name2: "sagemaker-eu-west-1-project-danielteresa"
 # models names to be saved in S3
 # this should be the structure: ^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,31}
 
-tuning_jobname: "YOLO-tuning8"
+tuning_jobname: "YOLO-tuning9"
 final_jobname:  "YOLO-final2"
 
 
