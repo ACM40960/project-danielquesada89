@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 import os
+import shutil
 
 st.set_page_config(
     page_title="Cellphone App",
@@ -103,7 +104,7 @@ title_container2 = (f'<div>'  # Add margin to create space below the title
                     f'<p style="font-family: Arial, sans-serif; '
                     f'font-size: 18px; '
                     f'font-weight: bold; '
-                    f'color: #023047;">Policy ID 29382921</p>'
+                    f'color: #023047;">Claim ID 29382921 </p>'
                     f'</div>')
 
 # Date Picker Container
@@ -158,9 +159,14 @@ col1, col2, col3 = st.columns([2,0.75,0.75])  # This creates a centered column f
 with col1:
     uploaded_file = st.file_uploader(" ", type=["jpg", "jpeg", "png"])
 
+
+
+save_directory = "API/uploads" 
+if os.path.exists(save_directory):
+        shutil.rmtree(save_directory)
+
 if uploaded_file is not None:
     # Save the uploaded file to a directory
-    save_directory = "API/uploads"  # Specify the directory where you want to save the file
     if not os.path.exists(save_directory):
         os.makedirs(save_directory)
 
