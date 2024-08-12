@@ -4,7 +4,7 @@ import os
 import shutil
 
 st.set_page_config(
-    page_title="Cellphone App",
+    #page_title="Cellphone App",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -152,27 +152,7 @@ file_upload_container = (f'<div style="margin-bottom: 7px;">'
                          f'border-radius: 5px; border: 2px solid #023047;">'
                          f'</div>')
 
-# Claim Details Picture Upload Container
-st.write('<style>div[role="listbox"] ul{width:100%}</style>', unsafe_allow_html=True)
-col1, col2, col3 = st.columns([2,0.75,0.75])  # This creates a centered column for the uploader
 
-with col1:
-    uploaded_file = st.file_uploader(" ", type=["jpg", "jpeg", "png"])
-
-
-
-save_directory = "API/uploads" 
-if os.path.exists(save_directory):
-        shutil.rmtree(save_directory)
-
-if uploaded_file is not None:
-    # Save the uploaded file to a directory
-    if not os.path.exists(save_directory):
-        os.makedirs(save_directory)
-
-    file_path = os.path.join(save_directory, uploaded_file.name)
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
 
 
 # Now include this title container and the date picker inside the `rectangle2`
@@ -200,7 +180,7 @@ rectangle_html2 = f"""
     width: 500px;
     height: 500px;
     background-color: #62B6CB;
-    margin: 30px -50px;
+    margin: -40px -50px 10px -50px;
     box-shadow: 0px 0px 30px 5px #006FAB;
     position: relative;
 ">
@@ -246,3 +226,25 @@ with col1:
 with col2:
     if st.button("Process the claim"):
         st.switch_page("pages/4_Final View.py")
+
+# Claim Details Picture Upload Container
+st.write('<style>div[role="listbox"] ul{width:10%; margin-top: -100px;}</style>', unsafe_allow_html=True)
+#st.write('<style>div[role="listbox"] ul{width:100%}</style>', unsafe_allow_html=True)
+col1, col2, col3 = st.columns([2,0.75,0.75])  # This creates a centered column for the uploader
+
+with col1:
+    uploaded_file = st.file_uploader(" ", type=["jpg", "jpeg", "png"])
+
+
+save_directory = "API/uploads"
+if os.path.exists(save_directory):
+        shutil.rmtree(save_directory)
+
+if uploaded_file is not None:
+    # Save the uploaded file to a directory
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
+
+    file_path = os.path.join(save_directory, uploaded_file.name)
+    with open(file_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())

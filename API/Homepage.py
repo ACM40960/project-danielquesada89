@@ -60,7 +60,7 @@ image_more = (f'<img src="data:image/png;base64,'
 image_base64 = get_image_base64(os.path.join(icon_path, 'home.png'))
 image_home = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 110px; '
+               f'bottom: 10px; '
                f'left: 15%; '  # Position to the left
                f'transform: translateX(-50%); '
                f'width: 30px; '
@@ -70,7 +70,7 @@ image_home = (f'<img src="data:image/png;base64,'
 image_base64 = get_image_base64(os.path.join(icon_path, 'policyholder.png'))
 image_policyholder = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 110px; '
+               f'bottom: 10px; '
                f'left: 50%; '  # Centered horizontally
                f'transform: translateX(-50%); '
                f'width: 30px; '
@@ -80,7 +80,7 @@ image_policyholder = (f'<img src="data:image/png;base64,'
 image_base64 = get_image_base64(os.path.join(icon_path, 'settings.png'))
 image_settings = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 110px; '
+               f'bottom: 10px; '
                f'left: 85%; '  # Position to the right
                f'transform: translateX(-50%); '
                f'width: 30px; '
@@ -146,7 +146,7 @@ rounded_rectangle = f"""
     background-color: #FFFFFF;
     border-radius: 10px;
     position: absolute;
-    bottom: 0px;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
 ">
@@ -159,7 +159,7 @@ rounded_rectangle = f"""
 image_base64 = get_image_base64(os.path.join(icon_path, 'line.png'))
 image_line = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
-               f'bottom: 105px; '
+               f'bottom: 5px; '
                f'left: 50%; '  # Centered horizontally
                f'transform: translateX(-50%); '
                f'width: 40px; '
@@ -190,7 +190,7 @@ rectangle_html = f"""
 """
 
 # Title of the Streamlit app
-st.title("Cellphone App")
+# st.title("Cellphone App")
 
 # Display the rectangle immediately after the title
 st.markdown(rectangle_html, unsafe_allow_html=True)

@@ -7,7 +7,7 @@ import pandas as pd
 
 
 st.set_page_config(
-    page_title="Cellphone App",
+    #page_title="Cellphone App",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -301,47 +301,7 @@ rectangle2_1 = f"""
 """
 
 ######## Claim handler view 
-# rectagule with the details
-rectangle2_2 = f"""
-<div style="
-    width: {width}px;
-    height: {height1}px;
-    background-color: #FFFFFF;
-    position: absolute;
-    top: 40px;
-    right: 50%;
-    transform: translateX(-50%);
-">
-    {image_policyholder_person}
-    {image_claimholder_person}
-    {text_container2}
-    {rectangle_html3}
-</div>
-"""
 
-# outline rectangle with centered image
-rectangle_outline_2 = f"""
-<div style="
-    width: {width_policyholder * 1.07}px;
-    height: 530px;
-    background-color: #white;
-    position: absolute;
-    top: 15%;
-    left: 74%;
-    transform: translateX(-50%);
-    box-shadow:
-        inset -1px -1px 0px 0px #BFBFBF,   /* Top-left shadow for bevel */
-        inset 1px 1px 0px 0px #BFBFBF,    /* Bottom-right shadow for bevel */
-        inset 0px 0px 5px 1.5px #BFBFBF;    /* Inner shadow for additional depth */
-">
-    {title_container2} 
-    {text_container3}
-    {workshop_container}
-    {date_picker_container}
-
-
-</div>
-"""
 
 # HTML and CSS to create the main rectangle
 rectangle_html2 = f"""
@@ -349,7 +309,7 @@ rectangle_html2 = f"""
     width: {width}px;
     height: {height2}px;
     background-color: #62B6CB;
-    margin: 30px -50px 30px -200px;
+    margin: 30px -50px -30px -200px;
     box-shadow: 0px 0px 30px 5px #006FAB;
     position: relative;
 ">
@@ -357,7 +317,6 @@ rectangle_html2 = f"""
      
      {rectangle2_1}
      {rectangle_outline_1}
-     {rectangle2_2}
 
 </div>
 """

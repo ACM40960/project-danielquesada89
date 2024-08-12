@@ -189,7 +189,7 @@ rectangle_html2 = f"""
 """
 
 
-st.title("Cellphone App")
+# st.title("Cellphone App")
 
 button_style = """
     <style>

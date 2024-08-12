@@ -3,7 +3,7 @@ import base64
 import os
 
 st.set_page_config(
-    page_title="Cellphone App",
+    #page_title="Cellphone App",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -144,7 +144,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.title("Cellphone App")
+#st.title("Cellphone App")
 
 # Display the HTML layout
 st.markdown(rectangle_html2, unsafe_allow_html=True)
