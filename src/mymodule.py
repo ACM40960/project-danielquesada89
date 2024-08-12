@@ -177,6 +177,10 @@ def plot_photo_df(image_path, image_name, data_class):
     image_name (str): Name of the image file to be plotted.
     data_class (dict): Dictionary containing polygon and bounding box data.
     """
+    # Define the color as a variable
+    # polygon_color = (0, 255, 0)
+    polygon_color = (255, 183, 3)
+
     # Construct the full image path
     full_image_path = os.path.join(image_path, image_name)
 
@@ -207,8 +211,61 @@ def plot_photo_df(image_path, image_name, data_class):
         polygon_points = np.array(list(zip(x_coords, y_coords)), np.int32)
         polygon_points = polygon_points.reshape((-1, 1, 2))
         # Draw polygons
-        cv2.polylines(image_rgb, [polygon_points], isClosed=True, color=(0, 255, 0), thickness=2)
+        cv2.polylines(image_rgb, [polygon_points], isClosed=True, color=polygon_color, thickness=2)
 
+    plt.figure(figsize=(10, 10))
+    plt.imshow(image_rgb)
+    plt.axis("off")
+    plt.show()
+
+def plot_polygons_from_coco(image_path, image_name, coco_json_path):
+    """
+    Plots the specified image with polygons using annotation data from a COCO format JSON file.
+
+    Parameters:
+    image_path (str): Path to the directory containing the images.
+    image_name (str): Name of the image file to be plotted.
+    coco_json_path (str): Path to the COCO format JSON file containing annotation data.
+    """
+    # Define the color for polygons
+    polygon_color = (255, 183, 3)
+
+    # Load COCO annotations from the JSON file
+    with open(coco_json_path, 'r') as f:
+        coco_data = json.load(f)
+
+    # Construct the full image path
+    full_image_path = os.path.join(image_path, image_name)
+
+    # Read the image
+    image = cv2.imread(full_image_path)
+
+    # Convert image to RGB
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Find the corresponding annotations for the given image
+    image_id = None
+    for img in coco_data['images']:
+        if img['file_name'] == image_name:
+            image_id = img['id']
+            break
+
+    if image_id is None:
+        print(f"Image \"{image_name}\" not found in the COCO annotations.")
+        return
+
+    # Iterate through annotations and plot polygons
+    for annotation in coco_data['annotations']:
+        if annotation['image_id'] == image_id and annotation['iscrowd'] == 0:
+            segmentation = annotation['segmentation']
+
+            # COCO segmentation can have multiple polygons per object
+            for segment in segmentation:
+                polygon_points = np.array(segment).reshape((-1, 2)).astype(int)
+                # Draw polygons
+                cv2.polylines(image_rgb, [polygon_points], isClosed=True, color=polygon_color, thickness=6)
+
+    # Plot the image with the polygons
     plt.figure(figsize=(10, 10))
     plt.imshow(image_rgb)
     plt.axis("off")
