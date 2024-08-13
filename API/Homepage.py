@@ -141,7 +141,7 @@ image_manage_claims = (f'<img src="data:image/png;base64,'
 # Rounded rectangle with centered image
 rounded_rectangle = f"""
 <div style="
-    width: 500px;
+    width: 400px;
     height: 90px;
     background-color: #FFFFFF;
     border-radius: 10px;
@@ -168,10 +168,10 @@ image_line = (f'<img src="data:image/png;base64,'
 # HTML and CSS to create the main rectangle
 rectangle_html = f"""
 <div style="
-    width: 500px;
+    width: 400px;
     height: 500px;
     background-color: #62B6CB;
-    margin: 30px -50px;
+    margin: 30px -30px;
     box-shadow: 0px 0px 30px 5px #006FAB;
     position: relative;
 ">
@@ -213,7 +213,7 @@ button_style = """
 st.markdown(button_style, unsafe_allow_html=True)
 
 # Add buttons below the rectangle
-col1, col2, col3 = st.columns([1, 1,3])
+col1, col2, col3 = st.columns([1, 1,4])
 
 with col1:
     if st.button("Policy Details"):

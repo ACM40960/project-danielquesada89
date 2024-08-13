@@ -113,8 +113,8 @@ title_container2 = (f'<div>'  # Add margin to create space below the title
 date_picker_container = (f'<div  style="margin-bottom: 7px;">'
                          f'<p style="font-family: Arial, sans-serif; '
                          f'font-size: 15px; '  
-                         f'color: #FF6200; margin-bottom: 8px;">Date</p>'
-                         f'<input type="text" onfocus="(this.type=\'date\')" placeholder="Select Date" '
+                         f'color: #FF6200; margin-bottom: 2px;">Date</p>'
+                         f'<input type="text" onfocus="(this.type=\'date\')" placeholder="Enter the claim date dd/mm/yyyy" '
                          f'style="width: 40%; padding: 7px; font-size: 10px; '  
                          f'border-radius: 5px; border: 2px solid #023047;">'  
                          f'</div>')
@@ -123,8 +123,8 @@ date_picker_container = (f'<div  style="margin-bottom: 7px;">'
 time_picker_container = (f'<div style="margin-bottom: 7px;">'  
                          f'<p style="font-family: Arial, sans-serif; '
                          f'font-size: 15px; '
-                         f'color: #FF6200; margin-bottom: 8px;">Time</p>'
-                         f'<input type="text" onfocus="(this.type=\'time\')" placeholder="Select Time" '
+                         f'color: #FF6200; margin-bottom: 2px;">Time</p>'
+                         f'<input type="text" onfocus="(this.type=\'time\')" placeholder="Enter the claim time hh:mm" '
                          f'style="width: 40%; padding: 7px; font-size: 10px; '
                          f'border-radius: 5px; border: 2px solid #023047;">'
                          f'</div>')
@@ -133,20 +133,21 @@ time_picker_container = (f'<div style="margin-bottom: 7px;">'
 yes_no_container = (f'<div style="margin-bottom: 7px;">'
                     f'<p style="font-family: Arial, sans-serif; '
                     f'font-size: 15px; '
-                    f'color: #FF6200; margin-bottom: 8px;">Do you need road assistance?</p>'
+                    f'color: #FF6200; margin-bottom: 2px;">Do you need road assistance?</p>'
                     f'<select style="width: 40%; padding: 7px; font-size: 10px; '
                     f'border-radius: 5px; border: 2px solid #023047; color: #666;">'  # Default color for dropdown text
-                    f'  <option value="" style="color: #FF6200;">Select Yes / No</option>'  # Color for the placeholder
+                    f'  <option value="" disabled selected style="color: #FF6200;">Select Yes / No</option>'  # Disabled and selected placeholder
                     f'  <option value="Yes">Yes</option>'
                     f'  <option value="No">No</option>'
                     f'</select>'
                     f'</div>')
 
+
 # HTML Container for the file upload (simulating placement within HTML)
 file_upload_container = (f'<div style="margin-bottom: 7px;">'
                          f'<p style="font-family: Arial, sans-serif; '
                          f'font-size: 15px; '
-                         f'color: #FF6200; margin-bottom: 8px;">Claim Details Picture</p>'
+                         f'color: #FF6200; margin-bottom: 2px;">Claim Details Picture</p>'
                          f'<input type="text" placeholder="Upload Photo" '
                          f'style="width: 40%; padding: 7px; font-size: 10px; '
                          f'border-radius: 5px; border: 2px solid #023047;">'
@@ -165,13 +166,21 @@ rectangle2 = f"""
     bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 20px;
+    padding: 10px 10px 10px 30px; /* Adds extra padding on the left */
 ">
     {title_container2}
-    {date_picker_container}  
-    {time_picker_container}
-    {yes_no_container}
-    {file_upload_container}  
+    <div style="
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Distribute the items vertically */
+        align-items: flex-start; /* Aligns the items more to the right */
+        height: 100%; /* Ensures the inner container takes up the full height */
+    ">
+        {date_picker_container}  
+        {time_picker_container}
+        {yes_no_container}
+        {file_upload_container}  
+    </div>
 </div>
 """
 
@@ -196,7 +205,6 @@ st.markdown(rectangle_html2, unsafe_allow_html=True)
 
 
 # The buttoms for moving to home or processed the damage
-
 button_style = """
     <style>
     div.stButton > button {
@@ -204,7 +212,7 @@ button_style = """
         background-color: #023047; 
         width: 150px; 
         height: 45px;  
-        box-shadow: 0px 0px 30px 5px #006FAB;
+        box-shadow: 0px 0px 10px 5px #006FAB;
         font-size: 12px; /* Adjusted font size */
         padding: 2px; 
         border-radius: 10px; /* Optional: rounded corners */
@@ -228,9 +236,9 @@ with col2:
         st.switch_page("pages/4_Final View.py")
 
 # Claim Details Picture Upload Container
-st.write('<style>div[role="listbox"] ul{width:10%; margin-top: -100px;}</style>', unsafe_allow_html=True)
+st.write('<style>div[role="listbox"] ul{width:10%; margin-top: -20px;}</style>', unsafe_allow_html=True)
 #st.write('<style>div[role="listbox"] ul{width:100%}</style>', unsafe_allow_html=True)
-col1, col2, col3 = st.columns([2,0.75,0.75])  # This creates a centered column for the uploader
+col1, col2, col3 = st.columns([3,0.75,0.75])  # This creates a centered column for the uploader
 
 with col1:
     uploaded_file = st.file_uploader(" ", type=["jpg", "jpeg", "png"])
