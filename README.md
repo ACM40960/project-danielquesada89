@@ -7,31 +7,29 @@
 <p>
 <span style="color:#fb8500;">1.</span> <a href="#about">About</a><br>
 <span style="color:#fb8500;">2.</span> <a href="#example">Example</a><br>
+<span style="color:#fb8500;">3.</span> <a href="#structure">How is our project structured?</a><br>
 </p>
 
 ## <span id="about" style="color:#5fa8d3;">About</span>
 
-This project aims to improve the process of car insurance claims using machine learning by building an end-to-end solution for detecting, localizing, and estimating the severity of **car damages** using **deep learning** techniques. The project is designed to streamline the auto insurance claim process by offering a comprehensive set of tools, including:
+This project enhances the **car insurance claims** process by leveraging machine learning to create an end-to-end solution that detects, localizes, and estimates the severity of **car damages** using deep learning techniques. It includes a **YOLOv8 model** retrained with data from the [Vehide Dataset](https://www.kaggle.com/datasets/hendrichscullen/vehide-dataset-automatic-vehicle-damage-detection/data) to accurately identify and locate various car damages, a **cost estimation model** obtained from simulated data using **Monte Carlo** methods, and a user-friendly **AutoClaim web application** where clients can upload photos of their damaged vehicles, receive repair cost estimates, and be directed to an appropriate workshop for repairs.
 
-<ul>
-    <li style="list-style-type: none;">
-        <span style="color: #fb8500;">&#8226; </span>
-        <strong>Neural Network for Damage Detection and Localization</strong>: a <strong>YOLOv8</strong> model that is retrained with the data obtained from <a href="https://www.kaggle.com/datasets/hendrichscullen/vehide-dataset-automatic-vehicle-damage-detection/data">Vehide Dataset</a> to accurately identify and localize different types of car damages from images.
-    </li>
-    <li style="list-style-type: none;">
-        <span style="color: #fb8500;">&#8226; </span>
-        <strong>Cost Estimation Model</strong>: a model that estimates <strong>repair costs</strong> based on the type of damage, the car model, and location-specific factors (including various counties in Ireland) using <strong>synthesized data</strong> created by us.
-    </li>
-    <li style="list-style-type: none;">
-        <span style="color: #fb8500;">&#8226; </span>
-        <strong>Design of an AutoClaim Web Application</strong>: A user-friendly application where clients can submit photos of their damaged vehicles, receive a repair cost estimate, and be assigned a workshop for the repair.
-    </li>
-</ul>
+
+
 
 ## <span id="example" style="color:#5fa8d3;">Example</span>
 
 Below is an example of how the application and the outputs would appear when a client of the insurance company uploads a car damage.
 
 <p align="center">
-  <img src="images_readme/exampleof usage.jpg" alt="Description of Image" width="800px" height="300px"/>
+  <img src="images_readme/example_usage.jpg" alt="Description of Image" width="800px" height="300px"/>
+</p>
+
+
+## <span id="structure" style="color:#5fa8d3;">How is Our Project Structured?</span>
+
+
+
+<p align="center">
+  <img src="./images_readme/diagram.jpg" alt="Description of Image" width="800px" height="300px"/>
 </p>
