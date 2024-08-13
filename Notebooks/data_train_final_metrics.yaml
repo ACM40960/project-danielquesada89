@@ -9,5 +9,5 @@ names:
 - met_dent_medium
 - met_dent_severe
 nc: 9
-train: train_final/images
-val: null
+train: null
+val: /home/sagemaker-user/project-danielteresa/./Data/Yoloimages/train_final/images
