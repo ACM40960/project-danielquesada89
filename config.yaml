@@ -32,8 +32,7 @@ weights_yolo_path : 'Models/yolo_weights'
 runs_path: 'Models/runs'
 
 # AWS S3 bucket names
-bucket_name: "sagemaker-eu-west-1-project-danielteresa/"
-bucket_name2: "sagemaker-eu-west-1-project-danielteresa"
+bucket_name: "sagemaker-eu-west-1-project-danielteresa"
 
 # models names to be saved in S3
 # this should be the structure: ^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,31}
