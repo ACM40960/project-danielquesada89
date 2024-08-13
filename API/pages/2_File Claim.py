@@ -88,10 +88,10 @@ image_settings = (f'<img src="data:image/png;base64,'
 # HTML and CSS to create the main rectangle with button directly in the HTML
 rectangle_html2 = f"""
 <div style="
-    width: 500px;
+    width: 400px;
     height: 500px;
     background-color: #62B6CB;
-    margin: 30px -50px;
+    margin: 30px -30px;
     box-shadow: 0px 0px 30px 5px #006FAB;
     position: relative;
 ">
@@ -101,7 +101,7 @@ rectangle_html2 = f"""
     {image_policyholder}
     {image_settings}
     <div style="
-        width: 500px;
+        width: 400px;
         height: 370px;
         background-color: #FFFFFF;
         position: absolute;
@@ -156,7 +156,7 @@ claim_image_path =os.path.join(icon_path, 'settings.png')
 
 
 # Add buttons below the rectangle
-col1, col2= st.columns([1.5, 3])
+col1, col2= st.columns([1.5, 4])
 
 with col1:
     if st.button(f"Home", key="home"):

@@ -6,14 +6,17 @@ import joblib
 import pandas as pd
 
 
+################################################
+###            Detection Model Cal           ###
+################################################
 
 #  charge models and obtain the prediciton of the photo
-path_upload = 'API/uploads' 
+path_upload = 'API/uploads'
 picture_name=os.listdir(path_upload)[0]
 full_path= os.path.join(path_upload,picture_name)
-# we import both models
+# we import model
 yolo_model = YOLO("Models/best_modeltuning_YOLO-tuning8/train/weights/best.pt")
-cost_model=joblib.load("Models/cost_model.pkl")
+
 
 # we predict the image
 results = yolo_model.predict(full_path,conf=0.15)
@@ -24,8 +27,9 @@ results[0].save(filename=path_output)
 
 
 
-
-
+################################################
+###              General Set up              ###
+################################################
 
 st.set_page_config(
     #page_title="Cellphone App",
@@ -51,6 +55,39 @@ def get_image_base64(image_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     return encoded_string
 
+################################################
+###                   Objects                ###
+################################################
+
+############## Models Results ##############
+
+# Image prediction
+image_base64 = get_image_base64(path_output)
+
+width_pred=300*1.1
+height_pred=220*1.1
+
+image_prediction = (f'<img src="data:image/png;base64,'
+               f'{image_base64}" style="position: absolute; '
+               f'top: 25%; '
+               f'left: 4%; '
+               f'width: {width_pred}px; '
+               f'height: {height_pred}px;">')
+
+
+# Now create the HTML/CSS container
+text_container_cost_results = (f'<div style="position: relative;  top: 32px; left: 360px;">'  # Adjusted positioning
+                      f'<div style="font-family: Arial, sans-serif; '
+                      f'font-size: 14px; '
+                      f'color: #023047; '
+                      f'display: flex; align-items: center;">'  # Use flexbox for alignment
+                      f'<span style="font-weight: bold; margin-right: 10px;">Opening Reserve:</span> '
+                      f'<span style="font-weight: normal;"> </span>'
+                    f'</div>'
+                      f'</div>')
+
+
+############## Rest ##############
 
 # Image policyholder_person
 image_base64 = get_image_base64(os.path.join(icon_path, 'policyholder_person.png'))
@@ -96,8 +133,17 @@ height1=370*1.6
 height2=500*1.3
 
 # Image policy_details2
-image_base64 = get_image_base64(os.path.join(icon_path, 'policy_details2.png'))
-image_policy_details2 = (f'<img src="data:image/png;base64,'
+image_base64 = get_image_base64(os.path.join(icon_path, 'policy_details4.png'))
+image_policy_details4 = (f'<img src="data:image/png;base64,'
+               f'{image_base64}" style="position: absolute; '
+               f'top: 20px; '
+               f'left: 20px; '
+               f'width: 35px; '
+               f'height: 35px;">')
+
+# Image claimhandler_details
+image_base64 = get_image_base64(os.path.join(icon_path, 'claimhandler_details.png'))
+image_claimhandler_details = (f'<img src="data:image/png;base64,'
                f'{image_base64}" style="position: absolute; '
                f'top: 20px; '
                f'left: 20px; '
@@ -105,7 +151,7 @@ image_policy_details2 = (f'<img src="data:image/png;base64,'
                f'height: 35px;">')
 
 # Container of Policy details and Policy id
-text_container = (f'<div style="position: absolute; '
+text_container_policyholder = (f'<div style="position: absolute; '
                   f'top: 25px; '
                   f'left: 70px; '
                   f'width: calc(90% - 40px); '  # Adjust width to account for padding
@@ -121,6 +167,25 @@ text_container = (f'<div style="position: absolute; '
                   f'font-size: 16px; '
                   f'color: white; '
                   f'margin: 0;">Policy ID 4532609</p>'
+                  f'</div>')
+
+# Container of Claim handler open claim
+text_container_claim_handler = (f'<div style="position: absolute; '
+                  f'top: 25px; '
+                  f'left: 70px; '
+                  f'width: calc(90% - 40px); '  # Adjust width to account for padding
+                  f'display: flex; '
+                  f'justify-content: space-between; '
+                  f'align-items: center;">'
+                  f'<p style="font-family: Arial, sans-serif; '
+                  f'font-size: 18px; '
+                  f'font-weight: bold; '  # Make text bold
+                  f'color: white; '
+                  f'margin: 0;">Open Claims</p>'
+                  f'<p style="font-family: Arial, sans-serif; '
+                  f'font-size: 16px; '
+                  f'color: white; '
+                  f'margin: 0;"> </p>'
                   f'</div>')
 
 # Image home
@@ -153,12 +218,12 @@ image_settings = (f'<img src="data:image/png;base64,'
                f'width: 30px; '
                f'height: 30px;">')
 
-width_policyholder=500
+width_policyholder=540
 
 
 ### objects
 
-title_container2 = (f'<div style="position: relative; top: 110px; left: 50px;">'  # Position title within the rectangle
+approved_container = (f'<div style="position: relative; top: 20px; left: 50px;">'  # Position title within the rectangle
                     f'<p style="font-family: Arial, sans-serif; '
                     f'font-size: 18px; '
                     f'font-weight: bold; '
@@ -174,7 +239,7 @@ title_container2 = (f'<div style="position: relative; top: 110px; left: 50px;">'
                     f'</span>'
                     f'</div>')
 
-text_container3 = (f'<div style="position: relative; top: 105px; left: 50px;">'  # Increased top value for more separation
+thankyou_container = (f'<div style="position: relative; top: 23px; left: 50px;">'  # Increased top value for more separation
                   f'<p style="font-family: Arial, sans-serif; '
                   f'font-size: 14px; '
                   f'font-weight: bold; '
@@ -184,8 +249,49 @@ text_container3 = (f'<div style="position: relative; top: 105px; left: 50px;">' 
                   f'</p>'  # Properly close the paragraph tag
                   f'</div>')
 
+approved_container2 = (f'<div style="position: relative; top: 10px; left: 20px;">'  # Adjusted positioning
+                    f'<div style="font-family: Arial, sans-serif; '
+                    f'font-size: 18px; '
+                    f'font-weight: bold; '
+                    f'color: #023047; '
+                    f'display: flex; align-items: center;">'  # Use flexbox for alignment
+                    f'Claim ID 29382921 '
+                    f'<span style="margin-left: 20px; color: #8ED973;"> </span>'  # Green color for Approved with spacing
+                    f'</div>'
+                    f'</div>')
 
-workshop_container = (f'<div style="position: relative; top: 130px; left: 50px;">'
+policyid_container = (f'<div style="position: relative; top: 10px; left: 20px;">'  # Adjusted positioning
+                      f'<div style="font-family: Arial, sans-serif; '
+                      f'font-size: 14px; '
+                      f'color: #023047; '
+                      f'display: flex; align-items: center;">'  # Use flexbox for alignment
+                      f'<span style="font-weight: bold; margin-right: 10px;">Policy ID:</span> '
+                      f'<span style="font-weight: normal;">4532609</span>'
+                      f'<span style="margin-left: 206px; font-weight: bold;">Date:&nbsp;</span> '
+                      f'<span style="font-weight: normal;">29/07/2024</span>'
+                      f'</div>'
+                      f'</div>')
+
+workshop_approved_container = (f'<div style="position: relative; top: 10px; left: 20px;">'  # Adjusted positioning
+                      f'<div style="font-family: Arial, sans-serif; '
+                      f'font-size: 14px; '
+                      f'color: #023047; '
+                      f'display: flex; align-items: center;">'  # Use flexbox for alignment
+                      f'<span style="font-weight: bold; margin-right: 10px;">Workshop:</span> '
+                      f'<span style="font-weight: normal;">Sandyford McCann Motors</span>'
+                      f'<span style="margin-left: 85px; font-weight: bold;">Status:&nbsp;</span> '
+                      f'<span style="font-weight: bold; color: #8ED973;">Approved</span>'  # Apply the green color to "Approved"
+                      f'</div>'
+                      f'</div>')
+
+
+################################################
+###         Policyholder View Display        ###
+################################################
+
+###############    policyholder buttons     ################
+
+workshop_container = (f'<div style="position: relative; top: 200px; left: 58px;">'
                       f'<p style="font-family: Arial, sans-serif; '
                       f'font-size: 14px; '
                       f'color: #FB8500; '
@@ -206,7 +312,7 @@ workshop_container = (f'<div style="position: relative; top: 130px; left: 50px;"
                       f'</select>'
                       f'</div>')
 
-date_picker_container = (f'<div style="position: relative; top: 160px; left: 50px;">'
+date_picker_container = (f'<div style="position: relative; top: 240px; left: 58px;">'
                          f'<p style="font-family: Arial, sans-serif; '
                          f'font-size: 14px; '
                          f'color: #FB8500; '
@@ -223,15 +329,13 @@ date_picker_container = (f'<div style="position: relative; top: 160px; left: 50p
                          f'placeholder="Select among available dates">'
                          f'</div>')
 
-
-
-########
+###############    Rectangles     ################
 
 
 # white rectangle with centered image
-white_rectangle = f"""
+white_rect_policyholder_view = f"""
 <div style="
-    width: {width_policyholder}px;
+    width: {width_policyholder-2}px;
     height: 375px;
     background-color: #FFFFFF;
     position: absolute;
@@ -239,72 +343,120 @@ white_rectangle = f"""
     left: 50%;
     transform: translateX(-50%);
 ">
-    
+    {approved_container}
+    {thankyou_container}
 </div>
 """
 
-
 # HTML and CSS to create the main rectangle with button directly in the HTML
-rectangle_html3 = f"""
+policyholder_view = f"""
 <div style="
     width: {width_policyholder}px;
     height: 500px;
     background-color: #62B6CB;
-    margin: 75px 30px;
+    position: absolute;
+    top: 60px;
+    left: 30px;  /* Position policyholder_view to the left */
     box-shadow: 0px 0px 30px 5px #006FAB;
-    position: relative;
 ">
-    {image_policy_details2}
-    {text_container}
+    {image_policy_details4}
+    {text_container_policyholder}
     {image_home}
     {image_policyholder}
     {image_settings}
-    {white_rectangle}
+    {white_rect_policyholder_view}
 
 
 </div>
 """
-
-# Date Picker Container
-# date_picker_container = (f'<div style="margin-left: 50px;; margin-top: 310px;">'
-#                          f'<p style="font-family: Arial, sans-serif; '
-#                          f'font-size: 12px; '
-#                          f'color: #FF6200;margin-bottom: 6px">Schedule the Appointment</p>'
-#                          f'<input type="date" placeholder="Enter the Claim Date" '
-#                          f'style="width: 30%; padding: 7px; font-size: 10px; '
-#                          f'border-radius: 3px; border: 1px solid "#fb8500";">'
-
-#                          f'</div>')
-
-
-
-
-# outline rectangle with centered image
-rectangle_outline_1 = f"""
+# outline of over the policyholder_view rectangle
+policyholder_view_outline = f"""
 <div style="
-    width: {width_policyholder * 1.07}px;
-    height: 530px;
+    width: {width_policyholder * 1.02}px;
+    height: 510px;
     background-color: #white;
     position: absolute;
-    top: 15%;
-    left: 24%;
+    top: 9%;
+    left: 25.8%;
     transform: translateX(-50%);
     box-shadow:
         inset -1px -1px 0px 0px #BFBFBF,   /* Top-left shadow for bevel */
         inset 1px 1px 0px 0px #BFBFBF,    /* Bottom-right shadow for bevel */
         inset 0px 0px 5px 1.5px #BFBFBF;    /* Inner shadow for additional depth */
 ">
-    {title_container2} 
-    {text_container3}
     {workshop_container}
     {date_picker_container}
+
+</div>
+"""
+
+################################################
+###        Claim Handler View Display        ###
+################################################
+
+# white rectangle with centered image
+white_rect_claim_handler_view = f"""
+<div style="
+    width: {width_policyholder-2}px;
+    height: 429px;
+    background-color: #FFFFFF;
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+">
+    {approved_container2}
+    {policyid_container}
+    {workshop_approved_container}
+    {image_prediction}
+    {text_container_cost_results}
+</div>
+"""
+
+# HTML and CSS to create the main rectangle with button directly in the HTML
+claim_handler_view = f"""
+<div style="
+    width: {width_policyholder}px;
+    height: 500px;
+    background-color: #4E95D9;
+    position: absolute;
+    top: 60px;
+    right: 30px;  /* Position claim_handler_view to the right */
+    box-shadow: 0px 0px 30px 5px #006FAB;
+">
+    {image_claimhandler_details}
+    {text_container_claim_handler}
+    {white_rect_claim_handler_view}
 
 
 </div>
 """
 
+# outline of over the policyholder_view rectangle
+claim_handler_view_outline = f"""
+<div style="
+    width: {width_policyholder * 1.02}px;
+    height: 510px;
+    background-color: #white;
+    position: absolute;
+    top: 9%;
+    left: 74%;
+    transform: translateX(-50%);
+    box-shadow:
+        inset -1px -1px 0px 0px #BFBFBF,   /* Top-left shadow for bevel */
+        inset 1px 1px 0px 0px #BFBFBF,    /* Bottom-right shadow for bevel */
+        inset 0px 0px 5px 1.5px #BFBFBF;    /* Inner shadow for additional depth */
+">
+
+</div>
+"""
+
+################################################
+###              Final View Display          ###
+################################################
+
 # rectagule with the details
-rectangle2_1 = f"""
+rectangle_to_paint = f"""
 <div style="
     width: {width}px;
     height: {height1}px;
@@ -317,58 +469,36 @@ rectangle2_1 = f"""
     {image_policyholder_person}
     {image_claimholder_person}
     {text_container2}
-    {rectangle_html3}
+    {policyholder_view}
+    {policyholder_view_outline}
+    {claim_handler_view}
+    {claim_handler_view_outline}
 </div>
 """
 
-######## Claim handler view 
-
-
 # HTML and CSS to create the main rectangle
-rectangle_html2 = f"""
+final_rectangle = f"""
 <div style="
     width: {width}px;
     height: {height2}px;
     background-color: #62B6CB;
-    margin: 30px -50px -30px -200px;
+    margin: -70px -50px -30px -200px;
     box-shadow: 0px 0px 30px 5px #006FAB;
     position: relative;
 ">
-     
-     
-     {rectangle2_1}
-     {rectangle_outline_1}
+
+
+     {rectangle_to_paint}
 
 </div>
 """
-#     {rectangle_outline_2}   
-
-#st.title("Cellphone App")
-
-button_style = """
-    <style>
-    div.stButton > button {
-        color: white;
-        background-color: #023047; 
-        width: 100px; 
-        height: 45px;  
-        box-shadow: 0px 0px 30px 5px #006FAB;
-        font-size: 12px; /* Adjusted font size */
-        padding: 2px; 
-        border-radius: 10px; /* Optional: rounded corners */
-    }
-    </style>
-    """
-
-### COSAS PÒR HACER
-# CREAR VAIRABLE QUE INDIQUE MODELO A TOMAR
-# CREAR VAIRABLE QUE INDIQUE DONDE ESTAN LAS FOTOS
-
 
 # Display the rectangle immediately after the title
-st.markdown(rectangle_html2, unsafe_allow_html=True)
+st.markdown(final_rectangle, unsafe_allow_html=True)
 
-
+################################################
+###                 Button end               ###
+################################################
 
 # CSS for the selectbox and button styling
 button_style = """
@@ -382,30 +512,49 @@ button_style = """
         font-size: 12px; /* Adjusted font size */
         padding: 2px; 
         border-radius: 10px; /* Optional: rounded corners */
+        margin-top: 25px;  /* Align the button with the selectbox */
+    }
+    div.stSelectbox > div > div {
+        width: 70%; /* Adjust the width percentage as needed */
     }
     div.stSelectbox > div > div > select {
-        height: 45px;
+        height: 35px;  /* Shorten the height of the selectbox */
         padding-left: 10px;
         padding-right: 30px;
         border-radius: 10px;
+        font-size: 12px;  /* Adjust the font size to match the height */
+        width: 100%;  /* Ensure the selectbox fills its container */
     }
     </style>
     """
 
-# Use Streamlit's selectbox widget to capture the selection
-buttom_workshop = st.selectbox(
-        '',
-        ["Select among available workshops", "Smithfield Autotech", "Sandyford McCann Motor", "Mobile Mechanic"],
-        index=0
-)
-
-
-col1, col2 = st.columns([3, 3])
+# Apply the CSS
 st.markdown(button_style, unsafe_allow_html=True)
+
+# Use Streamlit's selectbox widget to capture the selection
+col1, col2 = st.columns([3, 1])  # Adjust the column widths
+
+with col1:
+    buttom_workshop = st.selectbox(
+        '',
+        ["Select among available workshops",
+         "Smithfield Autotech",
+         "Sandyford McCann Motor",
+         "Mobile Mechanic"],
+        index=0
+    )
 
 with col2:
     if st.button("Home", key="home"):
         st.switch_page(os.path.join(os.getcwd(), "API/Homepage.py"))
+
+
+################################################
+###                Cost Model Cal            ###
+################################################
+
+# we import model
+cost_model=joblib.load("Models/cost_model.pkl")
 
 
 # Display the selected workshop
@@ -413,12 +562,11 @@ if buttom_workshop != "Select among available workshops":
     # workshop selection
     workshops={
     'Smithfield Autotech':'Low',
-    'Sandyford McCann Motors':'Medium',
+    'Sandyford McCann Motor':'Medium',
     'Mobile Mechanic':'High'
     }
 
-    selected_workshop_qual= workshops[buttom_workshop]
-    st.write(selected_workshop_qual)
+    selected_workshop_qual = workshops[buttom_workshop]
 
     # we predict the cost of the claims
     case = pd.DataFrame({
@@ -444,7 +592,6 @@ if buttom_workshop != "Select among available workshops":
     'damage_type_mis_punct': [0]
     })
 
-
     # Adjust case DataFrame based on selected_workshop_qual
     if selected_workshop_qual == 'High':
         case['workshop_quality_Low'] = [0]
@@ -455,7 +602,6 @@ if buttom_workshop != "Select among available workshops":
     elif selected_workshop_qual == 'Low':
         case['workshop_quality_Low'] = [1]
         case['workshop_quality_Medium'] = [0]
-
 
     damage_types = [results[0].names[int(cls)] for cls in results[0].boxes.cpu().numpy().cls]
 
@@ -482,110 +628,23 @@ if buttom_workshop != "Select among available workshops":
 
     # dataframe with the predictions
     cost_predictions= pd.DataFrame({'Damages': damage_types,
-    'Cost Estimates': cost_model.predict(complete_case)
+    'Cost Estimates': cost_model.predict(complete_case).round(0)
     })
-    cost_predictions.to_csv("prueba.csv")
 
+    # Calculate the total cost as the sum of all 'Cost Estimates'
+    total_cost = cost_predictions['Cost Estimates'].sum()
 
+    # Format total_cost as a string with no decimals and a comma as a thousands separator
+    formatted_total_cost = f"{total_cost:,.0f}"
 
+    # CSS to center the text vertically and horizontally
+    text_cost_results = (f'<div style="position: absolute; '
+                         f'top: -463px; '  # Adjust this value to position vertically
+                         f'left: 880px; '  
+                         f'font-family: Arial, sans-serif; '
+                         f'font-size: 14px; '  # Font size for visibility
+                         f'color: #023047;">'
+                         f'€{formatted_total_cost}'
+                         f'</div>')
 
-    # st.write(f'You selected: {selected_workshop}')
-    
-####################################################
-###       Model Deployment                       ###
-####################################################
-
-# workshop selection
-# workshops={
-# 'Smithfield Autotech':'Low',
-# 'Sandyford McCann Motors':'Medium',
-# 'Mobile Mechanic':'High'
-# }
-
-# selected_workshop='Sandyford McCann Motors'
-
-# selected_workshop_qual= workshops[selected_workshop]
-
-# path upload
-# path_upload = 'API/uploads'
-
-# picture_name=os.listdir(path_upload)[0]
-
-# full_path= os.path.join(path_upload,picture_name)
-
-# we import both models
-# yolo_model = YOLO("Models/best_modeltuning_YOLO-tuning8/train/weights/best.pt")
-# cost_model=joblib.load("Models/cost_model.pkl")
-
-# # we predict the image
-# results = yolo_model.predict(full_path,conf=0.15)
-
-# # we save the image
-# path_output = os.path.join(path_upload, 'pred_'+picture_name)
-# results[0].save(filename=path_output)
-
-# # we predict the cost of the claims
-# case = pd.DataFrame({
-# 'const': [1],
-# 'brand_Volkswagen': [0],
-# 'model_Corolla': [0],
-# 'model_Golf': [0],
-# 'model_Polo': [0],
-# 'model_Tiguan': [0],
-# 'model_Yaris': [1],
-# 'veh_age_range_Newer': [1],
-# 'veh_age_range_Old': [0],
-# 'workshop_quality_Low': [0],
-# 'workshop_quality_Medium': [0],
-# 'counties_group2': [0],
-# 'counties_group3': [0],
-# 'damage_type_met_dent_medium': [0],
-# 'damage_type_met_dent_minor': [0],
-# 'damage_type_met_dent_severe': [0],
-# 'damage_type_met_tear': [0],
-# 'damage_type_mis_lamp': [0],
-# 'damage_type_mis_lost': [0],
-# 'damage_type_mis_punct': [0]
-# })
-
-
-# # Adjust case DataFrame based on selected_workshop_qual
-# if selected_workshop_qual == 'High':
-#     case['workshop_quality_Low'] = [0]
-#     case['workshop_quality_Medium'] = [0]
-# elif selected_workshop_qual == 'Medium':
-#     case['workshop_quality_Low'] = [0]
-#     case['workshop_quality_Medium'] = [1]
-# elif selected_workshop_qual == 'Low':
-#     case['workshop_quality_Low'] = [1]
-#     case['workshop_quality_Medium'] = [0]
-
-
-# damage_types = [results[0].names[int(cls)] for cls in results[0].boxes.cpu().numpy().cls]
-# # Function to generate the complete_case DataFrame
-# def generate_complete_case(case, damage_types):
-#     complete_case = pd.DataFrame()
-
-#     for damage_type in damage_types:
-#         temp_case = case.copy()
-
-#         # Set the corresponding damage type to 1
-#         damage_column = f'damage_type_{damage_type}'
-#         if damage_column in temp_case.columns:
-#             temp_case[damage_column] = [1]
-
-#         # Append this row to the complete_case DataFrame
-#         complete_case = pd.concat([complete_case, temp_case], ignore_index=True)
-
-#     return complete_case
-
-
-# # Generate the complete_case DataFrame
-# complete_case = generate_complete_case(case, damage_types)
-
-# print("Holaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-# # dataframe with the predictions
-# cost_predictions= pd.DataFrame({'Damages': damage_types,
-# 'Cost Estimates': cost_model.predict(complete_case)
-# })
-# cost_predictions.to_csv("prueba.csv")
+    st.markdown(text_cost_results, unsafe_allow_html=True)
