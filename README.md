@@ -22,7 +22,7 @@ This project enhances the **car insurance claims** process by leveraging machine
 Below is an example of how the application and the outputs would appear when a client of the insurance company uploads a car damage.
 
 <p align="center">
-  <img src="images_readme/example_usage.jpg" alt="Description of Image" width="800px" height="300px"/>
+  <img src="images_readme/example_usage.jpg" alt="Description of Image" width="800px" height="400px"/>
 </p>
 
 
@@ -31,5 +31,5 @@ Below is an example of how the application and the outputs would appear when a c
 
 
 <p align="center">
-  <img src="./images_readme/diagram.jpg" alt="Description of Image" width="800px" height="300px"/>
+  <img src="./images_readme/diagram.jpg" alt="Description of Image" width="800px" height="600px"/>
 </p>
