@@ -19,7 +19,7 @@ yolo_model = YOLO("Models/best_modeltuning_YOLO-tuning8/train/weights/best.pt")
 
 
 # we predict the image
-results = yolo_model.predict(full_path,conf=0.15)
+results = yolo_model.predict(full_path,conf=0.25)
 
 # we save the image
 path_output = os.path.join(path_upload, 'pred_'+picture_name)
@@ -278,8 +278,8 @@ workshop_approved_container = (f'<div style="position: relative; top: 10px; left
                       f'color: #023047; '
                       f'display: flex; align-items: center;">'  # Use flexbox for alignment
                       f'<span style="font-weight: bold; margin-right: 10px;">Workshop:</span> '
-                      f'<span style="font-weight: normal;">Sandyford McCann Motors</span>'
-                      f'<span style="margin-left: 85px; font-weight: bold;">Status:&nbsp;</span> '
+                      f'<span style="font-weight: normal;"></span></span></span></span></span></span>'
+                      f'<span style="margin-left: 250px; font-weight: bold;">Status:&nbsp;</span> '
                       f'<span style="font-weight: bold; color: #8ED973;">Approved</span>'  # Apply the green color to "Approved"
                       f'</div>'
                       f'</div>')
@@ -643,8 +643,140 @@ if buttom_workshop != "Select among available workshops":
                          f'left: 880px; '  
                          f'font-family: Arial, sans-serif; '
                          f'font-size: 14px; '  # Font size for visibility
+                         f'font-weight: bold; '
                          f'color: #023047;">'
                          f'€{formatted_total_cost}'
                          f'</div>')
 
     st.markdown(text_cost_results, unsafe_allow_html=True)
+
+    # print selected workshop
+    text_workshop_results = (f'<div style="position: absolute; '
+                         f'top: -523px; '  # Adjust this value to position vertically
+                         f'left: 490px; '  
+                         f'font-family: Arial, sans-serif; '
+                         f'font-size: 14px; '  # Font size for visibility
+                         f'color: #023047;">'
+                         f'{buttom_workshop}'
+                         f'</div>')
+
+    st.markdown(text_workshop_results, unsafe_allow_html=True)
+
+    ##### we print the disclosure of damages
+
+    # dictionary of damage types
+    rename_damage_type = {
+        'mis_lost': 'Lost Parts',
+        'met_tear': 'Torn',
+        'met_scratch': 'Paint Scratches',
+        'glass_crack': 'Broken Glass',
+        'mis_punct': 'Puncture',
+        'mis_lamp': 'Broken Lamp',
+        'met_dent_minor': 'Minor Dent',
+        'met_dent_medium': 'Medium Dent',
+        'met_dent_severe': 'Severe Dent'
+    }
+
+    cost_predictions["Damages"] = cost_predictions["Damages"].map(rename_damage_type)
+
+    # Sort the "Damages" column alphabetically
+    cost_predictions = cost_predictions.sort_values("Damages").reset_index(drop=True)
+
+    # Add a sequential number to each group of damage types
+    cost_predictions["count"] = cost_predictions.groupby("Damages").cumcount() + 1
+
+    # Combine the original damage type with the sequential number
+    cost_predictions["Damages"] = cost_predictions["Damages"].astype(str) + ' ' + cost_predictions["count"].astype(str)
+
+    # we define the length of the dataset
+    n=len(cost_predictions["Damages"])
+
+    if n>0: # damage 1
+        damage = cost_predictions["Damages"][0]
+        damage_cost = cost_predictions["Cost Estimates"][0]
+        formatted_damage_cost = f"{damage_cost:,.0f}"
+
+        damage_disclosure_1_container = (
+            f'<div style="position: absolute; top: -465px; left: 755px; white-space: nowrap;">'
+            f'<p style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; display: inline;">'
+            f'{damage}:'
+            f'</p>'
+            f'<span style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; margin-left: 10px;">'
+            f'€{formatted_damage_cost}'
+            f'</span>'
+            f'</div>'
+        )
+
+        st.markdown(damage_disclosure_1_container, unsafe_allow_html=True)
+
+    if n>1: # damage 2
+        damage = cost_predictions["Damages"][1]
+        damage_cost = cost_predictions["Cost Estimates"][1]
+        formatted_damage_cost = f"{damage_cost:,.0f}"
+
+        damage_disclosure_2_container = (
+            f'<div style="position: absolute; top: {-465+10*1}px; left: 755px; white-space: nowrap;">'
+            f'<p style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; display: inline;">'
+            f'{damage}:'
+            f'</p>'
+            f'<span style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; margin-left: 10px;">'
+            f'€{formatted_damage_cost}'
+            f'</span>'
+            f'</div>'
+        )
+
+        st.markdown(damage_disclosure_2_container, unsafe_allow_html=True)
+
+    if n>2: # damage 3
+        damage = cost_predictions["Damages"][2]
+        damage_cost = cost_predictions["Cost Estimates"][2]
+        formatted_damage_cost = f"{damage_cost:,.0f}"
+
+        damage_disclosure_3_container = (
+            f'<div style="position: absolute; top: {-465+10*2}px; left: 755px; white-space: nowrap;">'
+            f'<p style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; display: inline;">'
+            f'{damage}:'
+            f'</p>'
+            f'<span style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; margin-left: 10px;">'
+            f'€{formatted_damage_cost}'
+            f'</span>'
+            f'</div>'
+        )
+
+        st.markdown(damage_disclosure_3_container, unsafe_allow_html=True)
+
+    if n>3: # damage 4
+        damage = cost_predictions["Damages"][3]
+        damage_cost = cost_predictions["Cost Estimates"][3]
+        formatted_damage_cost = f"{damage_cost:,.0f}"
+
+        damage_disclosure_4_container = (
+            f'<div style="position: absolute; top: {-465+10*3}px; left: 755px; white-space: nowrap;">'
+            f'<p style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; display: inline;">'
+            f'{damage}:'
+            f'</p>'
+            f'<span style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; margin-left: 10px;">'
+            f'€{formatted_damage_cost}'
+            f'</span>'
+            f'</div>'
+        )
+
+        st.markdown(damage_disclosure_4_container, unsafe_allow_html=True)
+
+    if n>4: # damage 5
+        damage = cost_predictions["Damages"][4]
+        damage_cost = cost_predictions["Cost Estimates"][4]
+        formatted_damage_cost = f"{damage_cost:,.0f}"
+
+        damage_disclosure_5_container = (
+            f'<div style="position: absolute; top: {-465+10*4}px; left: 755px; white-space: nowrap;">'
+            f'<p style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; display: inline;">'
+            f'{damage}:'
+            f'</p>'
+            f'<span style="font-family: Arial, sans-serif; font-size: 14px; color: #023047; margin-left: 10px;">'
+            f'€{formatted_damage_cost}'
+            f'</span>'
+            f'</div>'
+        )
+
+        st.markdown(damage_disclosure_5_container, unsafe_allow_html=True)
