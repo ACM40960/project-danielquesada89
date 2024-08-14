@@ -11,7 +11,10 @@
 <span style="color:#fb8500;">4.</span> <a href="#structure">Project structure</a><br>
 <span style="color:#fb8500;">5.</span> <a href="#depolyment">Deployment of the project</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">5.1.</span> <a href="#local">Local</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">5.2.</span> <a href="#amazonsagemaker">Amazon SageMaker</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">5.2.</span> <a href="#aws">Amazon Web Services</a><br>
+<span style="color:#fb8500;">6.</span> <a href="#results"> Results</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">6.1.</span> <a href="#model">Model</a><br>
+
 </p>
 
 ## <span id="about" style="color:#5fa8d3;">1. About</span>
@@ -26,9 +29,6 @@ Below is an example of how the application and the outputs would appear when a c
 <p align="center">
   <img src="images_readme/example_usage.jpg" alt="Description of Image" width="800px" height="300px"/>
 </p>
-
-
-
 
 ## <span id="workflow" style="color:#5fa8d3;">3. Workflow</span>
 <p align="center">
@@ -86,32 +86,96 @@ The project is organized into the following main directories:
 ##  <span id="deployment" style="color:#5fa8d3;">5. Deployment of the project</span>
 Our work is divided into two main parts: one that can be executed locally and another that, due to the high computational power required by YOLOv8, has been migrated to Amazon SageMaker. In the local environment, tasks such as data preparation and processing, model evaluation, and small-scale experiments can be performed. However, training and hyperparameter optimization, which demand significant computational resources, are carried out on Amazon SageMaker. Below, we explain in detail the activities that can be performed in each environment.
 
+All codes of [**/Notebooks/**](./Notebooks/) are run from the main directory and this is done by executing this code at the beginning of all the Jupyter Noteboks:
 
+````python
+current_directory = os.getcwd()
+last_folder = os.path.basename(current_directory)
+    
+if last_folder != "project-danielteresa":
+    while last_folder != "project-danielteresa":
+        parent_directory = os.path.dirname(current_directory)
+        last_folder = os.path.basename(parent_directory)
 
-###  <span id="local" style="color:#5fa8d3;">5.2 Local</span>
+        os.chdir(parent_directory)
+        print(f"Changed directory to: {parent_directory}")
+else:
+    print("Already in the project root directory.")
+````
+
+###  <span id="local" style="color:#5fa8d3;">5.1 Local</span>
 The parts of the project that can be computed locally are:
 - [*1_data_processing.ipynb*](./Notebooks/1_data_processing.ipynb)
 - [*2_Claim_costs.ipynb*](./Notebooks/2_Claim_costs.ipynb)
 - [*3_data_augmentation.ipynb*](./Notebooks/3_data_augmentation.ipynb
 - The application of [**/API/**](./API/)
 
-This part of the project have been executed with [Python 3.11]() and [Python  3.12.4](https://www.python.org/downloads/release/python-3124/). 
+This part of the project has been executed with [Python 3.11]() and [Python 3.12.4](https://www.python.org/downloads/release/python-3124/).
 
-It is a good practice to create an evironment for working in projects like this one. After creating the enviroment and once it is activate it, it has to be run in the terminal inside the main folder of the project (in the case that it is a python enviroment):
+It is a good practice to create an environment for working on projects like this one. After creating the environment and once it is activated, the following command should be run in the terminal inside the main folder of the project (assuming it is a Python environment):
 
-````
+````bash
 pip install requirements.txt
 ````
+- [*1_data_processing.ipynb*](./Notebooks/1_data_processing.ipynb): This Jupyter Notebook converts the [VGG annotation format](https://roboflow.com/formats/via-json) provided by Kaggle to [COCO format annotations](https://haobin-tan.netlify.app/ai/computer-vision/object-detection/coco-dataset-format/). Additionally, it segments the `met_dent` by severity for test and train datasets and splits the original train data into validation and train sets. **⚠️ CAUTION: NOT RECOMMENDED TO RUN! ⚠️**  
+  **Why?** Breaking down the data into three severity labels requires manually labeling **4,709 annotations** for the train set and **972 annotations** for the test set—an extremely time-consuming task. The updated JSON files are in COCO format with the correct annotations.
 
-<pre>
-<code>
-def hello_world():
-    print("Hello, World!")
-</code>
-</pre>
+- [*2_Claim_costs.ipynb*](./Notebooks/2_Claim_costs.ipynb): This Jupyter Notebook can be run locally and includes a detailed explanation of how the data is simulated.
 
-### Local 
+- [*3_data_augmentation.ipynb*](./Notebooks/3_data_augmentation.ipynb): This notebook will create augmented data using the [CLoDSA](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2931-1) library. **Note:** This process takes around an hour.
 
-### Sagemaker
+- [**/API/**](./API/): This folder contains all the necessary files for constructing the application. [Streamlit](https://streamlit.io/) is a library that allows converting Python scripts to web pages in a simple way. To open the web page locally, run the following command from the main directory:
+  
+  ````bash
+  streamlit run API/Homepage.py
+  ````
+  It will open the web page automatically, but a link will also be provided in the terminal for accessing the web page if needed. The web page will remain active until the process of running the program finishes (`Ctrl + C`). This code needs the cost model and the weights of the best model.
 
-## Join pkl 
+###  <span id="aws" style="color:#5fa8d3;">5.2 Amazon Web Services</span>
+
+The AWS services primarily used are [S3](https://aws.amazon.com/s3/?nc=sn&loc=0), a scalable object storage service, and [Amazon SageMaker](https://aws.amazon.com/s3/?nc=sn&loc=0), a fully managed service that enables the building, training, and deployment of machine learning models at scale. The  [*4_yolo_code.ipynb*](./Notebooks/4_yolo_code.ipynb) program need to be run from Amazon Sagemaker Studio becuase although it could be run locally with the respective Amazon credentials it needs computational ppower for some actions like connecting to the train characteristic of Amazon Sagemaker. 
+
+For the part of Hyperparameter tuning it is used tThe HyperparameterTuner class from Amazon SageMaker which  is a powerful tool that automates the process of hyperparameter optimization for machine learning models. It works by launching multiple training jobs with different hyperparameter configurations, evaluating their performance based on a specified objective metric, and identifying the best configuration. To apply this for YOLOv8, it is necessary to create a [Sagemaker estimator](https://docs.aws.amazon.com/sagemaker/latest/dg/docker-containers-adapt-your-own-private-registry-estimator.html) representing the YOLOv8 model, define the hyperparameters you want to tune and specify the range of values to explore. Then, it is set up  HyperparameterTuner by passing the estimator, the objective metric, and the hyperparameter ranges, and finally run the tuning job using the tuner.fit() method. For a detailed example of hyperparameter tuning a YOLOv8 model with Amazon SageMaker, you can check out this [tutorial](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/).
+
+We have decided to use the **ml.p3.2xlarge** instance because it is optimized for machine learning tasks that require high computational power. The ml.p3.2xlarge instance features NVIDIA Tesla V100 GPUs, which provide excellent performance for training deep learning models like YOLOv8.
+
+In case of  having an user in AWS, what it should be done is:
+  - Generate a Jupyter lab in Amazon Sagemaker. The properties of storage 100 GB and instance m7i.8xlarge:
+  - Then, clone the repo by copying the link of this project in the terminal of the lab
+  ````bash
+  git clone <repository_url>
+  ````
+   -  [*3_data_augmentation.ipynb*](./Notebooks/3_data_augmentation.ipynb) needs to be run if the data is not yet uploaded in S3 for obtaining the train augmentation set locally in Sagemaker Studio and uploading it in S3. The new data is created by using the [CLoDSA](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2931-1) library. **Note:** This process takes around an hour.
+
+  - This Juppyter Notebook that it is generated works with Python 3.8 and it has not any library  so *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)* needs to be run to installed all dependencies.
+  - Run [*4_yolo_code.ipynb*](./Notebooks/4_yolo_code.ipynb) and do not forget to add the credentials where `# ADD HERE CREDENTIALS` comment appears.
+  - Once all the changes are being made and if it is wanted to upload the changes it is necessary first to create a *.gitignore* and then run the following line in terminal:
+  ````bash
+  cd project-danielteresa
+  git config --global credential.helper store
+  git config --global user.email <email>
+  git config --global user.name <user name>
+  git credential-cache exit
+  git remote set-url origin https://<user name>:<token password>@github.com/ACM40960/project-danielteresa.git
+  ````
+
+###  <span id="aws" style="color:#5fa8d3;">6. Models</span>
+
+Our project addresses two estimation problems. One is predicting the repair cost for each of the damages sustained by the car, and the other is accurately locating and classifying the type of damage to generate a repair estimate. To achieve this, we have employed two models:
+
+- [**XG Boost**](https://www.ibm.com/topics/xgboost) is a machine learning algorithm that belongs to the ensemble learning category, specifically within the gradient boosting framework. It uses decision trees as base learners and employs regularization techniques to enhance model generalization.
+- **YOLO** is a state-of-the-art, real-time object detection algorithm that treats object detection as a regression problem instead of a classification task by spatially separating bounding boxes and associating probabilities with each detected object using a single convolutional neural network (CNN). The version used in this project is YOLOv8 in the "medium" size. Please refer to the PDF [YOLO_model.pdf](./Others/YOLO_model.pdf) that we have created to explain this model in detail if you want to dive deeper into how it works.
+
+###  <span id="aws" style="color:#5fa8d3;">7. Results</span>
+
+In our XGBoost model, we utilized the following configuration:
+- 1,000 trees
+- A learning rate of 0.01
+- A maximum tree depth of 5
+
+The model was trained using all available predictors to simulate the claim dataset. Despite showing signs of underfitting, as seen in the [figure below](#xgboost-image), the approach is still more effective than the traditional methods used by insurance companies. The chart divides the test predictions from highest to lowest into groups and represents the actual and predicted averages for each of these groups (with the yellow line indicating the predicted mean cost and the blue line indicating the observed mean cost).
+
+
+<p align="center" id="xgboost-image">
+  <img src="images_readme/XGboost.png"  width="400px" height="300px"/>
+</p>
