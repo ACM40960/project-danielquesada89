@@ -42,10 +42,16 @@ if __name__ == "__main__":
     print(os.environ)
     print('---------------End debug----------------------')
 
-  
+    # Listar archivos en el directorio de entrenamiento
+
     # Train the YOLO model
     yolo_model = YOLO("yolov8m-seg.pt")
-    yolo_model.train(data=os.path.join(args.train, "data.yaml"), 
+
+    # Definir manualmente la ruta al archivo YAML de datos
+    data_yaml_path = os.path.join(args.train, "data_train_final.yaml")
+    
+    # Train the YOLO model with the full path to the YAML file
+    yolo_model.train(data=data_yaml_path, 
                      batch=args.batch,
                      epochs=args.epochs, 
                      optimizer=args.optimizer, 
@@ -56,6 +62,6 @@ if __name__ == "__main__":
                      patience=args.patience,
                      task='segment',
                      project=args.runs_path,
-                     val = False) # we include this so that it does not perform the validation as it is not needed
+                     val=False)
     
     yolo_model.export()

@@ -1759,7 +1759,6 @@ def count_s3_objects(bucket_name, prefix):
 
     return object_count
 
-
 def copy_s3_folder(bucket_name, source_folder, destination_folder, delete_source=False):
     """
     Copies the contents of one S3 folder to another S3 folder within the same bucket.
@@ -1774,6 +1773,8 @@ def copy_s3_folder(bucket_name, source_folder, destination_folder, delete_source
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(bucket_name)
     
+    copied_files_count = 0
+    
     for obj in bucket.objects.filter(Prefix=source_folder):
         source_key = obj.key
         destination_key = destination_folder + source_key[len(source_folder):]
@@ -1782,11 +1783,19 @@ def copy_s3_folder(bucket_name, source_folder, destination_folder, delete_source
         copy_source = {'Bucket': bucket_name, 'Key': source_key}
         s3.Object(bucket_name, destination_key).copy(copy_source)
         
+        # Increment the counter
+        copied_files_count += 1
+        
+        # Print progress for every file or every 100 files
+        if copied_files_count % 1000 == 0:
+            print(f"{copied_files_count} files copied so far...")
+        
         # Optionally delete the original object
         if delete_source:
             s3.Object(bucket_name, source_key).delete()
     
     print(f"Copy from '{source_folder}' to '{destination_folder}' completed successfully.")
+    print(f"Total number of files copied: {copied_files_count}")
     if delete_source:
         print(f"Source folder '{source_folder}' has been deleted after copy.")
 
