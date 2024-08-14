@@ -10,4 +10,4 @@ names:
 - met_dent_severe
 nc: 9
 train: train_final/images
-val: null
+val: val/images

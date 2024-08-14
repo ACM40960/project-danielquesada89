@@ -45,7 +45,7 @@ if __name__ == "__main__":
   
     # Train the YOLO model
     # yolo_model = YOLO(os.path.join(args.weights_yolo_path, "yolov8m-seg.pt"))
-    yolo_model = YOLO("yolov8m-seg.pt").to('cuda')
+    yolo_model = YOLO("yolov8m-seg.pt")
     yolo_model.train(data=os.path.join(args.train, "data.yaml"), 
                      batch=args.batch,
                      epochs=args.epochs, 
