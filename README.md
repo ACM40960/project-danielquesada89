@@ -39,41 +39,54 @@ Below is an example of how the application and the outputs would appear when a c
 ## <span id="structure" style="color:#5fa8d3;">Project Structure</span>
 The project is organized into the following main directories:
 
-- **/API/**: contains the *python* scripts and images used to construct the Autoclaim application using Streamlit.
+- [**/API/**](./API/): contains the *python* scripts and images used to construct the Autoclaim application using Streamlit.
+  - [**/Icons/**](./API/Icons/): folder for the images used in the cosntruction of the folder.
+  - [**/pages/**](./API/pages/): folder with the python codes of each o the secondary pages of the API.
+    - [*1_Policy Details*](./API/pages/1_Policy%20Details.py): python code for showing the details of the client.
+    - [*2_File 20Claim.py*](./API/pages/2_File%20Claim.py): python code for opening a claim.
+    - [*3_Upload Damage.py*](./API/pages/3_Upload%20Damage.py): python code for uploading the damage of the image.
+    - [*4_Final View.py*](./API/pages/4_Final%20View.py): python code for displaying the predition of the damage and the asignation of the nearest wworkshop.
+  - [**/uploads/**](API/uploads/): folder where the uploaded and the predicted images are saved.
+  - [*Homepage.py*](./API/Homepage.py): python code thaat is the main program for running the application web.
+  - [*requirements.txt](./API/requirements.txt): txt with the requirements that github needs to convert the local streamlit to a cloud streamlit.
 
-- **/Data/**: Contains the datasets and the COCO format JSON used in the project.
-  - **/train/**: folder with the *train* and *validation* folders. It also saves the augmented photos when *[3_data_augmentation.ipynb](./Notebooks/3_data_augmentation.ipynb)* is run.
-  - **/test/**: folder with the test photos.
-  - **/Yoloimages/**: folder, which is generated when *[4_yolo_code.ipynb](./Notebooks/4_yolo_code.ipynb)* is executed, with the datasets already prepared for the YOLO model. Each folder will have an *images* folder containing the images and a *labels* folder containing the *.txt* files with the annotations for each damage.
-    - **/train/**: A directory containing the training set, including both original and augmented data.
-    - **/val/**: A directory containing the validation set, used to tune the model's hyperparameters and evaluate performance during training.
-    - **/test/**: A directory containing the test set, used to assess the model's generalization capability on unseen data.
+
+- [**/Data/**](./Data/): Contains the datasets and the COCO format JSON used in the project (the JSON that finishes with *updated* are the ones that are used along the whole project).
+  - [**/train/**](./Data/train/): folder with the *train* and *validation* folders. It also saves the augmented photos when *[3_data_augmentation.ipynb](./Notebooks/3_data_augmentation.ipynb)* is run.
+  - [**/test/**](./Data/test/): folder with the test photos.
+  - [**/Yoloimages/**](./Data/Yoloimages/): folder, which is generated when *[4_yolo_code.ipynb](./Notebooks/4_yolo_code.ipynb)* is executed, with the datasets already prepared for the YOLO model. Each folder will have an *images* folder containing the images and a *labels* folder containing the *.txt* files with the annotations for each damage.
+    - [**/train/**](./Data/Yoloimages/train): A directory containing the training set, including both original and augmented data.
+    - **/val/**(./Data/Yoloimages/val): A directory containing the validation set, used to tune the model's hyperparameters and evaluate performance during training.
+    - **/test/**(./Data/Yoloimages/test): A directory containing the test set, used to assess the model's generalization capability on unseen data.
 
 
-- **/Models/**: folder containing the cost model and the car detection models.
+- [**/Models/**](./Models/): folder containing the cost model [*cost_model.pkl*](./Models/cost_model.pkl) and the car detection models (FALTA PONER DIRECTORIOS DE MODELOS).
 
-- **/Notebooks/**: Jupyter notebooks used for the project.
-  - *0_linux_requirements.ipynb*: Jupyter notebook for installing the requirements defined for Sagemaker.
-  - *1_data_processing.ipynb*: Jupyter notebook with the data processing.
-  - *2_Claim_costs.ipynb*: Jupyter notebook that explains how the auto claim data is generated and the model obtained for predicting the car damage reparation.
-  - *4_yolo_code.ipynb*: Code with all the preparation of the data for the YOLO model, the migration of the data to Amazon S3, and the code for hyperparameter tuning (explaining the election of the parameters) and training in Amazon Sagemaker.
-  - *98_model_predictions.ipynb*: Jupyter notebook to check the predictions of the code estimation model.
-  - *99_check_photos.ipynb*: Jupyter notebook for plotting the photos and their corresponding damage polygons.
-  - *data.yaml*, *data_test.yaml*, *data_train.yaml*, *data_tune.yaml*: YAML files for indicating the validation and train files for the YOLO models depending on the context.
+- [**/Notebooks/**](./Notebooks/): Jupyter notebooks used for the project.
+  - *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)*: Jupyter notebook for installing the requirements defined for Sagemaker.
+  - [*1_data_processing.ipynb*](./Notebooks/1_data_processing.ipynb): Jupyter notebook with the data processing.
+  - [*2_Claim_costs.ipynb*](./Notebooks/2_Claim_costs.ipynb): Jupyter notebook that explains how the auto claim data is generated and the model obtained for predicting the car damage reparation.
+  - [*4_yolo_code.ipynb*](./Notebooks/4_yolo_code.ipynb): Code with all the preparation of the data for the YOLO model, the migration of the data to Amazon S3, and the code for hyperparameter tuning (explaining the election of the parameters) and training in Amazon Sagemaker.
+  - [*98_model_predictions.ipynb*](./Notebooks/99_check_photos.ipynb): Jupyter notebook to check the predictions of the code estimation model.
+  - [*99_check_photos.ipynb*](./Notebooks/99_check_photos.ipynb): Jupyter notebook for plotting the photos and their corresponding damage polygons.
+  - [*data.yaml*](/Notebooks/data.yaml), [*data_test.yaml*](./Notebooks/data_test.yaml), [*data_train_final.yaml*](Notebooks/data_train_final.yaml), [*data_tune_metrics.yaml*](./Notebooks/data_tune_metrics.yaml), [*data_train_final_metrics.yaml*](./Notebooks/data_train_final_metrics.yaml): YAML files for indicating the validation and train files for the YOLO models depending on the context (for training or validating the data).
   
-- **/Sagemaker/**: folder that contains the two python programs with the code for defining the models to train in Amazon Sagemaker.
+- [**/Sagemaker/**](./Sagemaker/): folder that contains the two python programs ([train_tune.py](./Sagemaker/train_tune.py) and [train_final.py](./Sagemaker/train_final.py)) with the code for defining the models to train in Amazon Sagemaker.
 
-- **/src/**: Folder that contains the *mymodule.py* script with all the functions used in the project, each one containing an explanation of their function, outputs, and inputs.
+-[ **/src/**](./src/): Folder that contains the [*mymodule.py*](./src/mymodule.py) script with all the functions used in the project, each one containing an explanation of their function, outputs, and inputs.
 
-- **/Others/**: Folder with different files that have been useful during the project (git steps for every time that we opened Sagemaker, some relevant links, tips, etc.).
+- [**/Others/**](./Others/): Folder with different files that have been useful during the project (git steps for every time that we opened Sagemaker, some relevant links, tips, etc.).
 
-- **/images_readme/**: Folder with the images for generating this README.
+- [**/images_readme/**](./images_readme/): Folder with the images for generating this README.
 
-- *requirements.txt*: Contains the file that lists all the dependencies needed to run the project locally.
-- *requirements_linux.txt*: Contains the file that lists all the dependencies needed to run the project in Amazon Sagemaker.
-- *config.yaml*: yaml file with the definition of the variables that are used over the project.
+- [*requirements.txt*](./requirements.txt): Contains the file that lists all the dependencies needed to run the project locally.
+- [*requirements_linux.txt*](./requirements_linux.txt): Contains the file that lists all the dependencies needed to run the project in Amazon Sagemaker.
+- [*config.yaml*](./config.yaml): yaml file with the definition of the variables that are used over the project.
 
 
-## Usage of Each Folder
+## Deployment of the model
+### Local 
+
+### Sagemaker
 
 ## Join pkl 
