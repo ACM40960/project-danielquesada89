@@ -2,9 +2,8 @@ import streamlit as st
 import base64
 import os
 from ultralytics import YOLO
-import joblib
 import pandas as pd
-
+import pickle
 
 ################################################
 ###            Detection Model Cal           ###
@@ -15,7 +14,7 @@ path_upload = 'API/uploads'
 picture_name=os.listdir(path_upload)[0]
 full_path= os.path.join(path_upload,picture_name)
 # we import model
-yolo_model = YOLO("Models/best_modeltuning_YOLO-tuning8/train/weights/best.pt")
+yolo_model = YOLO("Models/yolo_model.pt")
 
 
 # we predict the image
@@ -554,8 +553,8 @@ with col2:
 ################################################
 
 # we import model
-cost_model=joblib.load("Models/cost_model.pkl")
-
+with open('./Models/cost_model.pkl', 'rb') as file:
+    cost_model = pickle.load(file)
 
 # Display the selected workshop
 if buttom_workshop != "Select among available workshops":
