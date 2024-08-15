@@ -159,14 +159,14 @@ In case of  having an user in AWS, what it should be done is:
   git remote set-url origin https://<user name>:<token password>@github.com/ACM40960/project-danielteresa.git
   ````
 
-###  <span id="aws" style="color:#5fa8d3;">6. Models</span>
+##  <span id="aws" style="color:#5fa8d3;">6. Models</span>
 
 Our project addresses two estimation problems. One is predicting the repair cost for each of the damages sustained by the car, and the other is accurately locating and classifying the type of damage to generate a repair estimate. To achieve this, we have employed two models:
 
 - [**XG Boost**](https://www.ibm.com/topics/xgboost) is a machine learning algorithm that belongs to the ensemble learning category, specifically within the gradient boosting framework. It uses decision trees as base learners and employs regularization techniques to enhance model generalization.
 - **YOLO** is a state-of-the-art, real-time object detection algorithm that treats object detection as a regression problem instead of a classification task by spatially separating bounding boxes and associating probabilities with each detected object using a single convolutional neural network (CNN). The version used in this project is YOLOv8 in the "medium" size. Please refer to the PDF [YOLO_model.pdf](./Others/YOLO_model.pdf) that we have created to explain this model in detail if you want to dive deeper into how it works.
 
-###  <span id="aws" style="color:#5fa8d3;">7. Results</span>
+##  <span id="aws" style="color:#5fa8d3;">7. Results</span>
 
 In our XGBoost model, we utilized the following configuration:
 - 1,000 trees
@@ -179,3 +179,18 @@ The model was trained using all available predictors to simulate the claim datas
 <p align="center" id="xgboost-image">
   <img src="images_readme/XGboost.png"  width="400px" height="300px"/>
 </p>
+
+##  <span id="aws" style="color:#5fa8d3;">6. Conclusions</span>
+
+
+- **Objective**: The main goal was to create an initial application design where the user could obtain a **location and classification of their vehicle damage**, receive a **cost estimate**, and be assigned to **repair workshops** in a user-friendly manner. This objective has been achieved, and the application deployment can even be extended beyond local environments. However, it is necessary to **migrate this app to specialized programs** and make it more suitable in terms of design for deployment on **mobile devices**.
+
+- **Cost Estimation Model**: The cost estimation model does not yet yield optimal results, which is understandable since the data used is simulated without any expert knowledge in the field of **automobile damage assessment**. The next step would be to exchange information with **insurance appraisers or mechanics' workshops** to create a real dataset of damage data and actual estimates across all counties in Ireland.
+
+- **Neural Network Challenges**: Developing the neural network posed several challenges. As explained in the article [Convolutional Neural Networks for Vehicle Damage Detection](https://www.sciencedirect.com/science/article/pii/S2666827022000433), this is not a simple problem. The issue is twofold: there are multiple classes within the damage category, and vehicle damages themselves do not have standard shapes like detecting a helmet or a dog (which have consistent shapes). Scratches or dents can vary greatly in shape, and detecting issues with car windows or mirrors can be difficult due to reflections. The article highlights the importance of a **high number of epochs** and a **large database**, leading to the next challenge: building a sufficiently large database and having the resources to train the models. For this, we turned to **Amazon Web Services (AWS)**.
+
+- **AWS Cloud Project Deployment**: We learned to launch the entire project from the cloud using AWS, which was challenging due to the lack of clear and concise documentation on training tools, tuning, and instance selection. Online examples were also unclear, particularly when it came to **assigning user permissions** and configuring the training processes. For instance, we spent a significant amount of time waiting for our model to train, only for it to be interrupted repeatedly. After several investigations, we discovered that AWS had set a default option that allowed it to stop the process if it needed the space, making training impossible. Initially, we used a CPU-only instance, but the training was very slow (with an estimated 72 hours per epoch). We had to request permissions and wait to be assigned a **GPU-equipped instance**, which significantly accelerated our training process (from running just 2 batches per minute to 6 batches per minute).
+
+- **Application Construction**: The application was built using **Streamlit**, which provided a much simpler interface since everything was executed from Python. However, all figure designs were created using HTML code, something that had never been done before. Additionally, one of the things to improve is that the widgets for selecting variables, such as workshops, were created with Streamlit commands. When these were introduced into the HTML commands, they stopped functioning, and the variables could not be passed to the models. As a result, we had to place the widgets and navigation buttons outside the application's main frame due to compatibility limitations between Streamlit and HTML.
+
+- **Project Organization and Version Control**: Another important point is learning how to organize a project and manage repositories with Git. A good organization of folders and files is crucial to understanding the workflow and making updates easily. Therefore, we adopted a directory management system similar to [Cookiecutter](https://cookiecutter-data-science.drivendata.org/) to organize the files, making them more understandable for others, and using files like `config.yaml` to facilitate path updates.
