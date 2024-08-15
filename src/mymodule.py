@@ -767,7 +767,7 @@ def cost_analysis(df_combined, models,
     print(summary_stats)
 
 
-def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Medium": 0.5,"High": 0.2}):
+def labour_analysis(df_labour, lmbda, ini=0.5, workshop_qlty_dist={"Low": 0.3, "Medium": 0.5, "High": 0.2}, color1='#62b6cb', color2='#fb8500'):
     """
     Analyzes and plots various aspects of simulated labour cost data.
 
@@ -788,6 +788,7 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
                            - 'workshop_quality': Quality of the workshop
     lmbda (float): The rate parameter (lambda) of the exponential distribution used to simulate the number of hours worked.
     ini (float): An initial offset added to each sample of hours worked. Default is 0.5.
+    color1, color2: Colors used for the plots.
 
     Returns:
     None
@@ -804,11 +805,11 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
 
     # Plot 1: Observed hours distribution vs theoretical exponential distribution
     plt.figure(figsize=(12, 3))
-    sns.histplot(num_hours, bins=50, kde=True, stat='density', color='blue', label='Observed')
+    sns.histplot(num_hours, bins=50, kde=True, stat='density', color=color1, label='Observed')
     # Theoretical distribution
     x = np.linspace(0.5, np.max(num_hours), 1000)
     y = lmbda * np.exp(-lmbda * (x - ini)) * (x >= ini)
-    plt.plot(x, y, 'r-', lw=2, label='Theoretical')
+    plt.plot(x, y, 'b-', lw=2, label='Theoretical')
     plt.title('Observed Hours Distribution vs Theoretical Exponential Distribution')
     plt.xlabel('Hours')
     plt.ylabel('Density')
@@ -818,7 +819,7 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
     # Plot 2: Cost per hour distribution
     plt.figure(figsize=(12, 3))
     bins = np.linspace(0, np.max(labour_costs), 51)
-    sns.histplot(labour_costs, bins=bins, kde=True, color='green')
+    sns.histplot(labour_costs, bins=bins, kde=True, color=color1)
     plt.title('Labour Cost per Hour Distribution')
     plt.xlabel('Cost per Hour')
     plt.ylabel('Frequency')
@@ -832,7 +833,7 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
     # Plot 3: Total labour costs
     plt.figure(figsize=(12, 3))
     bins = np.linspace(0, np.max(total_labour_costs), 51)
-    sns.histplot(total_labour_costs, bins=bins, kde=True, color='green')
+    sns.histplot(total_labour_costs, bins=bins, kde=True, color=color2)
     plt.title('Total Labour Costs Distribution')
     plt.xlabel('Total Labour Cost')
     plt.ylabel('Frequency')
@@ -844,6 +845,9 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
     plt.show()
 
     # Plot 4: County distribution comparison
+    custom_palette = [color1, color2]
+
+    # County Distribution Comparison
     simulated_county_dist = pd.Series(counties).value_counts(normalize=True).sort_index() * 100
     county_df = pd.DataFrame({
         'County': county_info['County'],
@@ -851,8 +855,9 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
         'Simulated Distribution': simulated_county_dist.reindex(county_info['County']).values
     })
     county_df = county_df.melt(id_vars='County', var_name='Distribution Type', value_name='Percentage')
+    
     plt.figure(figsize=(12, 3))
-    sns.barplot(x='County', y='Percentage', hue='Distribution Type', data=county_df)
+    sns.barplot(x='County', y='Percentage', hue='Distribution Type', data=county_df, palette=custom_palette)
     plt.xticks(rotation=90)
     plt.title('County Distribution: Real vs Simulated')
     plt.xlabel('County')
@@ -868,13 +873,15 @@ def labour_analysis(df_labour, lmbda, ini=0.5,workshop_qlty_dist={"Low": 0.3,"Me
         'Simulated Distribution': simulated_workshop_dist.reindex(list(workshop_qlty_dist.keys())).values
     })
     workshop_df = workshop_df.melt(id_vars='Workshop Quality', var_name='Distribution Type', value_name='Percentage')
+    
     plt.figure(figsize=(12, 3))
-    sns.barplot(x='Workshop Quality', y='Percentage', hue='Distribution Type', data=workshop_df)
+    sns.barplot(x='Workshop Quality', y='Percentage', hue='Distribution Type', data=workshop_df, palette=custom_palette)
     plt.title('Workshop Quality Distribution: Real vs Simulated')
     plt.xlabel('Workshop Quality')
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
+
 
 
 def conc_total_cost(df_repair, df_labour):
@@ -914,7 +921,7 @@ def conc_total_cost(df_repair, df_labour):
     return df_total
 
 
-def analysis_total_cost(df):
+def analysis_total_cost(df, color1='#62b6cb', color2='#fb8500', color3='#023047'):
     """
     Analyzes and plots various aspects of total cost data, including distributions and categorical comparisons.
 
@@ -937,7 +944,7 @@ def analysis_total_cost(df):
     # Plot distribution of the cost variables
     plt.figure(figsize=(18, 4))
     bins = np.linspace(0, np.max(df["total_cost"]), 51)
-    sns.histplot(df["total_cost"], bins=bins, kde=True, color='blue')
+    sns.histplot(df["total_cost"], bins=bins, kde=True, color=color1)
     plt.title('Total Cost Distribution')
     plt.xlabel('Total Cost')
     plt.ylabel('Frequency')
@@ -949,7 +956,7 @@ def analysis_total_cost(df):
     # Distribution of repair_cost
     plt.subplot(1, 2, 1)
     bins = np.linspace(0, np.max(df["repair_cost"]), 51)
-    sns.histplot(df["repair_cost"], bins=bins, kde=True, color='orange')
+    sns.histplot(df["repair_cost"], bins=bins, kde=True, color=color2)
     plt.title('Repair Cost Distribution')
     plt.xlabel('Repair Cost')
     plt.ylabel('Frequency')
@@ -957,7 +964,7 @@ def analysis_total_cost(df):
     # Distribution of labour_cost
     plt.subplot(1, 2, 2)
     bins = np.linspace(0, np.max(df["labour_cost"]), 51)
-    sns.histplot(df["labour_cost"], bins=bins, kde=True, color='green')
+    sns.histplot(df["labour_cost"], bins=bins, kde=True, color=color3)
     plt.title('Labour Cost Distribution')
     plt.xlabel('Labour Cost')
     plt.ylabel('Frequency')
@@ -967,35 +974,36 @@ def analysis_total_cost(df):
 
     # Categorical variables
     categorical_vars = ["brand", "model", "veh_age_range", "workshop_quality", "counties"]
-
+    
     for var in categorical_vars:
         plt.figure(figsize=(18, 6))
-
+    
         # Boxplot of total_cost by categorical variable
         plt.subplot(1, 2, 1)
-        sns.boxplot(x=var, y="total_cost", data=df)
+        sns.boxplot(x=var, y="total_cost", data=df, color=color1)
         plt.title(f'Total Cost by {var}')
         plt.yticks(fontsize=18)
         plt.xticks(rotation=90, fontsize=18, fontweight='bold')
-
+    
         # Bar plot of average total_cost by categorical variable with repair_cost and labour_cost stacked
         plt.subplot(1, 2, 2)
         avg_cost = df.groupby(var)[["repair_cost", "labour_cost"]].mean().reset_index()
         avg_cost["total_cost"] = avg_cost["repair_cost"] + avg_cost["labour_cost"]
-
+    
         # Plot stacked bars
         ax = avg_cost.set_index(var).sort_values(by="total_cost", ascending=False)[["repair_cost", "labour_cost"]].plot(
-            kind='bar', stacked=True, color=['orange', 'green'], ax=plt.gca())
-
+            kind='bar', stacked=True, color=[color1, color2], ax=plt.gca())
+    
         plt.title(f'Average Total Cost by {var}')
         plt.xlabel(var)
         plt.ylabel('Cost')
         plt.yticks(fontsize=18)
         plt.xticks(rotation=90, fontsize=18, fontweight='bold')
         plt.legend(title='Cost Type')
-
+    
         plt.tight_layout()
         plt.show()
+
 
 ##################################################
 ########## 3 Data Augmentation Functions #########
