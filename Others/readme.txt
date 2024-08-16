@@ -1,2 +1,0 @@
-pip install boto3 --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
-pip install sagemaker --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org

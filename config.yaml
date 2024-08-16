@@ -20,6 +20,11 @@ path_yaml_yolo_tune_metrics:  './Notebooks/data_tune_metrics.yaml'
 path_yaml_yolo_train_final: './Notebooks/data_train_final.yaml'
 path_yaml_yolo_train_final_metrics : './Notebooks/data_train_final_metrics.yaml'
 path_yaml_yolo_test : './Notebooks/data_test.yaml'
+
+# folders
+folder_tuning: tuning_data
+folder_final: final_data
+
 # annotations names
 kaggle_train_annotations : "annotations_train.json"
 train_annotations_name_temp: "annotations_train_temp.json"
@@ -30,9 +35,9 @@ val_annotations_name : "annotations_val_updated.json"
 kaggle_test_annotations : "annotations_test.json"
 test_annotations_name_temp: "annotations_test_temp.json"
 test_annotations_name : "annotations_test_updated.json"
-
-weights_yolo_path : 'Models/yolo_weights'
-runs_path: 'Models/runs'
+variant_yolo : yolov8m-seg.pt
+weights_yolo_path_original : Models/yolo_weights
+runs_path: Models/runs
 
 # AWS S3 bucket names
 bucket_name: "sagemaker-eu-west-1-project-danielteresa"
@@ -40,8 +45,8 @@ bucket_name: "sagemaker-eu-west-1-project-danielteresa"
 # models names to be saved in S3
 # this should be the structure: ^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,31}
 
-tuning_jobname: "YOLO-tuning13"
-final_jobname:  "YOLO-final3"
+tuning_jobname: "YOLO-tuning25"
+final_jobname:  "YOLO-final25"
 
 
 
