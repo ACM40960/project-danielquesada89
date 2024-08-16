@@ -1523,7 +1523,8 @@ def print_styled_metrics_table(metrics, names, color):
         "Segmentation Recall": seg_recall,
         "Segmentation F1 Score": seg_f1,
         "Segmentation AP50": seg_ap50,
-        "Segmentation AP50-95": seg_ap5095        
+        "Segmentation AP50-95": seg_ap5095,
+        "Segmentation YOLO": seg_ap50*0.9 + seg_ap5095*0.1
     })
 
     all_results = pd.DataFrame({
@@ -1538,6 +1539,7 @@ def print_styled_metrics_table(metrics, names, color):
     "Segmentation F1 Score": [2 * metrics.seg.mr * metrics.seg.mp / (metrics.seg.mp + metrics.seg.mr)],
     "Segmentation AP50": [metrics.seg.map50],
     "Segmentation AP50-95": [metrics.seg.map]
+    "Segmentation YOLO": [metrics.seg.map50*0.9 +metrics.seg.map*0.1]
     })
 
     df = pd.concat([df, all_results], ignore_index=True)
