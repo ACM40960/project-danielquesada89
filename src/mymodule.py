@@ -1538,7 +1538,7 @@ def print_styled_metrics_table(metrics, names, color):
     "Segmentation Recall": [metrics.seg.mr],
     "Segmentation F1 Score": [2 * metrics.seg.mr * metrics.seg.mp / (metrics.seg.mp + metrics.seg.mr)],
     "Segmentation AP50": [metrics.seg.map50],
-    "Segmentation AP50-95": [metrics.seg.map]
+    "Segmentation AP50-95": [metrics.seg.map],
     "Segmentation YOLO": [metrics.seg.map50*0.9 +metrics.seg.map*0.1]
     })
 
@@ -1548,7 +1548,7 @@ def print_styled_metrics_table(metrics, names, color):
     styled_df = df.style.set_table_styles(
         [
             {'selector': 'thead th', 'props': [('background-color', color), ('color', 'white'), ('text-align', 'center')]},
-            {'selector': 'tbody td', 'props': [('text-align', 'center'), ('border', '1px solid black')]},
+            {'selector': 'tbody td', 'props': [('background-color', 'white'), ('color', 'black'), ('text-align', 'center'), ('border', '1px solid black')]},
             {'selector': 'tbody th', 'props': [('background-color', color), ('color', 'white'), ('text-align', 'center')]},
             {'selector': 'table', 'props': [('border-collapse', 'collapse'), ('width', '100%')]},
         ]
