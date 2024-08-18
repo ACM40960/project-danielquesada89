@@ -32,7 +32,7 @@ Below is an example of how the application and the outputs would appear when a c
 
 ## <span id="workflow" style="color:#5fa8d3;">3. Workflow</span>
 <p align="center">
-  <img src="./images_readme/diagram.jpg" alt="Description of Image" width="800px" height="600px"/>
+  <img src="./images_readme/diagram.png" alt="Description of Image" width="800px" height="600px"/>
 </p>
 
 
