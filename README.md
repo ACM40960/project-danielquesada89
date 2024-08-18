@@ -197,10 +197,21 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 <table>
   <tr>
-    <td><img src="images_readme/testresults.jpg" alt="Test Results" width="400"/></td>
-    <td><img src="images_readme/trainresults.jpg" alt="Train Results" width="400"/></td>
+    <td>
+      <figure>
+        <img src="images_readme/testresults.jpg" alt="Test Results" width="400"/>
+        <figcaption>Test Results</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure>
+        <img src="images_readme/trainresults.jpg" alt="Train Results" width="400"/>
+        <figcaption>Train Results</figcaption>
+      </figure>
+    </td>
   </tr>
 </table>
+
 
 
 
