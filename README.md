@@ -66,7 +66,7 @@ The project is organized into the following main directories:
   - [**/YOLO-final4/**](./Models/YOLO-final4/): Folder with the results of the chosen model and trained with the validation and train sets.
     - [**/train/**](./Models/YOLO-final4/train/): Folder with the output of the training process.
     - [**/test/**](./Models/YOLO-final4/test/): Folder with the output of the test process.
-    - [**/test/**](./Models/YOLO-final4/train_final_metrics/): Folder with the output of the metrcis of the whole train set for comparing with the test results.
+    - [**/test/**](./Models/YOLO-final4/train_final_metrics/): Folder with the output of the metrics of the whole train set for comparing with the test results.
     - *cost_model.pkl.part-\**: Fragments of the cost_model that the model had to be splitted to be able to uploaded in Github. There are to options to obtain the model: by joining all this parts or running the training of the model that it does not take too much time.
     - [*yolo_model.pt*](./Models/yolo_model.pt): Weights of the final model for detecting car damages.
 - [**/Notebooks/**](./Notebooks/): Jupyter notebooks used for the project.
