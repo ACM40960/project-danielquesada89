@@ -241,7 +241,9 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 3. Jeonjw25. (n.d.). car_damage_detection_YOLOv4 [GitHub Repository]. *GitHub*. Retrieved from [https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg](https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg)
 
-4. CHZSN-0037. (2022). Research paper. *ICCR 2022*. Retrieved from [https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf](https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf)
+4. CHZSN-0037. (2022). Vehicle Damage Volume Level Recognition
+Algorithm based on Convolution Neural Network
+and Yolo Model. *ICCR 2022*. Retrieved from [https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf](https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf)
 
 5. Bays Consulting. (n.d.). Hyperparameter tuning a YOLOv8 model with Amazon SageMaker. Retrieved from [https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/)
 
@@ -257,11 +259,11 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 11. ScienceDirect. (2022). Convolutional neural networks for vehicle damage detection. *ScienceDirect*. Retrieved from [https://www.sciencedirect.com/science/article/pii/S2666827022000433](https://www.sciencedirect.com/science/article/pii/S2666827022000433)
 
-12. IJCRT. (2024). Research paper. *IJCRT*. Retrieved from [https://ijcrt.org/papers/IJCRT2405301.pdf](https://ijcrt.org/papers/IJCRT2405301.pdf)
+12. IJCRT. (2024). Car damage detection using machine learning. *IJCRT*. Retrieved from [https://ijcrt.org/papers/IJCRT2405301.pdf](https://ijcrt.org/papers/IJCRT2405301.pdf)
 
 13. Borad, A. (2021). Understanding object localization with deep learning. *eInfochips Blog*. Retrieved from [https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/](https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/)
 
-14. Chand, A. (2022). Damage detection of cars and repair cost estimation!! *Medium*. Retrieved from [https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a](https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a)
+14. Chand, A. (2022). Damage detection of cars and repair cost estimation. *Medium*. Retrieved from [https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a](https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a)
 
 15. Mohan, V. (2022). Car damage detection using AI: Methodology and approach for high accuracy. *Inspektlabs Blog*. Retrieved from [https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/](https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/)
 
