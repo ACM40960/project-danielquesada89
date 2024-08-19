@@ -232,29 +232,31 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 ##  <span id="references" style="color:#5fa8d3;">10. References </span>
 
-1. Andrey Germanov, "How to Implement Instance Segmentation Using YOLOv8 Neural Network", [Dev.to](https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9).
+## References
 
-2. "Mean Average Precision Explained", [V7 Labs Blog](https://www.v7labs.com/blog/mean-average-precision).
+1. Germanov, A. (n.d.). How to implement instance segmentation using YOLOv8 neural network. *Dev.to*. Retrieved from [https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9](https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9)
 
-3. Jeonjw25, "car_damage_detection_YOLOv4", [GitHub Repository](https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg).
+2. V7 Labs. (n.d.). Mean average precision explained. *V7 Labs Blog*. Retrieved from [https://www.v7labs.com/blog/mean-average-precision](https://www.v7labs.com/blog/mean-average-precision)
 
-4. CHZSN-0037, "Research Paper", [ICCR 2022](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf).
+3. Jeonjw25. (n.d.). car_damage_detection_YOLOv4 [GitHub Repository]. *GitHub*. Retrieved from [https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg](https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg)
 
-5. "Hyperparameter Tuning a YOLOv8 Model with Amazon SageMaker", [Bays Consulting](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/).
+4. CHZSN-0037. (2022). Research paper. *ICCR 2022*. Retrieved from [https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf](https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf)
 
-6. "Training YOLOv5 on AWS with PyTorch and SageMaker Distributed Data Parallel Library", [Medium](https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b).
+5. Bays Consulting. (n.d.). Hyperparameter tuning a YOLOv8 model with Amazon SageMaker. Retrieved from [https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/)
 
-7. Ultralytics, "YOLOv8 Documentation", [GitHub](https://github.com/ultralytics/ultralytics).
+6. Cao, S. (n.d.). Training YOLOv5 on AWS with PyTorch and SageMaker distributed data parallel library. *Medium*. Retrieved from [https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b](https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b)
 
-8. "Automatic Model Tuning in Amazon SageMaker", [AWS Documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html).
+7. Ultralytics. (n.d.). YOLOv8 Documentation. *GitHub*. Retrieved from [https://github.com/ultralytics/ultralytics](https://github.com/ultralytics/ultralytics)
 
-9. "What's New in YOLOv8?", [Roboflow Blog](https://blog.roboflow.com/whats-new-in-yolov8/).
+8. Amazon Web Services. (n.d.). Automatic model tuning in Amazon SageMaker. *AWS Documentation*. Retrieved from [https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html)
 
-10. "What is an Anchor Box?", [Roboflow Blog](https://blog.roboflow.com/what-is-an-anchor-box/).
+9. Roboflow. (n.d.). What's new in YOLOv8? *Roboflow Blog*. Retrieved from [https://blog.roboflow.com/whats-new-in-yolov8/](https://blog.roboflow.com/whats-new-in-yolov8/)
 
-11. "Research Paper", [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S2666827022000433).
+10. Roboflow. (n.d.). What is an anchor box? *Roboflow Blog*. Retrieved from [https://blog.roboflow.com/what-is-an-anchor-box/](https://blog.roboflow.com/what-is-an-anchor-box/)
 
-12. "Research Paper", [IJCRT](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://ijcrt.org/papers/IJCRT2405301.pdf).
+11. ScienceDirect. (2022). Convolutional neural networks for vehicle damage detection. *ScienceDirect*. Retrieved from [https://www.sciencedirect.com/science/article/pii/S2666827022000433](https://www.sciencedirect.com/science/article/pii/S2666827022000433)
+
+12. IJCRT. (2024). Research paper. *IJCRT*. Retrieved from [https://ijcrt.org/papers/IJCRT2405301.pdf](https://ijcrt.org/papers/IJCRT2405301.pdf)
 
 
 
