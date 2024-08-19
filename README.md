@@ -58,7 +58,7 @@ The project is organized into the following main directories:
     - [**/val/**](./Data/Yoloimages/val): Directory containing the validation set, used to tune the model's hyperparameters and evaluate performance during training.
     - [**/test/**](./Data/Yoloimages/test): Directory containing the test set, used to assess the model's generalization capability on unseen data.
 
-- [**/Models/**](./Models/): Folder containing the cost model [*cost_model.pkl*](./Models/cost_model.pkl) and the car detection models (DIRECTORIES OF MODELS TO BE ADDED).
+- [**/Models/**](./Models/): Folder containing the cost model [*cost_model.pkl*](./Models/cost_model.pkl) and the car detection models.
   - [**/best_modeltuning_Yolo-tuning24/**](./Models/best_modeltuning_Yolo-tuning24/): Folder with the results of the best model obtained in the Hyperparameter tuning.
     - [**/train/**](./Models/best_modeltuning_Yolo-tuning24/train/): Folder with the output of the training process.
     - [**/val/**](./Models/best_modeltuning_Yolo-tuning24/val/): Folder with the output of the validation process.
