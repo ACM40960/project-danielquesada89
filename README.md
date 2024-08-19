@@ -235,41 +235,41 @@ Another factor that may have worsened our results is the dataset itself, as it c
 ##  <span id="references" style="color:#5fa8d3;">9. References </span>
 
 
-1. Germanov, A. (n.d.). How to implement instance segmentation using YOLOv8 neural network. *Dev.to*. Retrieved from [https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9](https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9)
+1. Germanov, A. (n.d.). How to implement instance segmentation using YOLOv8 neural network. *Dev.to*. Retrieved from [link](https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9)
 
-2. V7 Labs. (n.d.). Mean average precision explained. *V7 Labs Blog*. Retrieved from [https://www.v7labs.com/blog/mean-average-precision](https://www.v7labs.com/blog/mean-average-precision)
+2. V7 Labs. (n.d.). Mean average precision explained. *V7 Labs Blog*. Retrieved from [link](https://www.v7labs.com/blog/mean-average-precision)
 
-3. Jeonjw25. (n.d.). car_damage_detection_YOLOv4 [GitHub Repository]. *GitHub*. Retrieved from [https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg](https://github.com/jeonjw25/car_damage_detection_YOLOv4/tree/main)
+3. Jeonjw25. (n.d.). car_damage_detection_YOLOv4 [GitHub Repository]. *GitHub*. Retrieved from [link](https://github.com/jeonjw25/car_damage_detection_YOLOv4/tree/main)
 
 4. CHZSN-0037. (2022). Vehicle Damage Volume Level Recognition
 Algorithm based on Convolution Neural Network
-and Yolo Model. *ICCR 2022*. Retrieved from [https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf](https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf)
+and Yolo Model. *ICCR 2022*. Retrieved from [link](https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf)
 
-5. Bays Consulting. (n.d.). Hyperparameter tuning a YOLOv8 model with Amazon SageMaker. Retrieved from [https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/)
+5. Bays Consulting. (n.d.). Hyperparameter tuning a YOLOv8 model with Amazon SageMaker. Retrieved from [link](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/)
 
-6. Cao, S. (n.d.). Training YOLOv5 on AWS with PyTorch and SageMaker distributed data parallel library. *Medium*. Retrieved from [https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b](https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b)
+6. Cao, S. (n.d.). Training YOLOv5 on AWS with PyTorch and SageMaker distributed data parallel library. *Medium*. Retrieved from [link](https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b)
 
-7. Ultralytics. (n.d.). YOLOv8 Documentation. *GitHub*. Retrieved from [https://github.com/ultralytics/ultralytics](https://github.com/ultralytics/ultralytics)
+7. Ultralytics. (n.d.). YOLOv8 Documentation. *GitHub*. Retrieved from [link](https://github.com/ultralytics/ultralytics)
 
-8. Amazon Web Services. (n.d.). Automatic model tuning in Amazon SageMaker. *AWS Documentation*. Retrieved from [https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html)
+8. Amazon Web Services. (n.d.). Automatic model tuning in Amazon SageMaker. *AWS Documentation*. Retrieved from [link](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html)
 
-9. Roboflow. (n.d.). What's new in YOLOv8? *Roboflow Blog*. Retrieved from [https://blog.roboflow.com/whats-new-in-yolov8/](https://blog.roboflow.com/whats-new-in-yolov8/)
+9. Roboflow. (n.d.). What's new in YOLOv8? *Roboflow Blog*. Retrieved from [link](https://blog.roboflow.com/whats-new-in-yolov8/)
 
-10. Roboflow. (n.d.). What is an anchor box? *Roboflow Blog*. Retrieved from [https://blog.roboflow.com/what-is-an-anchor-box/](https://blog.roboflow.com/what-is-an-anchor-box/)
+10. Roboflow. (n.d.). What is an anchor box? *Roboflow Blog*. Retrieved from [link](https://blog.roboflow.com/what-is-an-anchor-box/)
 
-11. ScienceDirect. (2022). Convolutional neural networks for vehicle damage detection. *ScienceDirect*. Retrieved from [https://www.sciencedirect.com/science/article/pii/S2666827022000433](https://www.sciencedirect.com/science/article/pii/S2666827022000433)
+11. ScienceDirect. (2022). Convolutional neural networks for vehicle damage detection. *ScienceDirect*. Retrieved from [link](https://www.sciencedirect.com/science/article/pii/S2666827022000433)
 
-12. IJCRT. (2024). Car damage detection using machine learning. *IJCRT*. Retrieved from [https://ijcrt.org/papers/IJCRT2405301.pdf](https://ijcrt.org/papers/IJCRT2405301.pdf)
+12. IJCRT. (2024). Car damage detection using machine learning. *IJCRT*. Retrieved from [link](https://ijcrt.org/papers/IJCRT2405301.pdf)
 
-13. Borad, A. (2021). Understanding object localization with deep learning. *eInfochips Blog*. Retrieved from [https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/](https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/)
+13. Borad, A. (2021). Understanding object localization with deep learning. *eInfochips Blog*. Retrieved from [link](https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/)
 
-14. Chand, A. (2022). Damage detection of cars and repair cost estimation. *Medium*. Retrieved from [https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a](https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a)
+14. Chand, A. (2022). Damage detection of cars and repair cost estimation. *Medium*. Retrieved from [link](https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a)
 
-15. Mohan, V. (2022). Car damage detection using AI: Methodology and approach for high accuracy. *Inspektlabs Blog*. Retrieved from [https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/](https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/)
+15. Mohan, V. (2022). Car damage detection using AI: Methodology and approach for high accuracy. *Inspektlabs Blog*. Retrieved from [link](https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/)
 
-16. Mueller, M. S., Metzger, A., & Jutzi, B. (2018). CNN-based initial localization improved by data augmentation. *ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, IV-1*(8), 117–124. Retrieved from [https://isprs-annals.copernicus.org/articles/IV-1/117/2018/](https://isprs-annals.copernicus.org/articles/IV-1/117/2018/)
+16. Mueller, M. S., Metzger, A., & Jutzi, B. (2018). CNN-based initial localization improved by data augmentation. *ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, IV-1*(8), 117–124. Retrieved from [link](https://isprs-annals.copernicus.org/articles/IV-1/117/2018/)
 
-17. Razmi, T. (2019). Mask R-CNN. *Medium*. Retrieved from [https://medium.com/@tibastar/mask-r-cnn-d69aa596761f](https://medium.com/@tibastar/mask-r-cnn-d69aa596761f)
+17. Razmi, T. (2019). Mask R-CNN. *Medium*. Retrieved from [link](https://medium.com/@tibastar/mask-r-cnn-d69aa596761f)
 
 
 
