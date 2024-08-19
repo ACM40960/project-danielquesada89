@@ -26,7 +26,7 @@ This project enhances the **car insurance claims** process by leveraging machine
 
 ## <span id="example" style="color:#5fa8d3;">2. Example</span>
 
-Below is an example of how the application and the outputs would appear when a client of the insurance company uploads a car damage.
+Below it can be seen an example of how the application and the outputs would appear when a client of the insurance company uploads a car damage.
 
 <p align="center">
   <img src="images_readme/example_usage.jpg" alt="Description of Image" width="800px" height="300px"/>
@@ -69,7 +69,7 @@ The project is organized into the following main directories:
     - [**/train/**](./Models/YOLO-final4/train/): Folder with the output of the training process.
     - [**/test/**](./Models/YOLO-final4/test/): Folder with the output of the test process.
     - [**/test/**](./Models/YOLO-final4/train_final_metrics/): Folder with the output of the metrics of the whole train set for comparing with the test results.
-    - *cost_model.pkl.part-\**: Fragments of the cost_model that the model had to be splitted to be able to uploaded in Github. There are to options to obtain the model: by joining all this parts or running the training of the model that it does not take too much time.
+    - *cost_model.pkl.part-\**: Fragments of the cost_model because it had to be splitted for uploading it in Github. There are two options to obtain the model: by joining all this parts or running the training of the model that it does not take too much time.
     - [*yolo_model.pt*](./Models/yolo_model.pt): Weights of the final model for detecting car damages.
 - [**/Notebooks/**](./Notebooks/): Jupyter notebooks used for the project.
   - *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)*: Jupyter notebook for installing the requirements defined for SageMaker Studio.
@@ -150,15 +150,15 @@ pip install requirements.txt
 
 ###  <span id="aws" style="color:#5fa8d3;">5.2 Amazon Web Services</span>
 
-The AWS services primarily used are [S3](https://aws.amazon.com/s3/?nc=sn&loc=0), a scalable object storage service, and [Amazon SageMaker](https://aws.amazon.com/s3/?nc=sn&loc=0), a fully managed service that enables the building, training, and deployment of machine learning models at scale. The  [*4_yolo_code.ipynb*](./Notebooks/4_yolo_code.ipynb) program need to be run from Amazon Sagemaker Studio because although it could be run locally with the respective Amazon credentials it needs computational power for some actions like connecting to the train characteristic of Amazon Sagemaker. 
+The AWS services primarily used are [S3](https://aws.amazon.com/s3/?nc=sn&loc=0), a scalable object storage service, and [Amazon SageMaker](https://aws.amazon.com/s3/?nc=sn&loc=0), a fully managed service that enables the building, training, and deployment of machine learning models at scale. The  [*4_yolo_code.ipynb*](./Notebooks/4_yolo_code.ipynb) program needs to be run from Amazon Sagemaker Studio because although it could be run locally with the respective Amazon credentials, it needs computational power for some actions like connecting to the train characteristic of Amazon Sagemaker. 
 
-For the part of Hyperparameter tuning it is used the HyperparameterTuner class from Amazon SageMaker which  is a powerful tool that automates the process of hyperparameter optimization for machine learning models. It works by launching multiple training jobs with different hyperparameter configurations, evaluating their performance based on a specified objective metric, and identifying the best configuration. To apply this for YOLOv8, it is necessary to create a [Sagemaker estimator](https://docs.aws.amazon.com/sagemaker/latest/dg/docker-containers-adapt-your-own-private-registry-estimator.html) representing the YOLOv8 model, define the hyperparameters you want to tune and specify the range of values to explore. Then, it is set up  HyperparameterTuner by passing the estimator, the objective metric, and the hyperparameter ranges, and finally run the tuning job using the tuner.fit() method. For a detailed example of hyperparameter tuning a YOLOv8 model with Amazon SageMaker, you can check out this [tutorial](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/).
+For the part of Hyperparameter tuning it is used the HyperparameterTuner class from Amazon SageMaker, which  is a powerful tool that automates the process of hyperparameter optimization for machine learning models. It works by launching multiple training jobs with different hyperparameter configurations, evaluating their performance based on a specified objective metric, and identifying the best configuration. To apply this for YOLOv8, it is necessary to create a [Sagemaker estimator](https://docs.aws.amazon.com/sagemaker/latest/dg/docker-containers-adapt-your-own-private-registry-estimator.html) representing the YOLOv8 model, define the hyperparameters you want to tune and specify the range of values to explore. Then, it is set up  HyperparameterTuner by passing the estimator, the objective metric, and the hyperparameter ranges, and finally run the tuning job using the tuner.fit() method. For a detailed example of hyperparameter tuning a YOLOv8 model with Amazon SageMaker, you can check out this [tutorial](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/).
 
 We have decided to use the **ml.p3.2xlarge** instance because it is optimized for machine learning tasks that require high computational power. The ml.p3.2xlarge instance features NVIDIA Tesla V100 GPUs, which provide excellent performance for training deep learning models like YOLOv8.
 
 In case of  having an user in AWS, what it should be done is:
-  - Generate a Jupyter lab in Amazon Sagemaker Studio. The properties of storage 100 GB and instance m7i.8xlarge:
-  - Then, clone the repo by copying the link of this project in the terminal of the lab
+  - Generate a Jupyter lab in Amazon Sagemaker Studio. The properties of storage 100 GB and instance m7i.8xlarge.
+  - Then, clone the repo by copying the link of this project in the terminal of the lab.
   ````bash
   git clone <repository_url>
   ````  
@@ -167,7 +167,7 @@ In case of  having an user in AWS, what it should be done is:
 
 
   - Run [*4_yolo_code.ipynb*](./Notebooks/4_yolo_code.ipynb) and do not forget to add the credentials where `# ADD HERE CREDENTIALS` comment appears.
-  - Once all the changes are being made and if it is wanted to upload the changes it is necessary first to create a *.gitignore* and then run the following line in terminal:
+  - Once all the changes are being made and if it is wanted to upload them to Gihub, it is necessary first to create a *.gitignore* and then run the following line in terminal:
   ````bash
   cd project-danielteresa
   git config --global credential.helper store
@@ -179,10 +179,10 @@ In case of  having an user in AWS, what it should be done is:
 
 ##  <span id="models" style="color:#5fa8d3;">6. Models</span>
 
-Our project addresses two estimation problems. One is predicting the repair cost for each of the damages sustained by the car, and the other is accurately locating and classifying the type of damage to generate a repair estimate. To achieve this, we have employed two models:
+Our project addresses two estimation problems. One is predicting the repair cost for each of the damages sustained by the car, and the other is accurately locating and classifying the type of damage to generate a repair estimate cost. To achieve this, we have employed two models:
 - **Random Forest** . It has been tried different prediction models, such as XG Boost, GLM Models with and without regularization and Random Forests with different parameters.
 
-- **YOLO** is a state-of-the-art, real-time object detection algorithm that treats object detection as a regression problem instead of a classification task by spatially separating bounding boxes and associating probabilities with each detected object using a single convolutional neural network (CNN). The version used in this project is YOLOv8 in the "medium" size. Please refer to the PDF [YOLO_model.pdf](./Others/YOLO_model.pdf) that we have created to explain this model in detail if you want to dive deeper into how it works.
+- **YOLO** is a state-of-the-art real-time object detection algorithm that treats object detection as a regression problem instead of a classification task, by spatially separating bounding boxes and associating probabilities with each detected object using a single convolutional neural network (CNN). The version used in this project is YOLOv8 in the "medium" size. Please refer to the PDF [YOLO_model.pdf](./Others/YOLO_model.pdf) that we have created to explain this model in detail if you want to dive deeper into how it works.
 
 ##  <span id="results" style="color:#5fa8d3;">7. Results</span>
 
@@ -193,7 +193,7 @@ The model was trained using all available predictors to simulate the claim datas
   <img src="images_readme/costmodel.png"  width="400px" height="300px"/>
 </p>
 
-Below are the results of the YOLO model for both the training and testing phases. The Segmentation YOLO metric consists of a weighted combination of the metrics `mAP = mAP50 x 0.9 + mAP50-95 x 0.1`. This metric was selected for decision-making because it is the same one YOLO uses to determine which epoch has produced the best results, allowing us to maintain consistency with the model's evaluation approach. We can observe that the difference between the training and testing results is significant, indicating that our model struggles to detect and classify car damage in cases it hasn't seen before. However, these results are not surprising given the high difficulty of the task, as the objects to be classified do not always have a consistent shape, and their detectability can be affected by external factors like paint color, reflections, etc. The easiest class to detect is glass crack.
+Below it can be seen the results of the YOLO model for both the training and testing phases. The Segmentation YOLO metric consists of a weighted combination of the metrics `mAP = mAP50 x 0.9 + mAP50-95 x 0.1`. This metric was selected for decision-making because it is the same one YOLO uses to determine which epoch has produced the best results, allowing us to maintain consistency with the model's evaluation approach. We can observe that the difference between the training and testing results is significant, indicating that our model struggles to detect and classify car damages that have not seen before. However, these results are not surprising given the high difficulty of the task, as the objects to be classified do not always have a consistent shape, and their detectability can be affected by external factors like paint color, reflections, etc. The easiest class to detect is glass crack.
 
 Another factor that may have worsened our results is the dataset itself, as it contains images from Vietnamese cars, where the marked damages are often severe or sometimes hard to detect. Therefore, one potential improvement would be to enhance the dataset with new images that serve as better examples for this problem. Additionally, the most affected classes are those fragmented by severity, as they were classified by ourselves, and since we are not experts in the field, our basis for deciding each type may not have been optimal. Ideally, we should consult with car repair professionals to improve this aspect.
 
