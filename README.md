@@ -230,7 +230,35 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 - **Project Organization and Version Control**: Another important point is learning how to organize a project and manage repositories with Git. A good organization of folders and files is crucial to understanding the workflow and making updates easily. Therefore, we adopted a directory management system similar to [Cookiecutter](https://cookiecutter-data-science.drivendata.org/) to organize the files, making them more understandable for others, and using files like `config.yaml` to facilitate path updates.
 
-##  <span id="contributors" style="color:#5fa8d3;">9. Contributors</span>
+##  <span id="references" style="color:#5fa8d3;">10. References </span>
+
+1. Andrey Germanov, "How to Implement Instance Segmentation Using YOLOv8 Neural Network", [Dev.to](https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9).
+
+2. "Mean Average Precision Explained", [V7 Labs Blog](https://www.v7labs.com/blog/mean-average-precision).
+
+3. Jeonjw25, "car_damage_detection_YOLOv4", [GitHub Repository](https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg).
+
+4. CHZSN-0037, "Research Paper", [ICCR 2022](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://journal-home.s3.ap-northeast-2.amazonaws.com/site/iccr2022/abs/CHZSN-0037.pdf).
+
+5. "Hyperparameter Tuning a YOLOv8 Model with Amazon SageMaker", [Bays Consulting](https://baysconsulting.co.uk/hyperparameter-tuning-a-yolov8-model-with-amazon-sagemaker/).
+
+6. "Training YOLOv5 on AWS with PyTorch and SageMaker Distributed Data Parallel Library", [Medium](https://medium.com/@sitecao/training-yolov5-on-aws-with-pytorch-and-sagemaker-distributed-data-parallel-library-a196ab01409b).
+
+7. Ultralytics, "YOLOv8 Documentation", [GitHub](https://github.com/ultralytics/ultralytics).
+
+8. "Automatic Model Tuning in Amazon SageMaker", [AWS Documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html).
+
+9. "What's New in YOLOv8?", [Roboflow Blog](https://blog.roboflow.com/whats-new-in-yolov8/).
+
+10. "What is an Anchor Box?", [Roboflow Blog](https://blog.roboflow.com/what-is-an-anchor-box/).
+
+11. "Research Paper", [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S2666827022000433).
+
+12. "Research Paper", [IJCRT](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://ijcrt.org/papers/IJCRT2405301.pdf).
+
+
+
+##  <span id="contributors" style="color:#5fa8d3;">10. Contributors</span>
 
 
 - **Teresa Babío Núñez** ([teresa.babionunez@ucdconnect.ie](mailto:teresa.babionunez@ucdconnect.ie))
