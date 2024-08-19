@@ -9,12 +9,12 @@
 <span style="color:#fb8500;">2.</span> <a href="#example">Example</a><br>
 <span style="color:#fb8500;">3.</span> <a href="#workflow">Workflow</a><br>
 <span style="color:#fb8500;">4.</span> <a href="#structure">Project structure</a><br>
-<span style="color:#fb8500;">5.</span> <a href="#depolyment">Deployment of the project</a><br>
+<span style="color:#fb8500;">5.</span> <a href="#deployment">Deployment of the project</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">5.1.</span> <a href="#local">Local</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">5.2.</span> <a href="#aws">Amazon Web Services</a><br>
-<span style="color:#fb8500;">6.</span> <a href="#results"> Results</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fb8500;">6.1.</span> <a href="#model">Model</a><br>
-
+<span style="color:#fb8500;">6.</span> <a href="#models"> Models</a><br>
+<span style="color:#fb8500;">7.</span> <a href="#results"> Results</a><br>
+<span style="color:#fb8500;">8.</span> <a href="#conclusions"> Conclusions</a><br>
 </p>
 
 ## <span id="about" style="color:#5fa8d3;">1. About</span>
@@ -175,14 +175,14 @@ In case of  having an user in AWS, what it should be done is:
   git remote set-url origin https://<user name>:<token password>@github.com/ACM40960/project-danielteresa.git
   ````
 
-##  <span id="aws" style="color:#5fa8d3;">6. Models</span>
+##  <span id="models" style="color:#5fa8d3;">6. Models</span>
 
 Our project addresses two estimation problems. One is predicting the repair cost for each of the damages sustained by the car, and the other is accurately locating and classifying the type of damage to generate a repair estimate. To achieve this, we have employed two models:
 - **Random Forest** . It has been tried different prediction models, such as XG Boost, GLM Models with and withoun regularization and Random Forests with different parameters.
 
 - **YOLO** is a state-of-the-art, real-time object detection algorithm that treats object detection as a regression problem instead of a classification task by spatially separating bounding boxes and associating probabilities with each detected object using a single convolutional neural network (CNN). The version used in this project is YOLOv8 in the "medium" size. Please refer to the PDF [YOLO_model.pdf](./Others/YOLO_model.pdf) that we have created to explain this model in detail if you want to dive deeper into how it works.
 
-##  <span id="aws" style="color:#5fa8d3;">7. Results</span>
+##  <span id="results" style="color:#5fa8d3;">7. Results</span>
 
 The model was trained using all available predictors to simulate the claim dataset. Despite showing signs of underfitting, as seen in the [figure below](#xgboost-image), the approach is still more effective than the traditional methods used by insurance companies. The chart divides the test predictions from highest to lowest into groups and represents the actual and predicted averages for each of these groups (with the yellow line indicating the predicted mean cost and the blue line indicating the observed mean cost).
 
@@ -215,7 +215,7 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 
 
-##  <span id="aws" style="color:#5fa8d3;">6. Conclusions</span>
+##  <span id="conclusions" style="color:#5fa8d3;">8. Conclusions</span>
 
 
 - **Objective**: The main goal was to create an initial application design where the user could obtain a **location and classification of their vehicle damage**, receive a **cost estimate**, and be assigned to **repair workshops** in a user-friendly manner. This objective has been achieved, and the application deployment can even be extended beyond local environments. However, it is necessary to **migrate this app to specialized programs** and make it more suitable in terms of design for deployment on **mobile devices**.
@@ -229,3 +229,12 @@ Another factor that may have worsened our results is the dataset itself, as it c
 - **Application Construction**: The application was built using **Streamlit**, which provided a much simpler interface since everything was executed from Python. However, all figure designs were created using HTML code, something that had never been done before. Additionally, one of the things to improve is that the widgets for selecting variables, such as workshops, were created with Streamlit commands. When these were introduced into the HTML commands, they stopped functioning, and the variables could not be passed to the models. As a result, we had to place the widgets and navigation buttons outside the application's main frame due to compatibility limitations between Streamlit and HTML.
 
 - **Project Organization and Version Control**: Another important point is learning how to organize a project and manage repositories with Git. A good organization of folders and files is crucial to understanding the workflow and making updates easily. Therefore, we adopted a directory management system similar to [Cookiecutter](https://cookiecutter-data-science.drivendata.org/) to organize the files, making them more understandable for others, and using files like `config.yaml` to facilitate path updates.
+
+##  <span id="contributors" style="color:#5fa8d3;">9. Contributors</span>
+
+
+- **Teresa Babío Núñez** ([teresa.babionunez@ucdconnect.ie](mailto:teresa.babionunez@ucdconnect.ie))
+- **Daniel Quesada Pérez de San Román** ([daniel.quesada@ucdconnect.ie](mailto:daniel.quesada@ucdconnect.ie))
+
+
+This project is created solely for academic purposes as part of coursework at [UCD](https://www.ucd.ie/). It is not intended for commercial use or distribution.
