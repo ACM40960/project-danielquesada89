@@ -239,7 +239,7 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 2. V7 Labs. (n.d.). Mean average precision explained. *V7 Labs Blog*. Retrieved from [https://www.v7labs.com/blog/mean-average-precision](https://www.v7labs.com/blog/mean-average-precision)
 
-3. Jeonjw25. (n.d.). car_damage_detection_YOLOv4 [GitHub Repository]. *GitHub*. Retrieved from [https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg](https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg)
+3. Jeonjw25. (n.d.). car_damage_detection_YOLOv4 [GitHub Repository]. *GitHub*. Retrieved from [https://github.com/jeonjw25/car_damage_detection_YOLOv4/blob/main/yolov4.cfg](https://github.com/jeonjw25/car_damage_detection_YOLOv4/tree/main)
 
 4. CHZSN-0037. (2022). Vehicle Damage Volume Level Recognition
 Algorithm based on Convolution Neural Network
