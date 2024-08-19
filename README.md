@@ -15,6 +15,8 @@
 <span style="color:#fb8500;">6.</span> <a href="#models"> Models</a><br>
 <span style="color:#fb8500;">7.</span> <a href="#results"> Results</a><br>
 <span style="color:#fb8500;">8.</span> <a href="#conclusions"> Conclusions</a><br>
+<span style="color:#fb8500;">9.</span> <a href="#references"> References</a><br>
+<span style="color:#fb8500;">10.</span> <a href="#contributors"> Contributors</a><br>
 </p>
 
 ## <span id="about" style="color:#5fa8d3;">1. About</span>
@@ -230,9 +232,8 @@ Another factor that may have worsened our results is the dataset itself, as it c
 
 - **Project Organization and Version Control**: Another important point is learning how to organize a project and manage repositories with Git. A good organization of folders and files is crucial to understanding the workflow and making updates easily. Therefore, we adopted a directory management system similar to [Cookiecutter](https://cookiecutter-data-science.drivendata.org/) to organize the files, making them more understandable for others, and using files like `config.yaml` to facilitate path updates.
 
-##  <span id="references" style="color:#5fa8d3;">10. References </span>
+##  <span id="references" style="color:#5fa8d3;">9. References </span>
 
-## References
 
 1. Germanov, A. (n.d.). How to implement instance segmentation using YOLOv8 neural network. *Dev.to*. Retrieved from [https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9](https://dev.to/andreygermanov/how-to-implement-instance-segmentation-using-yolov8-neural-network-3if9)
 
@@ -257,6 +258,16 @@ Another factor that may have worsened our results is the dataset itself, as it c
 11. ScienceDirect. (2022). Convolutional neural networks for vehicle damage detection. *ScienceDirect*. Retrieved from [https://www.sciencedirect.com/science/article/pii/S2666827022000433](https://www.sciencedirect.com/science/article/pii/S2666827022000433)
 
 12. IJCRT. (2024). Research paper. *IJCRT*. Retrieved from [https://ijcrt.org/papers/IJCRT2405301.pdf](https://ijcrt.org/papers/IJCRT2405301.pdf)
+
+13. Borad, A. (2021). Understanding object localization with deep learning. *eInfochips Blog*. Retrieved from [https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/](https://www.einfochips.com/blog/understanding-object-localization-with-deep-learning/)
+
+14. Chand, A. (2022). Damage detection of cars and repair cost estimation!! *Medium*. Retrieved from [https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a](https://medium.com/@abhishekchand62/damage-detection-of-cars-and-repair-cost-estimating-86df79544f0a)
+
+15. Mohan, V. (2022). Car damage detection using AI: Methodology and approach for high accuracy. *Inspektlabs Blog*. Retrieved from [https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/](https://inspektlabs.com/blog/car-damage-detection-using-ai-methodology-and-approach-for-high-accuracy/)
+
+16. Mueller, M. S., Metzger, A., & Jutzi, B. (2018). CNN-based initial localization improved by data augmentation. *ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, IV-1*(8), 117–124. Retrieved from [https://isprs-annals.copernicus.org/articles/IV-1/117/2018/](https://isprs-annals.copernicus.org/articles/IV-1/117/2018/)
+
+17. Razmi, T. (2019). Mask R-CNN. *Medium*. Retrieved from [https://medium.com/@tibastar/mask-r-cnn-d69aa596761f](https://medium.com/@tibastar/mask-r-cnn-d69aa596761f)
 
 
 
