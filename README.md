@@ -72,7 +72,7 @@ The project is organized into the following main directories:
     - *cost_model.pkl.part-\**: Fragments of the cost_model because it had to be splitted for uploading it in Github. There are two options to obtain the model: by joining all this parts or running the training of the model that it does not take too much time.
     - [*yolo_model.pt*](./Models/yolo_model.pt): Weights of the final model for detecting car damages.
 - [**/Notebooks/**](./Notebooks/): Jupyter notebooks used for the project.
-  - *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)*: Jupyter notebook for installing the requirements defined for SageMaker Studio.
+  - *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)*: Jupyter notebook for installing the requirements defined for Amazon SageMaker Studio.
   - [*1_data_processing.ipynb*](./Notebooks/1_data_processing.ipynb): Jupyter notebook for data processing.
   - [*2_Claim_costs.ipynb*](./Notebooks/2_Claim_costs.ipynb): Jupyter notebook explaining how the auto claim data is generated and the model obtained for predicting car damage repair costs.
   - [*3_data_augmentation.ipynb*](./Notebooks/3_data_augmentation.ipynb): Jupyter notebook applying the data augmentation to the data train and merging the new data with the train data.
@@ -128,6 +128,15 @@ It is a good practice to create an environment for working on projects like this
 ````bash
 pip install requirements.txt
 ````
+
+In addition, if there are any issues when installing the `boto3` and `sagemaker` libraries, it may be necessary to install them separately by running:
+````bash
+pip install boto3 --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
+````
+````bash
+pip install sagemaker --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
+````
+
 - [*1_data_processing.ipynb*](./Notebooks/1_data_processing.ipynb): This Jupyter Notebook converts the [VGG annotation format](https://roboflow.com/formats/via-json) provided by Kaggle to [COCO format annotations](https://haobin-tan.netlify.app/ai/computer-vision/object-detection/coco-dataset-format/). Additionally, it segments the `met_dent` by severity for test and train datasets and splits the original train data into validation and train sets. **⚠️ CAUTION: NOT RECOMMENDED TO RUN! ⚠️**  
   **Why?** Breaking down the data into three severity labels requires manually labeling **4,709 annotations** for the train set and **972 annotations** for the test set—an extremely time-consuming task. The updated JSON files are in COCO format with the correct annotations in [**/Data/**](./Data/).
 
@@ -162,7 +171,8 @@ In case of  having an user in AWS, what it should be done is:
   ````bash
   git clone <repository_url>
   ````  
-  - This Juppyter Notebook that it is generated works with Python 3.8 and it has not any library  so *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)* needs to be run to installed all dependencies.
+  - This Jupyter Notebook is designed to work with Python 3.8 and does not have any libraries installed by default. Therefore, you need to run *[0_linux_requirements.ipynb](./Notebooks/0_linux_requirements.ipynb)* to install all the dependencies specified in [*requirements_linux.txt*](./requirements_linux.txt).
+
    -  [*3_data_augmentation.ipynb*](./Notebooks/3_data_augmentation.ipynb) needs to be run if the data is not yet uploaded in S3 for obtaining the train augmentation set locally in Amazon Sagemaker Studio and uploading it in S3. The new data is created by using the [CLoDSA](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2931-1) library. **Note:** This process takes around an hour.
 
 
